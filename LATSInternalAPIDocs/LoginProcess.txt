@@ -1,0 +1,174 @@
+Login Process
+	If user not authenticated
+		authenticate user
+	If user not logged in
+		log user in
+		
+Authenticate User
+	Get token form LTC
+	Login user
+	
+Login User	
+	If new session
+		add session id and token to cookie
+	Else
+		verify session 
+	
+---------------------------------------------------------------------------------------------------	
+@authentication_bp.route("/api/login", methods=['POST'])
+def login() -> object:
+    
+    """
+        Authenticate and initiate a session for a user
+
+		- Autenticate user against LTC API and return auth token
+        - Once user is authenticated (auth token returned), this endpoint should return
+			1. A signed cookie with session
+			2. JSON object:
+				"token": <from LTC>,
+				"expiration": <from LTC>,
+				"userName": <from request body>,
+				"userId": <from LTC>,
+				"roles": <not sure>
+			3. Error of some form indicating process failed and where it failed.
+       
+    """
+		
+	#Check if user is already logged in
+    if not is_logged_in():
+        # Get credentials for authenticating user
+        req = json.loads(request.data)
+        username = req['username']
+        password = req['password']
+		#TODO: Call get_token() function to authenticate user and return a auth token 	
+	       which will be added to the JSON 'token' key
+        auth_token = None
+        # set url
+        # set values dict
+        # set headers dict
+        auth_token = get_token(set_URL('MY_TESTING_LOGIN_URL'),set_values(username, password), set_headers())
+
+    
+		#TODO: Call function to return a unique session id created by:
+				1. salting the secret_key with the server generated session id
+				2. create a signed cookie
+				
+	# TODO: Check if signed cookie has been tampered with
+			
+	   
+    response = make_response(get_token(url,values, headers))
+    response.set_cookie('session', session.sid)
+    return response
+
+#----------------------------------------------------------------------------Set URL--------------------------------------------------------------
+def set_URL(value: str) -> str:
+    return os.environ.get(value)
+
+	
+#-----------------------------------------------------------------------------Set Values------------------------------------------------------------
+def set_values(username: string, password: string) -> dict:
+    # TODO: Validation
+    values = {"username": username,
+                    "password": password
+            }
+    return values
+#-----------------------------------------------------------------------------Set Headers---------------------------------------------------------------
+def set_headers() -> dict:
+    headers = {'accept': '*/*',
+                    "Content-Type": "application/json"
+            }
+    return headers
+
+#-----------------------------------------------------------------------------Validate cookie------------------------------------------------------------
+def is_valid_session_id() -> bool:
+	
+    """
+        Comparing the cookie session id with the server session id
+    """
+    s = URLSafeTimedSerializer(current_app.secret_key)
+    #Decode the salted session id
+    cookie_session_id = s.loads(request.cookies.get('session'))
+    if cookie_session_id == session.sid:
+        return True
+    else:
+        return False
+		
+	
+#-----------------------------------------------------------------------------Check if user is already logged in----------------------------------------
+def is_logged_in() -> bool:
+    """
+        Can use this function to check if user is logged in, too
+    """
+	return is_valid_session_id()
+	
+	
+
+#-----------------------------------------------------------------------------Create Unique Session Id-----------------------------------------------------
+	
+	def create_user_session_id() -> string:
+	
+		"""
+		    Salt the secret_key with the session id
+		"""
+		s = URLSafeTimedSerializer(current_app.secret_key)
+		signed = s.dumps(session.sid)
+		print(f"signe {signed}")
+		print(f"decoded {s.loads(signed)}")
+		print(f"session id {session.sid}")
+   
+	
+	
+	
+--------------------------------------------------------------------------------AUTHENTICATION-----------------------------------------------------------------------	
+	#TODO: Remove JSONIFY from here and create new function for this
+		   All this function should do is authenticate user and return
+		   an auth token from LTC or an error.
+	
+	
+	def get_token(url, values, headers):
+
+
+    if not protected():
+        # make a request to authentication endpoint
+        #url = "https://testapi.latax.la.gov/api/login"
+        #user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
+              
+        creds = urlParse.urlencode(values)
+        creds = creds.encode('ascii')
+        req = urlRequest.Request(url, creds, headers)
+        print(f'after req, before try {req.full_url}')
+        print(f'{req.data}')
+        print(f'{req.headers}')
+        try:
+            print('in try')
+            with urlRequest.urlopen(req) as response:
+                body = response.read()
+                print(body)
+
+            resp = json.loads(body)
+
+            print(f'resp {resp}')
+            print(f'{type(resp)}')
+            # store the token in the session
+            token = resp['token']
+            flask.session["token"] = token
+            flask.session['secretkey'] =  current_app.secret_key.encode('utf-8')
+            print(f"is this the secret key {current_app.secret_key}")
+            print(f'flask.session authtoken{flask.session}')
+            return jsonify({
+                'token': resp['token'],
+                'expiration': resp['expiration'],
+                'userName': resp['userName'],
+                'userId': resp['userId'],
+                'roles': resp['roles']
+            })
+
+        except urlError.URLError as e:
+            message = e.reason
+            error_code = e.errno
+            return jsonify({'error': error_code,
+                                'message': message})
+    else:
+        return jsonify({
+            'error':'Unable to uthenticate. Try again'
+        })
