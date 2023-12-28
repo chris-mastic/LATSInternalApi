@@ -1,4 +1,4 @@
-FLASK_SECRET_KEY DISCUSSION
+FLASK_SECRET_KEY DISCUSSIONS AND ADDITIONAL NOTES
 
 A Flask SECRET_KEY is a string of bytes that is used to sign the session cookie and other data that
 needs to be encrypted. A flask session is a dictionary-like object that stores data across requests
