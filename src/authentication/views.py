@@ -70,7 +70,9 @@ def login() -> object:
     if session_id_from_cookie != session_id_from_server or session_id_from_cookie is None:
         # Get token from the LA Tax Service API and build JSON object to return
         # to user and store in session dictionary
-        url = 'http://127.0.0.1:8300/api/Users/v1/login'
+        #url = 'http://127.0.0.1:8300/api/Users/v1/login'
+        #url = 'https://ltc-dev-server.vercel.app/api/Users/v1/login'
+        url = 'https://py-http-server.vercel.app/login'
         #url = 'https://testserver-chrism.pythonanywhere.com/api/Users/v1/login'
         values = {"username": username,
                     "password": password
@@ -96,7 +98,6 @@ def authenticate_user(url, values, headers) -> object:
             body = response.read()
            
         resp = json.loads(body)
-
         # store in the session dictionary
         token = resp['token']
         flask.session["token"] = token
