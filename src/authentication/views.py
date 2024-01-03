@@ -54,6 +54,7 @@ def login() -> object:
     # Get the session ID from the cookie
     session_id_from_cookie = request.cookies.get('session')
     # Get the session ID from the server
+    print(f"session.sid is {session.sid}")
     session_id_from_server = session.sid
     # Compare the two IDs
     if session_id_from_cookie == session_id_from_server : 
