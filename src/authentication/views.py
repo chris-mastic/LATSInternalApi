@@ -1,7 +1,5 @@
 from flask import Blueprint, request, render_template, jsonify, session, current_app, make_response
 import flask
-import hashlib
-import hmac
 from itsdangerous import URLSafeTimedSerializer
 import json
 import urllib.request as urlRequest
