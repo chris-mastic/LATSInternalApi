@@ -15,3 +15,4 @@ foreach($var in $variables) {
     if ($Verbose) {
         "$key=$([Environment]::GetEnvironmentVariable($key))"
     }
+}
