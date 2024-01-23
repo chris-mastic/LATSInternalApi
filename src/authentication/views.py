@@ -6,8 +6,6 @@ import urllib.request as urlRequest
 import urllib.request
 import urllib.parse as urlParse
 import urllib.error as urlError
-import pickle
-import base64
 
 authentication_bp = Blueprint("authentication", __name__)
 
