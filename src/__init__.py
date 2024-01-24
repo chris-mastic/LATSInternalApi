@@ -2,9 +2,7 @@
 from flask import Flask
 from flask_session import Session
 from flask_login import LoginManager, UserMixin, login_user, current_user
-from dotenv import load_dotenv
 import config
-load_dotenv()
 
 import os
 

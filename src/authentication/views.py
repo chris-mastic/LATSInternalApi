@@ -13,6 +13,50 @@ authentication_bp = Blueprint("authentication", __name__)
 
 @authentication_bp.route("/", methods=['GET', 'POST'])
 def index():
+    print('in index')
+    from sqlalchemy.engine import create_engine
+    import pandas as pd
+    import cx_Oracle
+
+    host_name   = 'opaodb-01.assessororleans.gov'# content of "Host"
+    port_number = 1521 # content of "Port"
+    user_name   = 'IASWORK' # content of "User name"
+    pwd  =  'IASWORK' # content of "Password"
+    service_name = 'IASWORK' # content of "Database" (the "Service Name" option is selected)
+
+    #dsn_tns = cx_Oracle.makedsn(host_name, port_number, service_name = service_name)
+   # dsn_tns = cx_Oracle.makedsn(host_name, 1521, service_name=service_name)
+    #dsn = cx_Oracle.makedsn(host_name, 1521, sid='IASWORK')
+    dsn = cx_Oracle.makedsn("oracle.opaodb-01.assessororleans.gov", "1521", service_name="IASWORK")
+    conn = cx_Oracle.connect(user = user_name, password = pwd, dsn = dsn, encoding='UTF-8')
+
+
+
+
+
+
+    # engine = create_engine('oracle://IASWORK:IASWORK@IASWORK')
+    # con = engine.connect()
+    # output = con.execute("SELECT * FROM noa_report_filter")
+    # df = pd.DataFrame(output.fetchall())
+    # df.columns = output.keys()
+    # print(df.head())
+    # con.close()
+    
+    
+    # DIALECT = 'oracle'
+    # SQL_DRIVER = 'cx_oracle'
+    # USERNAME = 'IASWORK'
+    # PASSWORD = 'IASWORK'
+    # HOST = 'opaodb-01.assessororleans.gov'
+    # PORT = 1521
+    # SERVICE = 'IASWORK'
+
+    # ENGINE_PATH_WIN_AUTH = DIALECT + '+' + SQL_DRIVER + '://' + USERNAME + ':' + PASSWORD +'@' + HOST + ':' + str(PORT) + '/?service_name=' + SERVICE
+
+    # engine = create_engine(ENGINE_PATH_WIN_AUTH)
+
+    #test_df = pd.read_sql_query('SELECT * FROM noa_report_filter', engine)
     return render_template("authentication/index.html")
 
 """
