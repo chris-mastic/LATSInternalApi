@@ -25,8 +25,11 @@ class OracleDB:
             # Database Credentials
             print("in else of singleton")
             username = os.environ.get("PYTHON_USERNAME")
+            print(f"PYTHON_USERNAME {username}")
             password = os.environ.get("PYTHON_PASSWORD")
+            print(f"PYTHON_PASSWORD {password}")
             cp = oracledb.ConnectParams()
+            print(f"cp {cp}")
             cp.parse_connect_string(os.environ.get("PYTHON_CONNECTSTRING"))
 
             # For the default, python-oracledb Thin mode that doesn't use Oracle Instant Client
