@@ -1,3 +1,4 @@
+import os
 from flask import Blueprint, request, render_template, jsonify, session, current_app, make_response
 import flask
 from flask_login import login_user
@@ -84,11 +85,36 @@ def index():
 
 @authentication_bp.route("/api/logout", methods=['POST'])
 def logout():
+
     print('in logout')
-    session.clear()
+    print(f"token {flask.session['token']}")
+    # url = os.environ.get('LTC_API_URL_TEST')
+    url = os.environ.get('LTC_API_URL_PROD')
+
+    paths = [url, "Users/v1/logout"]
+    url = "".join(paths)
+
+    values = {"username": f"{flask.session['username']}"
+              }
+    headers = {"Accept": "text/plain",
+               "Authorization": f"Bearer {flask.session['token']}"
+               }
+
+    creds = json.dumps(values).encode('utf-8')
+    req = urllib.request.Request(
+        url, headers=headers, data=creds, method='POST')
+
+    # req = urlRequest.Request(url, creds, headers)
+    print(f"req {req}")
+    with urlRequest.urlopen(req) as response:
+        body = response.read()
+
+    # print(f"after the WITH {body}")
+    # resp = json.loads(body)
+    # print(f"resp {resp}")
+
     response = make_response('Logged out successfully')
-    response.set_cookie('session', expires = 0)
-    response.set_cookie('ltcToken', expires = 0)
+    clear_session(response)
     return response
 
 
@@ -114,8 +140,6 @@ def login() -> object:
     # Get the session ID from the cookie
     session_id_from_cookie = request.cookies.get('session')
     # Get the session ID from the server
-    print(f"session_id_from_cookie: {session_id_from_cookie}")
-    print(f"session.sid is {session.sid}")
     session_id_from_server = session.sid
     # Compare the two IDs
     if session_id_from_cookie == session_id_from_server:
@@ -132,14 +156,13 @@ def login() -> object:
     # If user does not have an active session
     if session_id_from_cookie != session_id_from_server or session_id_from_cookie is None:
         print('in second if')
-        # Get token from the LA Tax Service API and build JSON object to return
-        # to user and store in session dictionary
-        # url = 'http://127.0.0.1:8300/api/Users/v1/login'
-        # url = 'https://ltc-dev-server.vercel.app/api/Users/v1/login'
-        # url = 'https://py-http-server.vercel.app/login'
-        # url = 'https://testapi.latax.la.gov/api/Auth/v1/authenticate'
-        url = 'https://testapi.latax.la.gov/api/Auth/v1/authenticate?param=value&param2=value'
-        # url = 'https://testserver-chrism.pythonanywhere.com/api/Users/v1/login'
+
+        # url = os.environ.get('LTC_API_URL_TEST')
+        url = os.environ.get('LTC_API_URL_PROD')
+
+        paths = [url, "Auth/v1/authenticate?param=value&param2=value"]
+        url = "".join(paths)
+
         values = {"username": username,
                   "password": password
                   }
@@ -147,8 +170,14 @@ def login() -> object:
                    "Content-Type": "application/json"}
 
         response = make_response(authenticate_user(url, values, headers))
-        response.set_cookie('ltcToken', flask.session["token"])
-       
+
+        # assign values to cookies only if user was able to connect to LTC API
+        if flask.session['token'] is not None:
+            # response.set_cookie('ltcToken', flask.session["token"])
+            response.set_cookie('ltcToken')
+        else:
+            clear_session(response)
+            response.set_cookie('session', expires=0)
 
         return response
 
@@ -158,7 +187,10 @@ def authenticate_user(url, values, headers) -> object:
     creds = json.dumps(values).encode('utf-8')
     req = urllib.request.Request(
         url, headers=headers, data=creds, method='POST')
+
+    flask.session["token"] = None
     # req = urlRequest.Request(url, creds, headers)
+    print("In authenticate, before the try block")
     try:
         with urlRequest.urlopen(req) as response:
             body = response.read()
@@ -177,7 +209,7 @@ def authenticate_user(url, values, headers) -> object:
         # TODO figure out how to use the SECRET_KEY and salt it with the session id
         # need to use this value to salt the secret key and return to user
         session_id = create_salted_key(flask.session["token"])
-        print('before jsonify')
+
         return jsonify({
             'token': resp['token'],
             'expiration': resp['expiration'],
@@ -187,7 +219,7 @@ def authenticate_user(url, values, headers) -> object:
         })
 
     except urlError.URLError as e:
-        message = e.reason
+        message = "There is a problem connecting to the LTC API"
         error_code = e.errno
         return jsonify({'error': error_code,
                         'message': message})
@@ -213,6 +245,13 @@ def create_salted_key(api_token):
     print(f"session id {session.sid}")
 
     return signed
+
+
+def clear_session(response):
+    session.clear()
+    response.set_cookie('session', expires=0)
+    response.set_cookie('ltcToken', expires=0)
+    return response
 
 
 @authentication_bp.route("/api/reset_password", methods=['GET', 'POST'])

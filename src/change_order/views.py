@@ -60,17 +60,18 @@ def get_batch():
     print(parid)
 
     #--------------------------------DEBUG---------------
-    print("DEBUG------------------------------------------------------")
-    print(f'flask.session["token"]{flask.session["token"]}')
-    print(f'request.cookies.get("ltcToken"){request.cookies.get("ltcToken")}')
-    print(f'session.sid{session.sid}')
-    print(f'request.cookies.get("session"){request.cookies.get("session")}')
+    # print("DEBUG------------------------------------------------------")
+    # print(f'flask.session["token"]{flask.session["token"]}')
+    # print(f'request.cookies.get("ltcToken"){request.cookies.get("ltcToken")}')
+    # print(f'session.sid{session.sid}')
+    # print(f'request.cookies.get("session"){request.cookies.get("session")}')
     
     print('enter try')
     try:
-
-        if (flask.session["token"] == request.cookies.get('ltcToken') and session.sid == request.cookies.get("session")):
-            print('in IF')
+        print("JUST BELOW TRY")
+        if (session.sid == request.cookies.get("session")):
+            print("IN IF")
+            # OracleDB is a singleton class
             db = odb.OracleDB.getInstance()
             query = """SELECT a.parid, a.taxyr,ai.altid,  o.own1 FROM ASMT a INNER JOIN OWNDAT o 
                 ON o.parid=a.parid AND o.taxyr = a.taxyr INNER JOIN ALTIDINDX ai ON ai.parid = a.parid AND ai.taxyr = a.taxyr
@@ -157,6 +158,10 @@ def get_status():
     print(f'session id from server {session_id_from_server}')
     # Compare the two IDs
     if session_id_from_cookie == session_id_from_server:
+        url = os.environ.get('LTC_API_URL_PROD')
+        paths = [url, "Auth/v1/authenticate?param=value&param2=value"]
+        
+        url = "".join(paths)
         url = 'https://testapi.latax.la.gov/api/Auth/v1/ChangeOrderGetStatus?param=value&param2=value&param3=value&param4=value'
 
         values = {"changeOrderBatchId": change_order_batch_id,

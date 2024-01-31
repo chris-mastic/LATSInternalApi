@@ -31,6 +31,7 @@ class DevelopmentConfig(Config):
     DEBUG_TB_ENABLED = True
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SECURE = True
+
        
 
 
