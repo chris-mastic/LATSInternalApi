@@ -4,7 +4,7 @@ import flask
 from flask_login import login_user
 from itsdangerous import URLSafeTimedSerializer
 import json
-import oracle_db as odb
+import oracle_db_connection as odb
 import pandas as pd
 import urllib.request as urlRequest
 import urllib.request
@@ -18,7 +18,7 @@ authentication_bp = Blueprint("authentication", __name__)
 def index():
     print('in index')
 
-    db = odb.OracleDB.getInstance()
+    db = odb.OracleDBConnection.getInstance()
     conn = db.engine.connect()
     # result = conn.execute('SELECT * FROM cmazza.noa_report_filter')
 
@@ -178,6 +178,7 @@ def authenticate_user(url, values, headers) -> object:
     flask.session["token"] = None
    
     try:
+        # TODO: Replace with the new singleton class
         with urlRequest.urlopen(req) as response:
             body = response.read()
 
