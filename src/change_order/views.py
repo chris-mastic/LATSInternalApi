@@ -14,9 +14,9 @@ change_order_bp = Blueprint("change_order", __name__)
 
 
 def switch(start: int, stop: int, altid: str, item: str) -> str:
-    fips = {"1": "22171", "2":"22172", "3":"22173",
-            "4":"22174", "5": "22175", "6": "22176","7": '22177'}
-    
+    fips = {"1": "22171", "2": "22172", "3": "22173",
+            "4": "22174", "5": "22175", "6": "22176", "7": '22177'}
+
     val = altid[start:stop]
 
     if item == 'fips':
@@ -57,20 +57,15 @@ def get_batch():
     req = json.loads(request.data)
     parid = req['parid']
     taxyear = req['taxyear']
-    print(parid)
-
-    #--------------------------------DEBUG---------------
+    # --------------------------------DEBUG---------------
     # print("DEBUG------------------------------------------------------")
     # print(f'flask.session["token"]{flask.session["token"]}')
     # print(f'request.cookies.get("ltcToken"){request.cookies.get("ltcToken")}')
     # print(f'session.sid{session.sid}')
     # print(f'request.cookies.get("session"){request.cookies.get("session")}')
-    
-    print('enter try')
+
     try:
-        print("JUST BELOW TRY")
         if (session.sid == request.cookies.get("session")):
-            print("IN IF")
             # OracleDB is a singleton class
             db = odb.OracleDB.getInstance()
             query = """SELECT a.parid, a.taxyr,ai.altid,  o.own1 FROM ASMT a INNER JOIN OWNDAT o 
@@ -78,7 +73,6 @@ def get_batch():
                   WHERE a.parid = :1 AND a.taxyr = :2 AND a.cur = :3"""
             df = pd.read_sql_query(query, db.engine, params=[
                                    (parid, taxyear, 'Y')])
-            print(f'after df {df}')
             # # test_df = pd.read_sql_query(f"""SELECT * FROM ASMT a WHERE a.parid= 249-VALLETTEST """, db.engine)
             for ind in df.index:
                 parid = df["parid"][ind]
@@ -127,7 +121,7 @@ def get_batch():
 
             json_data = json.dumps(data, default=str)
             return json_data
-            #return jsonify({'status': 'extited'})
+            # return jsonify({'status': 'extited'})
 
     except KeyError:
         session.clear()
@@ -160,7 +154,7 @@ def get_status():
     if session_id_from_cookie == session_id_from_server:
         url = os.environ.get('LTC_API_URL_PROD')
         paths = [url, "Auth/v1/authenticate?param=value&param2=value"]
-        
+
         url = "".join(paths)
         url = 'https://testapi.latax.la.gov/api/Auth/v1/ChangeOrderGetStatus?param=value&param2=value&param3=value&param4=value'
 

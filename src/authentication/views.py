@@ -171,11 +171,8 @@ def login() -> object:
 
         response = make_response(authenticate_user(url, values, headers))
 
-        # assign values to cookies only if user was able to connect to LTC API
-        if flask.session['token'] is not None:
-            # response.set_cookie('ltcToken', flask.session["token"])
-            response.set_cookie('ltcToken')
-        else:
+        # Unable to connect to LTC. This code will clear the session cookie
+        if flask.session['token'] is None:
             clear_session(response)
             response.set_cookie('session', expires=0)
 
@@ -250,7 +247,6 @@ def create_salted_key(api_token):
 def clear_session(response):
     session.clear()
     response.set_cookie('session', expires=0)
-    response.set_cookie('ltcToken', expires=0)
     return response
 
 
