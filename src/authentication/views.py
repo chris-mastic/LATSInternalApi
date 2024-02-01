@@ -88,7 +88,7 @@ def logout():
 
     print('in logout')
     print(f"token {flask.session['token']}")
-    # url = os.environ.get('LTC_API_URL_TEST')
+    #url = os.environ.get('LTC_API_URL_TEST')
     url = os.environ.get('LTC_API_URL_PROD')
 
     paths = [url, "Users/v1/logout"]
@@ -104,14 +104,8 @@ def logout():
     req = urllib.request.Request(
         url, headers=headers, data=creds, method='POST')
 
-    # req = urlRequest.Request(url, creds, headers)
-    print(f"req {req}")
     with urlRequest.urlopen(req) as response:
         body = response.read()
-
-    # print(f"after the WITH {body}")
-    # resp = json.loads(body)
-    # print(f"resp {resp}")
 
     response = make_response('Logged out successfully')
     clear_session(response)
@@ -133,9 +127,6 @@ def login() -> object:
     username = req['username']
     password = req['password']
 
-    print(f"username {username}")
-    print(f"password {password}")
-
     # Check if user has an active session
     # Get the session ID from the cookie
     session_id_from_cookie = request.cookies.get('session')
@@ -144,7 +135,6 @@ def login() -> object:
     # Compare the two IDs
     if session_id_from_cookie == session_id_from_server:
         # return the values already stored in the session dictionary from previous login
-        print("in first if")
         return jsonify({
             'token': session.get('token'),
             'expiration': session.get('expiration'),
@@ -157,7 +147,7 @@ def login() -> object:
     if session_id_from_cookie != session_id_from_server or session_id_from_cookie is None:
         print('in second if')
 
-        # url = os.environ.get('LTC_API_URL_TEST')
+        #url = os.environ.get('LTC_API_URL_TEST')
         url = os.environ.get('LTC_API_URL_PROD')
 
         paths = [url, "Auth/v1/authenticate?param=value&param2=value"]
@@ -186,8 +176,7 @@ def authenticate_user(url, values, headers) -> object:
         url, headers=headers, data=creds, method='POST')
 
     flask.session["token"] = None
-    # req = urlRequest.Request(url, creds, headers)
-    print("In authenticate, before the try block")
+   
     try:
         with urlRequest.urlopen(req) as response:
             body = response.read()
