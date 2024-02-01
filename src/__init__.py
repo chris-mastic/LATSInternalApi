@@ -26,3 +26,4 @@ from src.change_order.views import change_order_bp
 app.register_blueprint(authentication_bp)
 app.register_blueprint(change_order_bp)
 
+

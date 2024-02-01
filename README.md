@@ -504,3 +504,12 @@ fetch('https://example.com/api', options)
   .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.error(error));
+
+
+VARIOUS URLs
+    url = 'http://127.0.0.1:8300/api/Users/v1/login'
+    url = 'https://ltc-dev-server.vercel.app/api/Users/v1/login'
+    url = 'https://py-http-server.vercel.app/login'
+    url = 'https://testapi.latax.la.gov/api/Auth/v1/authenticate'#   url = 'https://testapi.latax.la.gov/api/Auth/v1/authenticate?param=value&param2=value'
+    url = 'https://api.latax.la.gov/api/Auth/v1/authenticate?param=value&param2=value'
+    url = 'https://testserver-chrism.pythonanywhere.com/api/Users/v1/login'
