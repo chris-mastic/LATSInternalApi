@@ -1,10 +1,11 @@
-import os
+from dtos.api_settings import ApiSettings 
 from flask import Blueprint, request, render_template, jsonify, session, current_app, make_response
 import flask
 from flask_login import login_user
 from itsdangerous import URLSafeTimedSerializer
 import json
 import oracle_db_connection as odb
+import os
 import pandas as pd
 import urllib.request as urlRequest
 import urllib.request
@@ -12,7 +13,6 @@ import urllib.parse as urlParse
 import urllib.error as urlError
 
 authentication_bp = Blueprint("authentication", __name__)
-
 
 @authentication_bp.route("/", methods=['GET', 'POST'])
 def index():
@@ -146,20 +146,22 @@ def login() -> object:
     # If user does not have an active session
     if session_id_from_cookie != session_id_from_server or session_id_from_cookie is None:
         print('in second if')
+        # #url = os.environ.get('LTC_API_URL_TEST')
+        # url = os.environ.get('LTC_API_URL_PROD')
 
-        #url = os.environ.get('LTC_API_URL_TEST')
-        url = os.environ.get('LTC_API_URL_PROD')
+        # paths = [url, "Auth/v1/authenticate?param=value&param2=value"]
+        # url = "".join(paths)
 
-        paths = [url, "Auth/v1/authenticate?param=value&param2=value"]
-        url = "".join(paths)
+        # values = {"username": username,
+        #           "password": password
+        #           }
+        # headers = {'accept': '*/*',
+        #            "Content-Type": "application/json"}
 
-        values = {"username": username,
-                  "password": password
-                  }
-        headers = {'accept': '*/*',
-                   "Content-Type": "application/json"}
+        # response = make_response(authenticate_user(url, values, headers))
 
-        response = make_response(authenticate_user(url, values, headers))
+        ap = ApiSettings()
+        response = ap.login(username,password)
 
         # Unable to connect to LTC. This code will clear the session cookie
         if flask.session['token'] is None:
