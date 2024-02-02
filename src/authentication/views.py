@@ -1,10 +1,10 @@
-from dtos.api_settings import ApiSettings 
+from services.api_settings import ApiSettings
 from flask import Blueprint, request, render_template, jsonify, session, current_app, make_response
 import flask
 from flask_login import login_user
 from itsdangerous import URLSafeTimedSerializer
 import json
-import oracle_db_connection as odb
+import db.oracle_db_connection as odb
 import os
 import pandas as pd
 import urllib.request as urlRequest
@@ -13,6 +13,7 @@ import urllib.parse as urlParse
 import urllib.error as urlError
 
 authentication_bp = Blueprint("authentication", __name__)
+
 
 @authentication_bp.route("/", methods=['GET', 'POST'])
 def index():
@@ -88,7 +89,7 @@ def logout():
 
     print('in logout')
     print(f"token {flask.session['token']}")
-    #url = os.environ.get('LTC_API_URL_TEST')
+    # url = os.environ.get('LTC_API_URL_TEST')
     url = os.environ.get('LTC_API_URL_PROD')
 
     paths = [url, "Users/v1/logout"]
@@ -127,13 +128,10 @@ def login() -> object:
     username = req['username']
     password = req['password']
 
-    # Check if user has an active session
-    # Get the session ID from the cookie
     session_id_from_cookie = request.cookies.get('session')
-    # Get the session ID from the server
     session_id_from_server = session.sid
-    # Compare the two IDs
-    if session_id_from_cookie == session_id_from_server:
+
+    if isvalid_session(session_id_from_cookie, session_id_from_server):
         # return the values already stored in the session dictionary from previous login
         return jsonify({
             'token': session.get('token'),
@@ -142,77 +140,53 @@ def login() -> object:
             'userId': session.get('userId'),
             'roles': session.get('roles')
         })
-
-    # If user does not have an active session
-    if session_id_from_cookie != session_id_from_server or session_id_from_cookie is None:
-        print('in second if')
-        # #url = os.environ.get('LTC_API_URL_TEST')
-        # url = os.environ.get('LTC_API_URL_PROD')
-
-        # paths = [url, "Auth/v1/authenticate?param=value&param2=value"]
-        # url = "".join(paths)
-
-        # values = {"username": username,
-        #           "password": password
-        #           }
-        # headers = {'accept': '*/*',
-        #            "Content-Type": "application/json"}
-
-        # response = make_response(authenticate_user(url, values, headers))
-
+    else:
         ap = ApiSettings()
-        response = ap.login(username,password)
-
+        response = ap.login(username, password)
+        set_flask_session_values(response)
+        
         # Unable to connect to LTC. This code will clear the session cookie
         if flask.session['token'] is None:
             clear_session(response)
             response.set_cookie('session', expires=0)
 
-        return response
+        return create_json_object()
 
 
-def authenticate_user(url, values, headers) -> object:
-
-    creds = json.dumps(values).encode('utf-8')
-    req = urllib.request.Request(
-        url, headers=headers, data=creds, method='POST')
-
-    flask.session["token"] = None
-   
-    try:
-        # TODO: Replace with the new singleton class
-        with urlRequest.urlopen(req) as response:
-            body = response.read()
-
-        resp = json.loads(body)
-
-        # store in the session dictionary
-        token = resp['token']
+def isvalid_session(session_id_from_cookie: str, session_id_from_server: str) -> bool:
+    if session_id_from_cookie == session_id_from_server:
+        return True
+    else:
+        return False
+    
+def set_flask_session_values(response):
+        flask.session["token"] = None
+         # store in the session dictionary
+        token = response['token']
         flask.session["token"] = token
         flask.session['secretkey'] = current_app.secret_key.encode('utf-8')
-        flask.session['username'] = resp['userName']
-        flask.session['expiration'] = resp['expiration']
-        flask.session['roles'] = resp['roles']
-        flask.session['userId'] = resp['userId']
+        flask.session['username'] = response['userName']
+        flask.session['expiration'] = response['expiration']
+        flask.session['roles'] = response['roles']
+        flask.session['userId'] = response['userId']
 
-        # TODO figure out how to use the SECRET_KEY and salt it with the session id
-        # need to use this value to salt the secret key and return to user
-        session_id = create_salted_key(flask.session["token"])
 
-        return jsonify({
-            'token': resp['token'],
-            'expiration': resp['expiration'],
-            'userName': resp['userName'],
-            'userId': resp['userId'],
-            'roles': resp['roles']
+
+def create_json_object() -> object:
+
+      return jsonify({
+            'token': flask.session["token"],
+            'expiration': flask.session['expiration'],
+            'userName': flask.session['username'],
+            'userId': flask.session['userId'],
+            'roles': flask.session['roles']
         })
+    
 
-    except urlError.URLError as e:
-        message = "There is a problem connecting to the LTC API"
-        error_code = e.errno
-        return jsonify({'error': error_code,
-                        'message': message})
 
+       
+       
+       
 
 """
     NOT CURRENTLY IMPLEMENTED

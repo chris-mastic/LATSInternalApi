@@ -1,5 +1,5 @@
 import json
-import oracle_db_connection as odb
+import db.oracle_db_connection as odb
 import os
 import pandas as pd
 import urllib.request as urlRequest
@@ -31,5 +31,16 @@ class ApiSettings:
         # TODO: Replace with the new singleton class
         with urlRequest.urlopen(req) as response:
             body = response.read()
-        print(body)
+        
         return json.loads(body)
+    
+
+    #  # TODO Add this exception handling in
+
+      
+
+    # except urlError.URLError as e:
+    #     message = "There is a problem connecting to the LTC API"
+    #     error_code = e.errno
+    #     return jsonify({'error': error_code,
+    #                     'message': message})
