@@ -6,7 +6,7 @@ import urllib.request as urlRequest
 import urllib.request
 import urllib.parse as urlParse
 import urllib.error as urlError
-import oracle_db_connection as odb
+import db.oracle_db_connection as odb
 import pandas as pd
 
 
