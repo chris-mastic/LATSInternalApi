@@ -36,11 +36,11 @@ class ApiSettings:
     
 
     #  # TODO Add this exception handling in
-
       
-
     # except urlError.URLError as e:
     #     message = "There is a problem connecting to the LTC API"
     #     error_code = e.errno
     #     return jsonify({'error': error_code,
     #                     'message': message})
+
+    # TODO: Figure out how to destroy this class if invalid session or user logs out.

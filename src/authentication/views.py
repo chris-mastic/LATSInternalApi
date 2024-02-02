@@ -182,10 +182,7 @@ def create_json_object() -> object:
             'roles': flask.session['roles']
         })
     
-
-
-       
-       
+  
        
 
 """
