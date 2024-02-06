@@ -1,4 +1,4 @@
-from services.ltc_api_connections import LTApiConnections 
+from services.ltc_api_connections import LTCApiConnections 
 from flask import Blueprint, request, render_template, jsonify, session, current_app, make_response
 import flask
 from flask_login import login_user
@@ -87,7 +87,7 @@ def index():
 @authentication_bp.route("/api/logout", methods=['POST'])
 def logout():
 
-    ltc_api = LTApiConnections()
+    ltc_api = LTCApiConnections()
     if 'username' in session:
         response = ltc_api.logout(flask.session['username'], flask.session['token'])
     else:
@@ -129,7 +129,7 @@ def login() -> object:
             'roles': session.get('roles')
         })
     else:
-        ltc_api = LTApiConnections()
+        ltc_api = LTCApiConnections()
         response = ltc_api.login(username, password)
         set_flask_session_values(response)
 
