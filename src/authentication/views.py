@@ -87,31 +87,18 @@ def index():
 @authentication_bp.route("/api/logout", methods=['POST'])
 def logout():
 
-    print('in logout')
-    print(f"token {flask.session['token']}")
-    # url = os.environ.get('LTC_API_URL_TEST')
-    url = os.environ.get('LTC_API_URL_PROD')
-
-    paths = [url, "Users/v1/logout"]
-    url = "".join(paths)
-
-    values = {"username": f"{flask.session['username']}"
-              }
-    headers = {"Accept": "text/plain",
-               "Authorization": f"Bearer {flask.session['token']}"
-               }
-
-    creds = json.dumps(values).encode('utf-8')
-    req = urllib.request.Request(
-        url, headers=headers, data=creds, method='POST')
-
-    with urlRequest.urlopen(req) as response:
-        body = response.read()
-
-    response = make_response('Logged out successfully')
+    ap = ApiSettings()
+    if 'username' in session:
+        response = ap.logout(flask.session['username'], flask.session['token'])
+    else:
+         response = jsonify({
+                'message': 'Not logged in'
+            })
+         
     clear_session(response)
     return response
-
+    
+    
 
 @authentication_bp.route("/api/login", methods=['POST'])
 def login() -> object:
@@ -144,7 +131,7 @@ def login() -> object:
         ap = ApiSettings()
         response = ap.login(username, password)
         set_flask_session_values(response)
-        
+
         # Unable to connect to LTC. This code will clear the session cookie
         if flask.session['token'] is None:
             clear_session(response)
@@ -158,32 +145,30 @@ def isvalid_session(session_id_from_cookie: str, session_id_from_server: str) ->
         return True
     else:
         return False
-    
-def set_flask_session_values(response):
-        flask.session["token"] = None
-         # store in the session dictionary
-        token = response['token']
-        flask.session["token"] = token
-        flask.session['secretkey'] = current_app.secret_key.encode('utf-8')
-        flask.session['username'] = response['userName']
-        flask.session['expiration'] = response['expiration']
-        flask.session['roles'] = response['roles']
-        flask.session['userId'] = response['userId']
 
+
+def set_flask_session_values(response):
+    flask.session["token"] = None
+    # store in the session dictionary
+    token = response['token']
+    flask.session["token"] = token
+    flask.session['secretkey'] = current_app.secret_key.encode('utf-8')
+    flask.session['username'] = response['userName']
+    flask.session['expiration'] = response['expiration']
+    flask.session['roles'] = response['roles']
+    flask.session['userId'] = response['userId']
 
 
 def create_json_object() -> object:
 
-      return jsonify({
-            'token': flask.session["token"],
-            'expiration': flask.session['expiration'],
-            'userName': flask.session['username'],
-            'userId': flask.session['userId'],
-            'roles': flask.session['roles']
-        })
-    
-  
-       
+    return jsonify({
+        'token': flask.session["token"],
+        'expiration': flask.session['expiration'],
+        'userName': flask.session['username'],
+        'userId': flask.session['userId'],
+        'roles': flask.session['roles']
+    })
+
 
 """
     NOT CURRENTLY IMPLEMENTED
