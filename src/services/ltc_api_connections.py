@@ -1,19 +1,17 @@
 import json
 
 from flask import jsonify
-import db.oracle_db_connection as odb
 import os
-import pandas as pd
 import urllib.request as urlRequest
 import urllib.request
 import urllib.parse as urlParse
 import urllib.error as urlError
 
 
-class ApiSettings:
+class LTCApiConnections:
     def __init_(self): pass
 
-    def logout(self, username, token):
+    def logout(self, username: str, token: str) -> object:
         url = os.environ.get('LTC_API_URL_TEST')
         # url = os.environ.get('LTC_API_URL_PROD')
 
@@ -40,8 +38,7 @@ class ApiSettings:
                 'message': 'logged out'
             })
 
-    def login(self, username: str, password: str):
-        print("in login of ApiSettings....")
+    def login(self, username: str, password: str) -> object:
         # url = os.environ.get('LTC_API_URL_PROD')
         url = os.environ.get('LTC_API_URL_TEST')
 
@@ -58,8 +55,7 @@ class ApiSettings:
         req = urllib.request.Request(
             url, headers=headers, data=creds, method='POST')
 
-        # TODO: Replace with the new singleton class
-        try: 
+        try:
             with urlRequest.urlopen(req) as response:
                 body = response.read()
 
@@ -68,8 +64,4 @@ class ApiSettings:
             message = "There is a problem connecting to the LTC API"
             error_code = e.errno
             return jsonify({'error': error_code,
-                        'message': message})
-         
-       
-
-    # TODO: Figure out how to destroy this class if invalid session or user logs out.
+                            'message': message})

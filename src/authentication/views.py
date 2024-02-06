@@ -1,4 +1,4 @@
-from services.api_settings import ApiSettings
+from services.ltc_api_connections import LTApiConnections 
 from flask import Blueprint, request, render_template, jsonify, session, current_app, make_response
 import flask
 from flask_login import login_user
@@ -87,16 +87,16 @@ def index():
 @authentication_bp.route("/api/logout", methods=['POST'])
 def logout():
 
-    ap = ApiSettings()
+    ltc_api = LTApiConnections()
     if 'username' in session:
-        response = ap.logout(flask.session['username'], flask.session['token'])
+        response = ltc_api.logout(flask.session['username'], flask.session['token'])
     else:
          response = jsonify({
                 'message': 'Not logged in'
             })
          
     clear_session(response)
-    del ap
+    del ltc_api
     return response
     
     
@@ -129,23 +129,22 @@ def login() -> object:
             'roles': session.get('roles')
         })
     else:
-        ap = ApiSettings()
-        response = ap.login(username, password)
+        ltc_api = LTApiConnections()
+        response = ltc_api.login(username, password)
         set_flask_session_values(response)
 
         # Unable to connect to LTC. This code will clear the session cookie
         if flask.session['token'] is None:
             clear_session(response)
             response.set_cookie('session', expires=0)
-        del ap
+        del ltc_api
         return create_json_object()
 
 
 def isvalid_session(session_id_from_cookie: str, session_id_from_server: str) -> bool:
     if session_id_from_cookie == session_id_from_server:
         return True
-    else:
-        return False
+    return False
 
 
 def set_flask_session_values(response):
