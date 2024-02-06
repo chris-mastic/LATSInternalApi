@@ -1,3 +1,4 @@
+import services.helpers as hlp
 from services.ltc_api_connections import LTCApiConnections 
 from flask import Blueprint, request, render_template, jsonify, session, current_app, make_response
 import flask
@@ -94,8 +95,9 @@ def logout():
          response = jsonify({
                 'message': 'Not logged in'
             })
-         
-    clear_session(response)
+
+    hlp.clear_session(session, response)     
+    #clear_session(response)
     del ltc_api
     return response
     
@@ -141,10 +143,10 @@ def login() -> object:
         return create_json_object()
 
 
-def isvalid_session(session_id_from_cookie: str, session_id_from_server: str) -> bool:
-    if session_id_from_cookie == session_id_from_server:
-        return True
-    return False
+# def isvalid_session(session_id_from_cookie: str, session_id_from_server: str) -> bool:
+#     if session_id_from_cookie == session_id_from_server:
+#         return True
+#     return False
 
 
 def set_flask_session_values(response):
@@ -192,10 +194,10 @@ def create_salted_key(api_token):
     return signed
 
 
-def clear_session(response):
-    session.clear()
-    response.set_cookie('session', expires=0)
-    return response
+# def clear_session(response):
+#     session.clear()
+#     response.set_cookie('session', expires=0)
+#     return response
 
 
 @authentication_bp.route("/api/reset_password", methods=['GET', 'POST'])

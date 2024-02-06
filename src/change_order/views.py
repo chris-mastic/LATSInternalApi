@@ -68,7 +68,7 @@ def get_batch():
         if (session.sid == request.cookies.get("session")):
             # OracleDB is a singleton class
             db = odb.OracleDBConnection.getInstance()
-            query = """SELECT a.parid, a.taxyr,ai.altid,  o.own1 FROM ASMT a INNER JOIN OWNDAT o 
+            query = """SELECs a.parid, a.taxyr,ai.altid,  o.own1 FROM ASMT a INNER JOIN OWNDAT o 
                 ON o.parid=a.parid AND o.taxyr = a.taxyr INNER JOIN ALTIDINDX ai ON ai.parid = a.parid AND ai.taxyr = a.taxyr
                   WHERE a.parid = :1 AND a.taxyr = :2 AND a.cur = :3"""
             df = pd.read_sql_query(query, db.engine, params=[
@@ -122,6 +122,8 @@ def get_batch():
             json_data = json.dumps(data, default=str)
             return json_data
             # return jsonify({'status': 'extited'})
+        else:
+            return jsonify({'message': 'Not logged in.'})
 
     except KeyError:
         session.clear()
