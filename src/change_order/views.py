@@ -6,7 +6,7 @@ import urllib.request as urlRequest
 import urllib.request
 import urllib.parse as urlParse
 import urllib.error as urlError
-import oracle_db as odb
+import db.oracle_db_connection as odb
 import pandas as pd
 
 
@@ -67,7 +67,7 @@ def get_batch():
     try:
         if (session.sid == request.cookies.get("session")):
             # OracleDB is a singleton class
-            db = odb.OracleDB.getInstance()
+            db = odb.OracleDBConnection.getInstance()
             query = """SELECT a.parid, a.taxyr,ai.altid,  o.own1 FROM ASMT a INNER JOIN OWNDAT o 
                 ON o.parid=a.parid AND o.taxyr = a.taxyr INNER JOIN ALTIDINDX ai ON ai.parid = a.parid AND ai.taxyr = a.taxyr
                   WHERE a.parid = :1 AND a.taxyr = :2 AND a.cur = :3"""
