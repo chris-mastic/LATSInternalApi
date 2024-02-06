@@ -23,12 +23,178 @@ class AssessOrdersDTO:
         def ltc_sub_class_old(self):
             return self._ltc_sub_class_old
 
+        # Setter method (setter)
+        @ltc_sub_class_old.setter
+        def ltc_sub_class_new(self,value):
+            if value < 0:
+                raise ValueError("Whatever")
+            self._ltc_sub_class_old = value
+
+        @property
+        def ltc_sub_class_new(self):
+            return self._ltc_sub_class_new
+
+        # Setter method (setter)
+        @ltc_sub_class_new.setter
+        def ltc_sub_class_new(self,value):
+            if value < 0:
+                raise ValueError("Whatever")
+            self._ltc_sub_class_new = value
+
+        @property
+        def quantity_old(self):
+            return self._quantity_old
+
+        # Setter method (setter)
+        @quantity_old.setter
+        def ltc_sub_class_old(self,value):
+            if value < 0:
+                raise ValueError("Whatever")
+            self._quantity_old = value
+
+        @property
+        def quantity_new(self):
+            return self._quantity_new
+        # Setter method (setter)
+        @quantity_new.setter
+        def quantity_new(self,value):
+            if value < 0:
+                raise ValueError("Whatever")
+            self._quantity_new = value
+
+        @property
+        def units_old(self):
+            return self._units_old
+
+        # Setter method (setter)
+        @units_old.setter
+        def units_old(self,value):
+            if value < 0:
+                raise ValueError("Whatever")
+            self._units_old = value
+
+        @property
+        def ltc_sub_class_old(self):
+            return self._ltc_sub_class_old
+
+        # Setter method (setter)
         @ltc_sub_class_old.setter
         def ltc_sub_class_old(self,value):
             if value < 0:
                 raise ValueError("Whatever")
             self._ltc_sub_class_old = value
 
+        @property
+        def ltc_sub_class_old(self):
+            return self._ltc_sub_class_old
+
+        # Setter method (setter)
+        @ltc_sub_class_old.setter
+        def ltc_sub_class_old(self,value):
+            if value < 0:
+                raise ValueError("Whatever")
+            self._ltc_sub_class_old = value
+
+        @property
+        def ltc_sub_class_old(self):
+            return self._ltc_sub_class_old
+
+        # Setter method (setter)
+        @ltc_sub_class_old.setter
+        def ltc_sub_class_old(self,value):
+            if value < 0:
+                raise ValueError("Whatever")
+            self._ltc_sub_class_old = value
+
+        @property
+        def ltc_sub_class_old(self):
+            return self._ltc_sub_class_old
+
+        # Setter method (setter)
+        @ltc_sub_class_old.setter
+        def ltc_sub_class_old(self,value):
+            if value < 0:
+                raise ValueError("Whatever")
+            self._ltc_sub_class_old = value
+
+        @property
+        def ltc_sub_class_old(self):
+            return self._ltc_sub_class_old
+
+        # Setter method (setter)
+        @ltc_sub_class_old.setter
+        def ltc_sub_class_old(self,value):
+            if value < 0:
+                raise ValueError("Whatever")
+            self._ltc_sub_class_old = value
+
+        @property
+        def ltc_sub_class_old(self):
+            return self._ltc_sub_class_old
+
+        # Setter method (setter)
+        @ltc_sub_class_old.setter
+        def ltc_sub_class_old(self,value):
+            if value < 0:
+                raise ValueError("Whatever")
+            self._ltc_sub_class_old = value
+
+        @property
+        def ltc_sub_class_old(self):
+            return self._ltc_sub_class_old
+
+        # Setter method (setter)
+        @ltc_sub_class_old.setter
+        def ltc_sub_class_old(self,value):
+            if value < 0:
+                raise ValueError("Whatever")
+            self._ltc_sub_class_old = value
+
+        @property
+        def ltc_sub_class_old(self):
+            return self._ltc_sub_class_old
+
+        # Setter method (setter)
+        @ltc_sub_class_old.setter
+        def ltc_sub_class_old(self,value):
+            if value < 0:
+                raise ValueError("Whatever")
+            self._ltc_sub_class_old = value
+
+        @property
+        def ltc_sub_class_old(self):
+            return self._ltc_sub_class_old
+
+        # Setter method (setter)
+        @ltc_sub_class_old.setter
+        def ltc_sub_class_old(self,value):
+            if value < 0:
+                raise ValueError("Whatever")
+            self._ltc_sub_class_old = value
+
+
+
+
+# EXAMPLE
+            
+# class MyClass:
+#     def __init__(self):
+#         self._my_attribute = None  # Initialize the attribute (with an underscore for convention)
+
+#     # Getter method (property)
+#     @property
+#     def my_attribute(self):
+#         return self._my_attribute
+
+#     # Setter method (setter)
+#     @my_attribute.setter
+#     def my_attribute(self, value):
+#         # You can add validation or other logic here
+#         if value < 0:
+#             raise ValueError("Attribute value must be non-negative")
+#         self._my_attribute = value
+
+# Example usage
 
 # obj = MyClass()
 
