@@ -1,5 +1,5 @@
-import services.helpers as hlp
-from services.ltc_api_connections import LTCApiConnections 
+import services.helpers as helper
+from services.ltc_api_connections import LTCApiConnections
 from flask import Blueprint, request, render_template, jsonify, session, current_app, make_response
 import flask
 from flask_login import login_user
@@ -90,18 +90,18 @@ def logout():
 
     ltc_api = LTCApiConnections()
     if 'username' in session:
-        response = ltc_api.logout(flask.session['username'], flask.session['token'])
+        response = ltc_api.logout(
+            flask.session['username'], flask.session['token'])
     else:
-         response = jsonify({
-                'message': 'Not logged in'
-            })
+        response = jsonify({
+            'message': 'Not logged in'
+        })
 
-    hlp.clear_session(session, response)     
-    #clear_session(response)
+    helper.clear_session(response)
+    # Implicity destroy connection instance.
     del ltc_api
     return response
-    
-    
+
 
 @authentication_bp.route("/api/login", methods=['POST'])
 def login() -> object:
@@ -121,7 +121,7 @@ def login() -> object:
     session_id_from_cookie = request.cookies.get('session')
     session_id_from_server = session.sid
 
-    if isvalid_session(session_id_from_cookie, session_id_from_server):
+    if helper.is_valid_session(session_id_from_cookie, session_id_from_server):
         # return the values already stored in the session dictionary from previous login
         return jsonify({
             'token': session.get('token'),
@@ -131,25 +131,20 @@ def login() -> object:
             'roles': session.get('roles')
         })
     else:
+        # Create a new session
         ltc_api = LTCApiConnections()
         response = ltc_api.login(username, password)
         set_flask_session_values(response)
 
-        # Unable to connect to LTC. This code will clear the session cookie
         if flask.session['token'] is None:
-            clear_session(response)
-            response.set_cookie('session', expires=0)
+            del ltc_api
+            return helper.clear_session(response)
+
         del ltc_api
         return create_json_object()
 
 
-# def isvalid_session(session_id_from_cookie: str, session_id_from_server: str) -> bool:
-#     if session_id_from_cookie == session_id_from_server:
-#         return True
-#     return False
-
-
-def set_flask_session_values(response):
+def set_flask_session_values(response: object):
     flask.session["token"] = None
     # store in the session dictionary
     token = response['token']
@@ -192,12 +187,6 @@ def create_salted_key(api_token):
     print(f"session id {session.sid}")
 
     return signed
-
-
-# def clear_session(response):
-#     session.clear()
-#     response.set_cookie('session', expires=0)
-#     return response
 
 
 @authentication_bp.route("/api/reset_password", methods=['GET', 'POST'])
