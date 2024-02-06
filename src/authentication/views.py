@@ -96,6 +96,7 @@ def logout():
             })
          
     clear_session(response)
+    del ap
     return response
     
     
@@ -136,7 +137,7 @@ def login() -> object:
         if flask.session['token'] is None:
             clear_session(response)
             response.set_cookie('session', expires=0)
-
+        del ap
         return create_json_object()
 
 
