@@ -72,103 +72,103 @@ class AssessOrdersDTO:
             self._units_old = value
 
         @property
-        def ltc_sub_class_old(self):
-            return self._ltc_sub_class_old
+        def units_new(self):
+            return self._units_new
 
         # Setter method (setter)
-        @ltc_sub_class_old.setter
-        def ltc_sub_class_old(self,value):
+        @units_new.setter
+        def units_new(self,value):
             if value < 0:
                 raise ValueError("Whatever")
-            self._ltc_sub_class_old = value
+            self._units_new = value
 
         @property
-        def ltc_sub_class_old(self):
-            return self._ltc_sub_class_old
+        def other_exempt_old(self):
+            return self._other_exempt_old
 
         # Setter method (setter)
-        @ltc_sub_class_old.setter
-        def ltc_sub_class_old(self,value):
+        @other_exempt_old.setter
+        def other_exempt_old(self,value):
             if value < 0:
                 raise ValueError("Whatever")
-            self._ltc_sub_class_old = value
+            self._other_exempt_old = value
 
         @property
-        def ltc_sub_class_old(self):
-            return self._ltc_sub_class_old
+        def other_exempt_new(self):
+            return self._other_exempt_new
 
         # Setter method (setter)
-        @ltc_sub_class_old.setter
-        def ltc_sub_class_old(self,value):
+        @other_exempt_new.setter
+        def other_exempt_new(self,value):
             if value < 0:
                 raise ValueError("Whatever")
-            self._ltc_sub_class_old = value
+            self._other_exempt_new = value
 
         @property
-        def ltc_sub_class_old(self):
-            return self._ltc_sub_class_old
+        def value_old_total(self):
+            return self._value_old_total
 
         # Setter method (setter)
-        @ltc_sub_class_old.setter
-        def ltc_sub_class_old(self,value):
+        @value_old_total.setter
+        def value_old_total(self,value):
             if value < 0:
                 raise ValueError("Whatever")
-            self._ltc_sub_class_old = value
+            self._value_old_total = value
 
         @property
-        def ltc_sub_class_old(self):
-            return self._ltc_sub_class_old
+        def value_new_total(self):
+            return self._value_new_total
 
         # Setter method (setter)
-        @ltc_sub_class_old.setter
-        def ltc_sub_class_old(self,value):
+        @value_new_total.setter
+        def value_new_total(self,value):
             if value < 0:
                 raise ValueError("Whatever")
-            self._ltc_sub_class_old = value
+            self._value_new_total = value
 
         @property
-        def ltc_sub_class_old(self):
-            return self._ltc_sub_class_old
+        def value_old_hs(self):
+            return self._value_old_hs
 
         # Setter method (setter)
-        @ltc_sub_class_old.setter
-        def ltc_sub_class_old(self,value):
+        @value_old_hs.setter
+        def value_old_hs(self,value):
             if value < 0:
                 raise ValueError("Whatever")
-            self._ltc_sub_class_old = value
+            self._value_old_hs = value
 
         @property
-        def ltc_sub_class_old(self):
-            return self._ltc_sub_class_old
+        def value_new_hs(self):
+            return self._value_new_hs
 
         # Setter method (setter)
-        @ltc_sub_class_old.setter
-        def ltc_sub_class_old(self,value):
+        @value_new_hs.setter
+        def value_new_hs(self,value):
             if value < 0:
                 raise ValueError("Whatever")
-            self._ltc_sub_class_old = value
+            self._value_new_hs= value
 
         @property
-        def ltc_sub_class_old(self):
-            return self._ltc_sub_class_old
+        def value_old_tp(self):
+            return self._value_old_tp
 
         # Setter method (setter)
-        @ltc_sub_class_old.setter
-        def ltc_sub_class_old(self,value):
+        @value_old_tp.setter
+        def value_old_tp(self,value):
             if value < 0:
                 raise ValueError("Whatever")
-            self._ltc_sub_class_old = value
+            self._value_old_tp= value
 
         @property
-        def ltc_sub_class_old(self):
-            return self._ltc_sub_class_old
+        def value_new_tp(self):
+            return self._value_new_tp
 
         # Setter method (setter)
-        @ltc_sub_class_old.setter
-        def ltc_sub_class_old(self,value):
+        @value_new_tp.setter
+        def value_new_tp(self,value):
             if value < 0:
                 raise ValueError("Whatever")
-            self._ltc_sub_class_old = value
+            self._value_new_tp = value
 
 
 

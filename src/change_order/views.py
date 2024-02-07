@@ -2,6 +2,7 @@ from flask import Blueprint, request, render_template, jsonify, session, current
 import flask
 from itsdangerous import URLSafeTimedSerializer
 import json
+from db.la_tax_service_dtos import assess_values_dto, change_order_dto
 import urllib.request as urlRequest
 import urllib.request
 import urllib.parse as urlParse
@@ -76,61 +77,49 @@ def get_batch():
             parent_dir = os.path.dirname(curr_dir)
             db_dir = os.path.join(parent_dir, 'db', 'db_scripts')
             sql_filename = os.path.join(db_dir, 'get_batch.sql')
-
+            print(f"sql_filename {sql_filename}")
             with open(sql_filename, 'r') as file:
+                print('in with...')
                 query = file.read()
 
             df = pd.read_sql_query(query, db.engine, params=[
                                    (parid, taxyear, 'Y')])
-
+            print(f'df {df}')
+            change_order = change_order_dto.ChangeOrderDTO()
+            print(f'type of change_order {type(change_order)} ')
+            assess_value = assess_values_dto.AssessOrdersDTO()
+            print("Befor the for loop")
             for ind in df.index:
-                parid = df["parid"][ind]
-                taxyr = df["taxyr"][ind]
-               # fips_code = switch(1,1,df["altid"][ind], 'fips')
-                owner = df["own1"][ind]
+                # fips_code = switch(1,1,df["altid"][ind], 'fips')
+                change_order.tax_year = df["taxyr"][ind]
+                change_order.fips_code = ""
+                change_order.assessment_no = ""
+                change_order.ward = ""
+                change_order.assessor_ref_no = ""
+                change_order.place_fips = ""
+                change_order.parcel_address = ""
+                change_order.assessment_type = ""
+                change_order.assessment_status = ""
+                change_order.homestead_exempt = ""
+                change_order.homestead_percent = ""
+                change_order.restoration_tax_exempt = ""
+                change_order.taxpayer_name = df['own1'][ind]
+                change_order.contact_name = ""
+                change_order.taxpayer_addr1 = ""
+                change_order.taxpayer_addr2 = ""
+                change_order.taxpayer_addr3 = ""
+                change_order.tc_fee_pd = ""
+                change_order.reason = ""
+                change_order.check_no = ""
+                change_order.check_amount = ""
+                change_order.assess_values = ""
+                
+            
 
-            data = {'tax_year': str(taxyr),
-                    'fips_code': 'fips_code',
-                    'assessment_no': "",
-                    'ward': "",
-                    'assessor_ref_no': "",
-                    'place_fips': "",
-                    'parcel_address': "",
-                    'assessment_type': "",
-                    'assessment_status': "",
-                    'homestead_exempt': "",
-                    'homestead_percent': "",
-                    'restoration_tax_expmt': "",
-                    'taxpayer_name': owner,
-                    'contact_name': "",
-                    'taxypayer_addr1': "",
-                    'taxypayer_addr2': "",
-                    'taxypayer_addr3': "",
-                    'tc_fee_pd': "",
-                    'reason': "",
-                    'check_no': "",
-                    'check_amount': "",
-                    'assessVaues': [{
-                        'ltc_sub_class_old': "",
-                        'ltc_sub_class_new': "",
-                        'quantity_old': "",
-                        'quantity_new': "",
-                        'units_old': "",
-                        'units_new': "",
-                        'other_exempt_old': "",
-                        'other_exempt_new': "",
-                        'value_old_total': "",
-                        'value_new_total': "",
-                        'value_old_hs': "",
-                        'value_new_hs': "",
-                        'value_old_tp': "",
-                        'value_new_tp': ""
-                    }]
-                    }
-
-            json_data = json.dumps(data, default=str)
+            json_data = json.dumps(change_order.__dict__,
+                                   indent=2, default=str)
             return json_data
-            # return jsonify({'status': 'extited'})
+
         except:
             return jsonify({'message': 'Database error'})
     else:
