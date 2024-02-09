@@ -4,3 +4,4 @@ src/authentication/__pycache__
 src/change_order/__pycache__
 flask_session/
 venv/
+client/

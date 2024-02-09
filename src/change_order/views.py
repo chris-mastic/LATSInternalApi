@@ -88,36 +88,40 @@ def get_batch():
             change_order = change_order_dto.ChangeOrderDTO()
             print(f'type of change_order {type(change_order)} ')
             assess_value = assess_values_dto.AssessOrdersDTO()
-            print("Befor the for loop")
+            print("Befor the for loop.")
             for ind in df.index:
                 # fips_code = switch(1,1,df["altid"][ind], 'fips')
+                print('before taxyear assignment')
                 change_order.tax_year = df["taxyr"][ind]
-                change_order.fips_code = ""
-                change_order.assessment_no = ""
-                change_order.ward = ""
-                change_order.assessor_ref_no = ""
-                change_order.place_fips = ""
-                change_order.parcel_address = ""
-                change_order.assessment_type = ""
-                change_order.assessment_status = ""
-                change_order.homestead_exempt = ""
-                change_order.homestead_percent = ""
-                change_order.restoration_tax_exempt = ""
+                print('after taxyre assignment')
+                # change_order.fips_code = ""
+                # change_order.assessment_no = ""
+                # change_order.ward = ""
+                # change_order.assessor_ref_no = ""
+                # change_order.place_fips = ""
+                # change_order.parcel_address = ""
+                # change_order.assessment_type = ""
+                # change_order.assessment_status = ""
+                # change_order.homestead_exempt = ""
+                # change_order.homestead_percent = ""
+                # change_order.restoration_tax_exempt = ""
+                print('befor own1')
                 change_order.taxpayer_name = df['own1'][ind]
-                change_order.contact_name = ""
-                change_order.taxpayer_addr1 = ""
-                change_order.taxpayer_addr2 = ""
-                change_order.taxpayer_addr3 = ""
-                change_order.tc_fee_pd = ""
-                change_order.reason = ""
-                change_order.check_no = ""
-                change_order.check_amount = ""
-                change_order.assess_values = ""
+                # change_order.contact_name = ""
+                # change_order.taxpayer_addr1 = ""
+                # change_order.taxpayer_addr2 = ""
+                # change_order.taxpayer_addr3 = ""
+                # change_order.tc_fee_pd = ""
+                # change_order.reason = ""
+                # change_order.check_no = ""
+                # change_order.check_amount = ""
+                # change_order.assess_values = ""
                 
             
 
             json_data = json.dumps(change_order.__dict__,
                                    indent=2, default=str)
+            print(f"json_data {json_data}")
             return json_data
 
         except:

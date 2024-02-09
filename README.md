@@ -585,3 +585,29 @@ Now you can use python to refer to Python 3.10.6.
 Remember to adjust paths and filenames as needed. Enjoy coding with Python 3.10.6! 🐍🚀
 
 This method is particularly useful in offline environments or when you require a specific Python version that may not be available in your package manager1.
+
+
+DIRECTORY STRUCURE THAT INCLUDES FRONTEND FILES
+
+my_flask_react_project/
+├── my_flask_app/
+│   ├── app.py
+│   ├── templates/
+│   │   ├── base.html
+│   │   └── ...
+│   ├── static/
+│   │   ├── css/
+│   │   ├── js/
+│   │   └── ...
+│   └── ...
+├── client/
+│   ├── package.json  # Place your package.json here
+│   ├── src/
+│   │   ├── components/
+│   │   ├── App.js
+│   │   └── ...
+│   ├── public/
+│   │   ├── index.html
+│   │   └── ...
+│   └── ...
+└── venv/
