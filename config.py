@@ -10,6 +10,7 @@ class Config(object):
         child classes (as per different stages of development) tha inherit
         the Config class"""
     #Environment variables
+    print("class Config called")
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
