@@ -25,8 +25,8 @@ class OracleDBConnection:
             cp = oracledb.ConnectParams()
 
             cp.parse_connect_string(os.getenv("PYTHON_CONNECTSTRING"))
-            print(f"cp {cp}")
-            print("after cp.parse")
+      
+   
             # For the default, python-oracledb Thin mode that doesn't use Oracle Instant Client
             thick_mode = None
 
@@ -34,4 +34,4 @@ class OracleDBConnection:
             self.engine = create_engine(
                 f'oracle+oracledb://{username}:{password}@{cp.host}:{cp.port}/?service_name={cp.service_name}',
                 thick_mode=thick_mode)
-            print(f"self.enging {self.engine}")
+            
