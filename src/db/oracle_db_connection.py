@@ -21,11 +21,14 @@ class OracleDBConnection:
             raise Exception("This class is a singleton")
         else:
             # Database Credentials
-            username = os.environ.get("PYTHON_USERNAME")
-            password = os.environ.get("PYTHON_PASSWORD")
+            username = os.getenv("PYTHON_USERNAME")
+            password = os.getenv("PYTHON_PASSWORD")
+            print(f"username {username}")
             cp = oracledb.ConnectParams()
-            cp.parse_connect_string(os.environ.get("PYTHON_CONNECTSTRING"))
 
+            cp.parse_connect_string(os.getenv("PYTHON_CONNECTSTRING"))
+            print(f"cp {cp}")
+            print("after cp.parse")
             # For the default, python-oracledb Thin mode that doesn't use Oracle Instant Client
             thick_mode = None
 
@@ -33,3 +36,4 @@ class OracleDBConnection:
             self.engine = create_engine(
                 f'oracle+oracledb://{username}:{password}@{cp.host}:{cp.port}/?service_name={cp.service_name}',
                 thick_mode=thick_mode)
+            print(f"self.enging {self.engine}")
