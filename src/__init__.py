@@ -7,12 +7,12 @@ import os
 from dotenv import load_dotenv
 
 
-additional_paths = [
-    '/var/www/LATSInternalApi/src',
-    '/var/www/LATSInternalApi/src/db',
-    '/var/www/LATSInternalApi/src/services'
-        ]  
-sys.path.extend(additional_paths)
+# additional_paths = [
+#     '/var/www/LATSInternalApi/src',
+#     '/var/www/LATSInternalApi/src/db',
+#     '/var/www/LATSInternalApi/src/services'
+#         ]  
+# sys.path.extend(additional_paths)
 
 def create_app():
     load_dotenv()

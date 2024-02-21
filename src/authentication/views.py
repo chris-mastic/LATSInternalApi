@@ -1,11 +1,10 @@
 import sys
 
-additional_paths = [
-        '/var/www/LATSInternalApi/src',
-        '/var/www/LATSInternalApi/src/services/',
-        '/var/www/LATSInternalApi/src/db/'
-        ]
-sys.path.extend(additional_paths)
+# additional_paths = [
+#         'C:/Users/christopher.mazza/source/repos/LATSInternalApi/src/services/',
+#         'C:/Users/christopher.mazza/source/repos/LATSInternalApi/src/db/'
+#         ]
+# sys.path.extend(additional_paths)
 
 import helpers as helper
 from services.ltc_api_connections import LTCApiConnections
