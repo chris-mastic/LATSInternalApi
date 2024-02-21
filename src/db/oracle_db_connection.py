@@ -22,6 +22,7 @@ class OracleDBConnection:
         else:
             # Database Credentials
             username = os.getenv("PYTHON_USERNAME")
+            password = os.getenv("PYTHON_PASSWORD")
             cp = oracledb.ConnectParams()
 
             cp.parse_connect_string(os.getenv("PYTHON_CONNECTSTRING"))
