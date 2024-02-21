@@ -513,3 +513,101 @@ VARIOUS URLs
     url = 'https://testapi.latax.la.gov/api/Auth/v1/authenticate'#   url = 'https://testapi.latax.la.gov/api/Auth/v1/authenticate?param=value&param2=value'
     url = 'https://api.latax.la.gov/api/Auth/v1/authenticate?param=value&param2=value'
     url = 'https://testserver-chrism.pythonanywhere.com/api/Users/v1/login'
+
+GENERATE AN SSH KEY IN WINDOWS:
+
+    Generate SSH Key Pair on Windows:
+Open Windows PowerShell (you can search for it in the Start menu).
+Run the following command to generate an RSA key pair:
+ssh-keygen -t rsa -b 4096
+
+This command will create a public key (id_rsa.pub) and a private key (id_rsa) in your user’s home directory (usually C:\Users\your_username).
+Copy the Public Key to the Debian Server:
+Log in to your Debian server using your existing credentials (password-based authentication).
+Once logged in, create the .ssh directory in your home folder (if it doesn’t exist):
+mkdir ~/.ssh
+
+Copy the content of your local public key (id_rsa.pub) to the ~/.ssh/authorized_keys file on the server:
+echo "YOUR_PUBLIC_KEY_CONTENT" >> ~/.ssh/authorized_keys
+
+Replace YOUR_PUBLIC_KEY_CONTENT with the actual content of your local public key.
+Set Correct Permissions:
+Ensure that the permissions for the .ssh directory and the authorized_keys file are secure:
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+
+Test SSH Connection:
+Now you can try connecting to your Debian server using SSH keys:
+ssh username@your_server_ip
+
+Replace username with your actual username on the server and your_server_ip with the server’s IP address or hostname.
+You should be able to log in without entering a password.
+Optional: Disable Password Authentication (Recommended for Security):
+Once you’ve confirmed that SSH key-based authentication works, consider disabling password authentication to enhance security.
+Edit the SSH server configuration file (/etc/ssh/sshd_config) on the Debian server:
+sudo nano /etc/ssh/sshd_config
+
+Find the line that says PasswordAuthentication yes and change it to PasswordAuthentication no.
+Save the file and restart the SSH service:
+sudo systemctl restart ssh
+
+
+INSTALL PYTHON
+
+Download the Tar File: Visit the official Python website at python.org/downloads and navigate to the Downloads section. Choose the desired Python version (in this case, Python 3.10.6) and select the corresponding Gzipped source tarball (.tgz file).
+Extract the Tgz File: Once the tar file is downloaded, open a terminal or command prompt and navigate to the directory where the file is saved. Use the tar command to extract the contents of the tar file. For example:
+tar xzf Python-3.10.6.tgz
+cd Python-3.10.6
+
+Configure the Installation: Navigate into the extracted directory:
+cd Python-3.10.6
+Next, run the configure script to prepare the installation. This step ensures that the necessary dependencies are detected and sets up the installation according to your system’s configuration:
+./configure \
+    --prefix=/opt/python/3.10.6 \
+    --enable-shared \
+    --enable-optimizations \
+    --enable-ipv6 \
+    LDFLAGS=-Wl,-rpath=/opt/python/3.10.6/lib,--disable-new-dtags
+
+Build and Install Python: After the configuration step is complete, proceed to build and install Python on your system. Use the following commands:
+make
+sudo make install
+The make command compiles the source code, and make install installs Python onto your system. The sudo command ensures that the installation has the necessary permissions.
+Verify the Installation: Confirm that Python is installed correctly by opening a new terminal or command prompt window and executing the following command:
+/opt/python/3.10.6/bin/python3.10 --version
+You should see the installed Python version printed on the screen.
+Make Your New Version Default (optional): To make the newly installed Python version your default, create a symbolic link:
+cd /opt/python/3.10.6/bin
+sudo ln -s python3.10 python
+echo "PATH=/opt/python/3.10.6/bin:$PATH" >> ~/.profile
+. ~/.profile
+Now you can use python to refer to Python 3.10.6.
+Remember to adjust paths and filenames as needed. Enjoy coding with Python 3.10.6! 🐍🚀
+
+This method is particularly useful in offline environments or when you require a specific Python version that may not be available in your package manager1.
+
+
+DIRECTORY STRUCURE THAT INCLUDES FRONTEND FILES
+
+my_flask_react_project/
+├── my_flask_app/
+│   ├── app.py
+│   ├── templates/
+│   │   ├── base.html
+│   │   └── ...
+│   ├── static/
+│   │   ├── css/
+│   │   ├── js/
+│   │   └── ...
+│   └── ...
+├── client/
+│   ├── package.json  # Place your package.json here
+│   ├── src/
+│   │   ├── components/
+│   │   ├── App.js
+│   │   └── ...
+│   ├── public/
+│   │   ├── index.html
+│   │   └── ...
+│   └── ...
+└── venv/

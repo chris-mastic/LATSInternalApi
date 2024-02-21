@@ -2,12 +2,15 @@ from flask import Blueprint, request, render_template, jsonify, session, current
 import flask
 from itsdangerous import URLSafeTimedSerializer
 import json
+from db.la_tax_service_dtos import assess_values_dto, change_order_dto
 import urllib.request as urlRequest
 import urllib.request
 import urllib.parse as urlParse
 import urllib.error as urlError
 import db.oracle_db_connection as odb
 import pandas as pd
+import services.helpers as helper
+import os
 
 
 change_order_bp = Blueprint("change_order", __name__)
@@ -64,77 +67,71 @@ def get_batch():
     # print(f'session.sid{session.sid}')
     # print(f'request.cookies.get("session"){request.cookies.get("session")}')
 
-    try:
-        if (session.sid == request.cookies.get("session")):
-            # OracleDB is a singleton class
+    if helper.is_valid_session(request.cookies.get("session"), session.sid):
+        # OracleDB is a singleton class
+        try:
             db = odb.OracleDBConnection.getInstance()
-            query = """SELECT a.parid, a.taxyr,ai.altid,  o.own1 FROM ASMT a INNER JOIN OWNDAT o 
-                ON o.parid=a.parid AND o.taxyr = a.taxyr INNER JOIN ALTIDINDX ai ON ai.parid = a.parid AND ai.taxyr = a.taxyr
-                  WHERE a.parid = :1 AND a.taxyr = :2 AND a.cur = :3"""
+
+            curr_dir = os.path.dirname(__file__)
+            print(f'curr_dir {curr_dir}')
+            parent_dir = os.path.dirname(curr_dir)
+            db_dir = os.path.join(parent_dir, 'db', 'db_scripts')
+            sql_filename = os.path.join(db_dir, 'get_batch.sql')
+            print(f"sql_filename {sql_filename}")
+            with open(sql_filename, 'r') as file:
+                print('in with...')
+                query = file.read()
+
             df = pd.read_sql_query(query, db.engine, params=[
                                    (parid, taxyear, 'Y')])
-            # # test_df = pd.read_sql_query(f"""SELECT * FROM ASMT a WHERE a.parid= 249-VALLETTEST """, db.engine)
+            print(f'df {df}')
+            change_order = change_order_dto.ChangeOrderDTO()
+            print(f'type of change_order {type(change_order)} ')
+            assess_value = assess_values_dto.AssessOrdersDTO()
+            print("Befor the for loop.")
             for ind in df.index:
-                parid = df["parid"][ind]
-                taxyr = df["taxyr"][ind]
-               # fips_code = switch(1,1,df["altid"][ind], 'fips')
-                owner = df["own1"][ind]
+                # fips_code = switch(1,1,df["altid"][ind], 'fips')
+                print('before taxyear assignment')
+                change_order.tax_year = df["taxyr"][ind]
+                print('after taxyre assignment')
+                # change_order.fips_code = ""
+                # change_order.assessment_no = ""
+                # change_order.ward = ""
+                # change_order.assessor_ref_no = ""
+                # change_order.place_fips = ""
+                # change_order.parcel_address = ""
+                # change_order.assessment_type = ""
+                # change_order.assessment_status = ""
+                # change_order.homestead_exempt = ""
+                # change_order.homestead_percent = ""
+                # change_order.restoration_tax_exempt = ""
+                print('befor own1')
+                change_order.taxpayer_name = df['own1'][ind]
+                # change_order.contact_name = ""
+                # change_order.taxpayer_addr1 = ""
+                # change_order.taxpayer_addr2 = ""
+                # change_order.taxpayer_addr3 = ""
+                # change_order.tc_fee_pd = ""
+                # change_order.reason = ""
+                # change_order.check_no = ""
+                # change_order.check_amount = ""
+                # change_order.assess_values = ""
+                
+            
 
-            data = {'tax_year': str(taxyr),
-                    'fips_code': 'fips_code',
-                    'assessment_no': "",
-                    'ward': "",
-                    'assessor_ref_no': "",
-                    'place_fips': "",
-                    'parcel_address': "",
-                    'assessment_type': "",
-                    'assessment_status': "",
-                    'homestead_exempt': "",
-                    'homestead_percent': "",
-                    'restoration_tax_expmt': "",
-                    'taxpayer_name': owner,
-                    'contact_name': "",
-                    'taxypayer_addr1': "",
-                    'taxypayer_addr2': "",
-                    'taxypayer_addr3': "",
-                    'tc_fee_pd': "",
-                    'reason': "",
-                    'check_no': "",
-                    'check_amount': "",
-                    'assessVaues': [{
-                        'ltc_sub_class_old': "",
-                        'ltc_sub_class_new': "",
-                        'quantity_old': "",
-                        'quantity_new': "",
-                        'units_old': "",
-                        'units_new': "",
-                        'other_exempt_old': "",
-                        'other_exempt_new': "",
-                        'value_old_total': "",
-                        'value_new_total': "",
-                        'value_old_hs': "",
-                        'value_new_hs': "",
-                        'value_old_tp': "",
-                        'value_new_tp': ""
-                    }]
-                    }
-
-            json_data = json.dumps(data, default=str)
+            json_data = json.dumps(change_order.__dict__,
+                                   indent=2, default=str)
+            print(f"json_data {json_data}")
             return json_data
-            # return jsonify({'status': 'extited'})
 
-    except KeyError:
-        session.clear()
-        response = make_response('key error')
-        response.set_cookie('session', expires=0)
-        response.set_cookie('session', expires=0)
+        except:
+            return jsonify({'message': 'Database error'})
+    else:
+        response = jsonify({
+            'message': 'Not logged in'
+        })
+        helper.clear_session(response)
         return response
-
-    except urlError.URLError as e:
-        message = e.reason
-        error_code = e.errno
-        return jsonify({'error': error_code,
-                        'message': message})
 
 
 @change_order_bp.route("/api/get_status", methods=['GET'])
