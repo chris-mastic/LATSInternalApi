@@ -611,3 +611,120 @@ my_flask_react_project/
 │   │   └── ...
 │   └── ...
 └── venv/
+
+LOGGING (https://www.youtube.com/watch?v=urrfJgHwIJA&t=6s)
+
+    import logging
+
+    # Various levels
+    logging.debug("debug")
+    logging.info("info")
+    logging.warning("warning")
+    logging.error("error")
+    logging.critcal("critcal')
+
+    # By default you only get the output of anything avouv warning. debug and info won't
+    # SAMPLE OUTPT:
+        ERROR:root:error (root refers to the root logger, not user)
+
+    Sending logging output to a file:
+
+        logging.basicConfig(level=logging.INFO, filename="log.log", filemode="w") # ONLY DO THIS ONE TIME, USUALLY AT PROGRAM START
+
+        A MORE ADVANCED WAY:
+            logging.basicConfig(level=logging.INFO, filename="log.log", filemode="w".
+                    foramt="%(asctime)s - %(levelname)s - %(message)s")
+
+    x = 2 # Logging the value of a variable
+    logging.info(f"the value of x is {x}")
+
+    STACK TRACE
+
+        try:
+            1 / 0
+        except ZeroDivisiion as e:
+            logging.erro("ZeroDivisonError", exc_info=True)
+                        OR
+            logging.exception("whatever")
+
+    Custom Logs:
+        logger = logging.getLogger("name") # 'naem is the name of the logger that you want. If this logger name exists it will just give it to you, otherwise it will create it.
+
+        The convention is to use one logger per module and use: logger = logging.getLogger('__name__') # dunder name will give name of cureent module.
+        
+        #setup a handler to allow you to write to sepearate log file than what was created using basicConfig()
+        handler = logging.FileHandler('test.log') # all of available Handlers (HTTP, email, etc)
+        #setup a formatter
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+
+        logger.info("test the custom logger")
+
+    TDD Workflow
+    (https://www.youtube.com/watch?v=ibVSPVz2LAA)
+    
+        The Three Laws of TDD
+            TDD or Test Driven Development is a set of programming and software design principles, based on a cycle of:    
+                fail test -> fix code -> pass test -> fail new test ...
+
+                1. You may not write any production code unless you've first written a failing unit test (Robert C. Martin Uncle Bob)
+                2  You may not write more of a unit test than is sufficient to fail.  (Robert C. Martin Uncle Bob)
+                3. You may not write more production code than is sufficient to make the failing unit test pass  (Robert C. Martin Uncle Bob)
+                    - Ask yourself, 'what is the least I can do to fix my code at the bare minimum'
+        EXAMPLE:
+            Ceasar's Cipher
+
+            import unittest
+            import string
+
+            def encrypt(message):
+                abc = string.ascii_letters + string.punctuation  + string.digits + " "
+                encrypted_message = "".join([abc[abc.find(char) + 1 ] if len(abc) > (abc.find(char) + 1) else abc[0] for idx, char in enumerate(message)])
+                return encrypted_message
+
+            class TestEncryption(unittest.TestCase):
+                # tests go here. with each of our tests we are aiming to evaluate a boolean experssion (aka: assertions)
+                def setUp(self):
+                    self.my_message = "banana"
+
+                def test_inputExists(self): # test_ is required
+                    self.asseertIsNotNone(self.my_message)
+                    # At this point, without my_message being defined, we have met the first two rules above
+                    # To meet the 3rd rule, assign a value to my_message. To do so, do it in a special method
+                    # called setUp() see above.
+
+                def test_inputType(self):
+                    self.assertIsInstance(self.my_message, str)
+                    # Will fail test while value isset to 0. Change it to a string
+
+                def test_functionReturnsSomething(self): # test_ is required
+                    self.asseertIsNotNone(encrypt(self.my_message))
+                    # encrypt is the function we are testing to see if it returns a value. It will fail now because it doesn't exit
+
+                def test_lenIO(self):
+                    self.assertEqual(len(self.my_message), len(encrypt(self.my_message)))
+                    # will fail, which satisifies 1, and 2 and will pass once the return value of 0
+                    # is replaced with the 'message' in the encrypt function above.
+
+                def test_differentIO(self):
+                    self.assertNotIn(self.my_message, encrypt(self.my_message))
+
+                def test_outputType(self):
+                    self.assertIsInstance(encrypt(self.my_message), str)
+
+                def test_shiftedCipher(self):
+                    abc = string.ascii_letters + string.punctuation  + string.digits + " "
+                    encrypted_message = "".join([abc[abc.find(char) + 1 ] for idx, char in enumerate(self.my_message)])
+                    print(encrypted_message)
+                    self.assertEqual(encrypted_message, encrypt(self.my_message))
+
+
+
+            if __name__ == '__main__':
+                unittest.main()
+
+            # IF YOU ARE USING JUPYTER REPLACE the above line with:
+                unittest.main(argv=[''], verbosity=2, exit=False)
+
+
