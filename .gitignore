@@ -5,3 +5,5 @@ src/change_order/__pycache__
 flask_session/
 venv/
 client/
+src.authentication.views
+db_connection.log

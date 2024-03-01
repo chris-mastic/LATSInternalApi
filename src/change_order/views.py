@@ -2,6 +2,7 @@ from flask import Blueprint, request, render_template, jsonify, session, current
 import flask
 from itsdangerous import URLSafeTimedSerializer
 import json
+import logging
 from db.la_tax_service_dtos import assess_values_dto, change_order_dto
 import urllib.request as urlRequest
 import urllib.request
@@ -12,6 +13,8 @@ import pandas as pd
 import services.helpers as helper
 import os
 
+logging.basicConfig(level=logging.DEBUG, filename=__name__, filemode="a",
+                    format="%(asctime)s - %(levelname)s - %(message)s")
 
 change_order_bp = Blueprint("change_order", __name__)
 
@@ -60,7 +63,9 @@ def get_batch():
     req = json.loads(request.data)
     parid = req['parid']
     taxyear = req['taxyear']
-    # --------------------------------DEBUG---------------
+    altid = req['altid']
+    # print("IN get_batch()")
+    # # --------------------------------DEBUG---------------
     # print("DEBUG------------------------------------------------------")
     # print(f'flask.session["token"]{flask.session["token"]}')
     # print(f'request.cookies.get("ltcToken"){request.cookies.get("ltcToken")}')
@@ -68,10 +73,12 @@ def get_batch():
     # print(f'request.cookies.get("session"){request.cookies.get("session")}')
 
     if helper.is_valid_session(request.cookies.get("session"), session.sid):
+        print("ABOVE TRY.....")
         # OracleDB is a singleton class
         try:
+            print('connecting to db....')
             db = odb.OracleDBConnection.getInstance()
-
+            print("IN TRY OF HELPER.IS_VALID_SESSION")
             curr_dir = os.path.dirname(__file__)
             print(f'curr_dir {curr_dir}')
             parent_dir = os.path.dirname(curr_dir)
@@ -83,7 +90,7 @@ def get_batch():
                 query = file.read()
 
             df = pd.read_sql_query(query, db.engine, params=[
-                                   (parid, taxyear, 'Y')])
+                                   (parid, taxyear, 'Y', altid)])
             print(f'df {df}')
             change_order = change_order_dto.ChangeOrderDTO()
             print(f'type of change_order {type(change_order)} ')
@@ -95,7 +102,7 @@ def get_batch():
                 change_order.tax_year = df["taxyr"][ind]
                 print('after taxyre assignment')
                 # change_order.fips_code = ""
-                # change_order.assessment_no = ""
+                change_order.assessment_no = df["altid"][ind]
                 # change_order.ward = ""
                 # change_order.assessor_ref_no = ""
                 # change_order.place_fips = ""

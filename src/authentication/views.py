@@ -13,6 +13,7 @@ import flask
 from flask_login import login_user
 from itsdangerous import URLSafeTimedSerializer
 import json
+import logging
 import oracle_db_connection as odb
 import os
 import pandas as pd
@@ -21,21 +22,23 @@ import urllib.request
 import urllib.parse as urlParse
 import urllib.error as urlError
 
+logging.basicConfig(level=logging.DEBUG, filename=__name__, filemode="a",
+                    format="%(asctime)s - %(levelname)s - %(message)s")
 
 
-
-authentication_bp = Blueprint("authentication", __name__, template_folder='authentication/templates')
+authentication_bp = Blueprint(
+    "authentication", __name__, template_folder='authentication/templates')
 
 
 @authentication_bp.route("/", methods=['GET', 'POST'])
 def index():
     return render_template('authentication/index.html')
-  
+
 
 @authentication_bp.route("/api/logout", methods=['POST'])
 def logout():
 
-    ltc_api = LTCApiConnections()
+    ltc_api = LTCApiConnections(logging)
     if 'username' in session:
         response = ltc_api.logout(
             flask.session['username'], flask.session['token'])
@@ -64,6 +67,7 @@ def login() -> object:
     req = json.loads(request.data)
     username = req['username']
     password = req['password']
+    logging.info("user logged in")
 
     session_id_from_cookie = request.cookies.get('session')
     session_id_from_server = session.sid
@@ -79,12 +83,13 @@ def login() -> object:
         })
     else:
         # Create a new session
-        ltc_api = LTCApiConnections()
+        ltc_api = LTCApiConnections(logging)
         response = ltc_api.login(username, password)
         print(f"resonpnse {response}")
         set_flask_session_values(response)
 
         if flask.session['token'] is None:
+            logging.error(f'{username} unable to log in to LTC site')
             del ltc_api
             return helper.clear_session(response)
 
@@ -93,15 +98,17 @@ def login() -> object:
 
 
 def set_flask_session_values(response: object):
-    flask.session["token"] = None
     # store in the session dictionary
-    token = response['token']
-    flask.session["token"] = token
-    flask.session['secretkey'] = current_app.secret_key.encode('utf-8')
-    flask.session['username'] = response['userName']
-    flask.session['expiration'] = response['expiration']
-    flask.session['roles'] = response['roles']
-    flask.session['userId'] = response['userId']
+    try:
+        token = response['token']
+        flask.session["token"] = token
+        flask.session['secretkey'] = current_app.secret_key.encode('utf-8')
+        flask.session['username'] = response['userName']
+        flask.session['expiration'] = response['expiration']
+        flask.session['roles'] = response['roles']
+        flask.session['userId'] = response['userId']
+    except:
+        flask.session["token"] = None
 
 
 def create_json_object() -> object:

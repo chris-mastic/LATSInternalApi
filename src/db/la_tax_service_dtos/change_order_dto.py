@@ -54,8 +54,8 @@ class ChangeOrderDTO:
         
     @assessment_no.setter
     def assessment_no(self, value):
-        if value < 0:
-            return ValueError("Whatever")
+        if value is None:
+            return ValueError("Invalid altid")
         self._assessment_no = value
 
     @property
