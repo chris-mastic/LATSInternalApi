@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 #         ]  
 # sys.path.extend(additional_paths)
 
+
 def create_app():
     load_dotenv()
            
@@ -29,8 +30,11 @@ def create_app():
     from src.authentication.views import authentication_bp
     from src.change_order.views import change_order_bp
 
+
     app.register_blueprint(authentication_bp)
     app.register_blueprint(change_order_bp)
+
+    
 
     return app
 

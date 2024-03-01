@@ -9,7 +9,8 @@ import urllib.error as urlError
 
 
 class LTCApiConnections:
-    def __init_(self): pass
+    def __init__(self, logger):
+        self.logger = logger
 
     def logout(self, username: str, token: str) -> object:
         url = os.environ.get('LTC_API_URL_TEST')
@@ -61,7 +62,8 @@ class LTCApiConnections:
 
             return json.loads(body)
         except urlError.URLError as e:
-            message = "There is a problem connecting to the LTC API"
+            message = "ltc_api_connections.LTCApiConnections.login login error"
+            self.logger.error(message)
             error_code = e.errno
             return jsonify({'error': error_code,
                             'message': message})
