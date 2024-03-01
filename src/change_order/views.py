@@ -64,13 +64,13 @@ def get_batch():
     parid = req['parid']
     taxyear = req['taxyear']
     altid = req['altid']
-    print("IN get_batch()")
-    # --------------------------------DEBUG---------------
-    print("DEBUG------------------------------------------------------")
-    print(f'flask.session["token"]{flask.session["token"]}')
-    print(f'request.cookies.get("ltcToken"){request.cookies.get("ltcToken")}')
-    print(f'session.sid{session.sid}')
-    print(f'request.cookies.get("session"){request.cookies.get("session")}')
+    # print("IN get_batch()")
+    # # --------------------------------DEBUG---------------
+    # print("DEBUG------------------------------------------------------")
+    # print(f'flask.session["token"]{flask.session["token"]}')
+    # print(f'request.cookies.get("ltcToken"){request.cookies.get("ltcToken")}')
+    # print(f'session.sid{session.sid}')
+    # print(f'request.cookies.get("session"){request.cookies.get("session")}')
 
     if helper.is_valid_session(request.cookies.get("session"), session.sid):
         print("ABOVE TRY.....")
