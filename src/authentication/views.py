@@ -8,7 +8,7 @@ import sys
 
 import helpers as helper
 from services.ltc_api_connections import LTCApiConnections
-from flask import Blueprint, request, render_template, jsonify, session, current_app, make_response
+from flask import Blueprint, redirect, request, render_template, jsonify, session, current_app, make_response, url_for
 import flask
 from flask_login import login_user
 from itsdangerous import URLSafeTimedSerializer
@@ -32,7 +32,49 @@ authentication_bp = Blueprint(
 
 @authentication_bp.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template('authentication/index.html')
+    if request.method == "POST":
+        if "logout" in request.form: logout()
+        # Get the username and password from the form
+        username = request.form.get("username")
+        password = request.form.get("password")
+        print(f"username {username}")
+        # Validate the credentials (you can replace this with your own validation logic)
+        session_id_from_cookie = request.cookies.get('session')
+        session_id_from_server = session.sid
+
+        if helper.is_valid_session(session_id_from_cookie, session_id_from_server):
+            print("In if helper.is_valid_seesion")
+            # return the values already stored in the session dictionary from previous login
+            print(f"session_id_from_cookie {session_id_from_cookie}")
+            print(f"session_id_from_server {session_id_from_server}")
+            print(f"token {session.get('token')}")
+            print(f"userName {session.get('username')}")
+            print(f"userId {session.get('userId')}")
+            return jsonify({
+                'token': session.get('token'),
+                'expiration': session.get('expiration'),
+                'userName': session.get("username"),
+                'userId': session.get('userId'),
+                'roles': session.get('roles')
+            })
+        else:
+            # Create a new session
+            print("IN else")
+            ltc_api = LTCApiConnections(logging)
+            response = ltc_api.login(username, password)
+            print(f"resonpnse {response}")
+            set_flask_session_values(response)
+
+            if flask.session['token'] is None:
+                logging.error(f'{username} unable to log in to LTC site')
+                del ltc_api
+                return helper.clear_session(response)
+
+            del ltc_api
+            return create_json_object()
+
+
+    return render_template('authentication/login.html')
 
 
 @authentication_bp.route("/api/logout", methods=['POST'])

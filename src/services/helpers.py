@@ -1,7 +1,7 @@
 from flask import session, current_app, make_response
 
 def is_valid_session(session_id_from_cookie: str, session_id_from_server: str) -> bool:
-    if session_id_from_cookie == session_id_from_server:
+    if (session_id_from_cookie == session_id_from_server) and session.get('username') is not None:
         return True
     return False
 
