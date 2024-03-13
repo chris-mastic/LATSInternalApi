@@ -63,7 +63,7 @@ def login() -> object:
         resources. Store it as a cookie or in header of 
         subsequent API requests.
     """
-
+    print("IN LOGIN")
     req = json.loads(request.data)
     username = req['username']
     password = req['password']

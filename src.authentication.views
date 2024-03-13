@@ -76,3 +76,146 @@
 2024-03-12 10:24:22,177 - INFO -  * Debugger PIN: 579-921-519
 2024-03-12 10:24:37,431 - INFO - user logged in
 2024-03-12 10:24:37,746 - INFO - 127.0.0.1 - - [12/Mar/2024 10:24:37] "POST /api/login HTTP/1.1" 200 -
+2024-03-12 11:17:54,676 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-12 11:17:54,683 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-12 11:17:54,686 - INFO -  * Restarting with stat
+2024-03-12 11:17:56,989 - WARNING -  * Debugger is active!
+2024-03-12 11:17:57,007 - INFO -  * Debugger PIN: 579-921-519
+2024-03-12 11:18:03,796 - INFO - 127.0.0.1 - - [12/Mar/2024 11:18:03] "GET / HTTP/1.1" 200 -
+2024-03-12 11:18:10,325 - INFO - 127.0.0.1 - - [12/Mar/2024 11:18:10] "GET / HTTP/1.1" 200 -
+2024-03-12 12:08:50,069 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-12 12:08:50,075 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-12 12:08:50,078 - INFO -  * Restarting with stat
+2024-03-12 12:08:52,090 - WARNING -  * Debugger is active!
+2024-03-12 12:08:52,103 - INFO -  * Debugger PIN: 579-921-519
+2024-03-12 12:12:43,698 - INFO - 127.0.0.1 - - [12/Mar/2024 12:12:43] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:12:43,699 - INFO - 127.0.0.1 - - [12/Mar/2024 12:12:43] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:12:45,863 - INFO - 127.0.0.1 - - [12/Mar/2024 12:12:45] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:13:11,926 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-12 12:13:11,932 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-12 12:13:11,934 - INFO -  * Restarting with stat
+2024-03-12 12:13:13,945 - WARNING -  * Debugger is active!
+2024-03-12 12:13:13,958 - INFO -  * Debugger PIN: 579-921-519
+2024-03-12 12:13:56,403 - INFO - 127.0.0.1 - - [12/Mar/2024 12:13:56] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:13:56,403 - INFO - 127.0.0.1 - - [12/Mar/2024 12:13:56] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:13:56,923 - INFO - 127.0.0.1 - - [12/Mar/2024 12:13:56] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:13:57,220 - INFO - 127.0.0.1 - - [12/Mar/2024 12:13:57] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:14:16,580 - INFO - 127.0.0.1 - - [12/Mar/2024 12:14:16] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:14:16,581 - INFO - 127.0.0.1 - - [12/Mar/2024 12:14:16] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:14:32,476 - INFO - 127.0.0.1 - - [12/Mar/2024 12:14:32] "[31m[1mGET /api/login HTTP/1.1[0m" 405 -
+2024-03-12 12:14:32,532 - INFO - 127.0.0.1 - - [12/Mar/2024 12:14:32] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-03-12 12:16:05,895 - INFO - user logged in
+2024-03-12 12:16:05,909 - INFO - 127.0.0.1 - - [12/Mar/2024 12:16:05] "POST /api/login HTTP/1.1" 200 -
+2024-03-12 12:16:07,656 - INFO - user logged in
+2024-03-12 12:16:07,666 - INFO - 127.0.0.1 - - [12/Mar/2024 12:16:07] "POST /api/login HTTP/1.1" 200 -
+2024-03-12 12:16:11,375 - INFO - 127.0.0.1 - - [12/Mar/2024 12:16:11] "POST /api/logout HTTP/1.1" 200 -
+2024-03-12 12:16:32,632 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-12 12:16:32,638 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-12 12:16:32,643 - INFO -  * Restarting with stat
+2024-03-12 12:16:34,898 - WARNING -  * Debugger is active!
+2024-03-12 12:16:34,912 - INFO -  * Debugger PIN: 579-921-519
+2024-03-12 12:16:35,106 - INFO - user logged in
+2024-03-12 12:16:35,411 - INFO - 127.0.0.1 - - [12/Mar/2024 12:16:35] "POST /api/login HTTP/1.1" 200 -
+2024-03-12 12:16:51,192 - INFO - 127.0.0.1 - - [12/Mar/2024 12:16:51] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:16:51,194 - INFO - 127.0.0.1 - - [12/Mar/2024 12:16:51] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:17:07,459 - INFO - 127.0.0.1 - - [12/Mar/2024 12:17:07] "[31m[1mGET /api/login HTTP/1.1[0m" 405 -
+2024-03-12 12:17:30,060 - INFO - 127.0.0.1 - - [12/Mar/2024 12:17:30] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:17:34,182 - INFO - 127.0.0.1 - - [12/Mar/2024 12:17:34] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:17:34,183 - INFO - 127.0.0.1 - - [12/Mar/2024 12:17:34] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:17:37,767 - INFO - 127.0.0.1 - - [12/Mar/2024 12:17:37] "[31m[1mGET /api/login HTTP/1.1[0m" 405 -
+2024-03-12 12:17:50,265 - INFO - 127.0.0.1 - - [12/Mar/2024 12:17:50] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:20:27,475 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-12 12:20:27,718 - INFO -  * Restarting with stat
+2024-03-12 12:20:30,066 - WARNING -  * Debugger is active!
+2024-03-12 12:20:30,079 - INFO -  * Debugger PIN: 579-921-519
+2024-03-12 12:20:32,655 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-12 12:20:32,901 - INFO -  * Restarting with stat
+2024-03-12 12:20:34,680 - WARNING -  * Debugger is active!
+2024-03-12 12:20:34,694 - INFO -  * Debugger PIN: 579-921-519
+2024-03-12 12:20:37,257 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-12 12:20:37,534 - INFO -  * Restarting with stat
+2024-03-12 12:20:39,410 - WARNING -  * Debugger is active!
+2024-03-12 12:20:39,423 - INFO -  * Debugger PIN: 579-921-519
+2024-03-12 12:20:42,470 - INFO - 127.0.0.1 - - [12/Mar/2024 12:20:42] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:20:42,494 - INFO - 127.0.0.1 - - [12/Mar/2024 12:20:42] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:20:54,950 - INFO - 127.0.0.1 - - [12/Mar/2024 12:20:54] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:20:55,250 - INFO - 127.0.0.1 - - [12/Mar/2024 12:20:55] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:21:10,116 - INFO - 127.0.0.1 - - [12/Mar/2024 12:21:10] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:21:10,138 - INFO - 127.0.0.1 - - [12/Mar/2024 12:21:10] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:21:47,852 - INFO - 127.0.0.1 - - [12/Mar/2024 12:21:47] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:21:51,189 - INFO - 127.0.0.1 - - [12/Mar/2024 12:21:51] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:21:51,190 - INFO - 127.0.0.1 - - [12/Mar/2024 12:21:51] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:21:52,309 - INFO - 127.0.0.1 - - [12/Mar/2024 12:21:52] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:21:52,326 - INFO - 127.0.0.1 - - [12/Mar/2024 12:21:52] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:21:53,211 - INFO - 127.0.0.1 - - [12/Mar/2024 12:21:53] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:21:53,212 - INFO - 127.0.0.1 - - [12/Mar/2024 12:21:53] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:21:56,570 - INFO - 127.0.0.1 - - [12/Mar/2024 12:21:56] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:22:18,132 - INFO - 127.0.0.1 - - [12/Mar/2024 12:22:18] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:22:18,152 - INFO - 127.0.0.1 - - [12/Mar/2024 12:22:18] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:22:20,255 - INFO - 127.0.0.1 - - [12/Mar/2024 12:22:20] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:22:20,553 - INFO - 127.0.0.1 - - [12/Mar/2024 12:22:20] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:23:08,881 - INFO - 127.0.0.1 - - [12/Mar/2024 12:23:08] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:23:17,807 - INFO - 127.0.0.1 - - [12/Mar/2024 12:23:17] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:23:18,101 - INFO - 127.0.0.1 - - [12/Mar/2024 12:23:18] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:27:19,536 - INFO - 127.0.0.1 - - [12/Mar/2024 12:27:19] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:27:19,537 - INFO - 127.0.0.1 - - [12/Mar/2024 12:27:19] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:27:20,843 - INFO - 127.0.0.1 - - [12/Mar/2024 12:27:20] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 12:27:21,154 - INFO - 127.0.0.1 - - [12/Mar/2024 12:27:21] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 14:16:53,862 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\__init__.py', reloading
+2024-03-12 14:16:54,350 - INFO -  * Restarting with stat
+2024-03-12 14:17:00,074 - INFO -  * Restarting with stat
+2024-03-12 14:17:02,934 - INFO -  * Restarting with stat
+2024-03-12 14:23:11,460 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-12 14:23:11,465 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-12 14:23:11,467 - INFO -  * Restarting with stat
+2024-03-12 14:23:13,225 - WARNING -  * Debugger is active!
+2024-03-12 14:23:13,236 - INFO -  * Debugger PIN: 579-921-519
+2024-03-12 14:23:41,937 - INFO - user logged in
+2024-03-12 14:23:41,953 - INFO - 127.0.0.1 - - [12/Mar/2024 14:23:41] "POST /api/login HTTP/1.1" 200 -
+2024-03-12 14:23:47,370 - INFO - 127.0.0.1 - - [12/Mar/2024 14:23:47] "POST /api/logout HTTP/1.1" 200 -
+2024-03-12 15:38:45,401 - INFO - 127.0.0.1 - - [12/Mar/2024 15:38:45] "GET / HTTP/1.1" 200 -
+2024-03-12 15:38:45,508 - INFO - 127.0.0.1 - - [12/Mar/2024 15:38:45] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-03-12 15:38:56,377 - INFO - 127.0.0.1 - - [12/Mar/2024 15:38:56] "[33mGET /splash HTTP/1.1[0m" 404 -
+2024-03-12 15:40:11,571 - INFO - 127.0.0.1 - - [12/Mar/2024 15:40:11] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 15:40:11,591 - INFO - 127.0.0.1 - - [12/Mar/2024 15:40:11] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 15:40:11,653 - INFO - 127.0.0.1 - - [12/Mar/2024 15:40:11] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 15:40:11,672 - INFO - 127.0.0.1 - - [12/Mar/2024 15:40:11] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-12 15:40:11,828 - INFO - 127.0.0.1 - - [12/Mar/2024 15:40:11] "[31m[1mGET /api/login HTTP/1.1[0m" 405 -
+2024-03-12 15:40:11,911 - INFO - 127.0.0.1 - - [12/Mar/2024 15:40:11] "[31m[1mGET /api/login HTTP/1.1[0m" 405 -
+2024-03-12 15:40:12,214 - INFO - 127.0.0.1 - - [12/Mar/2024 15:40:12] "[31m[1mGET /api/login HTTP/1.1[0m" 405 -
+2024-03-12 15:40:12,236 - INFO - 127.0.0.1 - - [12/Mar/2024 15:40:12] "[31m[1mGET /api/login HTTP/1.1[0m" 405 -
+2024-03-13 10:53:19,881 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-13 10:53:19,887 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-13 10:53:19,900 - INFO -  * Restarting with stat
+2024-03-13 10:53:22,166 - WARNING -  * Debugger is active!
+2024-03-13 10:53:22,180 - INFO -  * Debugger PIN: 579-921-519
+2024-03-13 10:56:41,511 - INFO - 127.0.0.1 - - [13/Mar/2024 10:56:41] "POST /api/logout HTTP/1.1" 200 -
+2024-03-13 10:57:04,483 - INFO - 127.0.0.1 - - [13/Mar/2024 10:57:04] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-13 10:57:04,503 - INFO - user logged in
+2024-03-13 10:57:04,855 - INFO - 127.0.0.1 - - [13/Mar/2024 10:57:04] "POST /api/login HTTP/1.1" 200 -
+2024-03-13 10:58:34,439 - INFO - 127.0.0.1 - - [13/Mar/2024 10:58:34] "POST /api/logout HTTP/1.1" 200 -
+2024-03-13 10:59:17,401 - INFO - 127.0.0.1 - - [13/Mar/2024 10:59:17] "OPTIONS /api/login HTTP/1.1" 200 -
+2024-03-13 10:59:17,404 - INFO - user logged in
+2024-03-13 10:59:17,685 - INFO - 127.0.0.1 - - [13/Mar/2024 10:59:17] "POST /api/login HTTP/1.1" 200 -
+2024-03-13 10:59:50,718 - INFO - 127.0.0.1 - - [13/Mar/2024 10:59:50] "POST /api/logout HTTP/1.1" 200 -
+2024-03-13 11:03:42,963 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-13 11:03:42,971 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-13 11:03:42,975 - INFO -  * Restarting with stat
+2024-03-13 11:03:45,648 - WARNING -  * Debugger is active!
+2024-03-13 11:03:45,666 - INFO -  * Debugger PIN: 579-921-519
+2024-03-13 11:04:22,783 - INFO - user logged in
+2024-03-13 11:04:23,152 - INFO - 127.0.0.1 - - [13/Mar/2024 11:04:23] "POST /api/login HTTP/1.1" 200 -
+2024-03-13 11:04:38,734 - INFO - 127.0.0.1 - - [13/Mar/2024 11:04:38] "POST /api/logout HTTP/1.1" 200 -
+2024-03-13 11:05:18,956 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-13 11:05:18,965 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-13 11:05:18,970 - INFO -  * Restarting with stat
+2024-03-13 11:05:21,304 - WARNING -  * Debugger is active!
+2024-03-13 11:05:21,317 - INFO -  * Debugger PIN: 579-921-519

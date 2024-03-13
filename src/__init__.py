@@ -1,5 +1,6 @@
 
 from flask import Flask
+from flask_cors import CORS
 from flask_session import Session
 import config
 import sys
@@ -26,6 +27,7 @@ def create_app():
     app.config['FLASK_APP']=os.getenv('FLASK_APP')
     app.config['FLASK_DEBUG']=os.getenv('FLASK_DEBUG')
     Session(app)
+    CORS(app)
 
     from src.authentication.views import authentication_bp
     from src.change_order.views import change_order_bp
