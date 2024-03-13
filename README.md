@@ -808,10 +808,22 @@ MarkupSafe comes with Jinja. It escapes untrusted input when rendering templates
 ItsDangerous securely signs data to ensure its integrity. This is used to protect Flask's session cookie.
 Click is a framework for writing command-line applications. It provides the flask command allows adding custom management commands.
 
-CORS & VIDEOS
+CORS STACKOVERFLOW & CORS VIDEOS & MISC. STUFF
 
 https://stackoverflow.com/questions/69963975/how-to-set-cookie-from-flask-to-reactjs
 
 https://www.youtube.com/watch?v=34wC1C61lg0
 
 https://www.youtube.com/watch?v=PNtFSVU-YTI&t=233s
+
+
+Stop Using Local Storage
+https://dev.to/rdegges/please-stop-using-local-storage-1i04
+
+Python and Mongo DB
+
+Build a python db w/Mongo
+https://www.mongodb.com/languages/python
+
+Principles of Data Modeling for MongoDB
+https://www.youtube.com/watch?v=BC-NahZ5jsY
