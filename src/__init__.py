@@ -1,6 +1,6 @@
 
 from flask import Flask
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from flask_session import Session
 import config
 import sys
@@ -26,8 +26,11 @@ def create_app():
     app.config['APP_SETTINGS']=os.getenv('APP_SETTINGS')
     app.config['FLASK_APP']=os.getenv('FLASK_APP')
     app.config['FLASK_DEBUG']=os.getenv('FLASK_DEBUG')
+    app.config['MONGO_URI'] = 'mongodb://localhost:27017'
+    app.config['MONGO_DBNAME'] = 'lats_api_db'
     Session(app)
-    CORS(app)
+    cors = CORS(app, resoureces={r"/api/*": {"origins": "http://localhost:19006/"}})
+    app.config['CORS_HEADERS'] = 'Content-Type'
 
     from src.authentication.views import authentication_bp
     from src.change_order.views import change_order_bp
