@@ -796,4 +796,48 @@ MOCK OBJECTS
 if __name__ == '__main__':
     unittest.main()
 
+CONNECTING FLASK TO REACT:
 
+https://dev.to/ondiek/connecting-a-react-frontend-to-a-flask-backend-h1o
+https://www.geeksforgeeks.org/how-to-connect-reactjs-with-flask-api/
+
+
+Werkzeug implements WSGI, the standard Python interface between applications and servers.
+Jinja is a template language that renders the pages your application serves
+MarkupSafe comes with Jinja. It escapes untrusted input when rendering templates to avoid injection attacks
+ItsDangerous securely signs data to ensure its integrity. This is used to protect Flask's session cookie.
+Click is a framework for writing command-line applications. It provides the flask command allows adding custom management commands.
+
+CORS STACKOVERFLOW & CORS VIDEOS & MISC. STUFF
+
+https://stackoverflow.com/questions/69963975/how-to-set-cookie-from-flask-to-reactjs
+
+https://www.youtube.com/watch?v=34wC1C61lg0
+
+https://www.youtube.com/watch?v=PNtFSVU-YTI&t=233s
+
+
+Stop Using Local Storage
+https://dev.to/rdegges/please-stop-using-local-storage-1i04
+
+Python and Mongo DB
+
+Build a python db w/Mongo
+https://www.mongodb.com/languages/python
+
+Principles of Data Modeling for MongoDB
+https://www.youtube.com/watch?v=BC-NahZ5jsY
+
+
+
+https://testapi.latax.la.gov/swagger/index.html
+
+HOW TO USE MONGODB AT THE COMMAND LINE:
+    Go to the directory the binary is installed (to find it use the which mongod)
+    Start the mongodb shell >> mongosh
+    HERE ARE LIST OF COMMANDS
+        To list the databases: show dbs
+        To switch to a specific database: use <db_name>
+        To list collections in the current database: show collections
+        To display all documents in a collection: db.<collection_name>.find()
+        To display only the first few documents: db.<collection_name>.find().limit(num_of_docs_to_show)
