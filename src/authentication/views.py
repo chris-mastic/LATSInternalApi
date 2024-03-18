@@ -20,6 +20,7 @@ import oracle_db_connection as odb
 from pymongo import MongoClient
 import warnings
 import functools
+from db.mongo_db import user
 
 
 logging.basicConfig(level=logging.DEBUG, filename=__name__, filemode="a",
@@ -44,6 +45,28 @@ def deprecated(func):
         return func(*args, **kwargs)
     return new_func
 
+""" Following two functions are intended to handle CORS related issuses
+"""
+
+@authentication_bp.route('/api/login', methods=['OPTIONS'])
+def handle_preflight():
+    """ This function receives the browser's preflight request (An HTTP OPTIONS request)
+        The request should include headers (Orign, Access-Control-Request-Method and 
+        Access-Control-Request-Headers). This will cause the server to respond with
+        appropriate CORS headers indicating whether the actual request is allowed
+        from the specific orign. The server includes CORS headers in its response (prefilight
+        or acutal). The acutal headers are set in __init__.py.
+    """
+    return '', 204  # No content, just acknowledge the preflight request
+
+
+@authentication_bp.after_request
+def set_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "*"
+    return response
+
 
 @authentication_bp.route("/", methods=['GET', 'POST'])
 def index():
@@ -56,31 +79,20 @@ def logout():
     ltc_api = LTCApiConnections(logging)
     req = json.loads(request.data)
     token = req['token']
+    username = req['username']
 
     with current_app.app_context():
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
         col = mongodb["user_session"]
-        if active_session(col, token):
-            remove_user_session_from_mongodb(col, token)
+        if user.active_session(col, token):
+            resp = ltc_api.logout(username, token)
+            user.remove_user_session_from_mongodb(col, token)
             del ltc_api
             return create_json_object(message="Logged out")
 
         else:
             return create_json_object(message="Not logged in")
-
-
-@authentication_bp.route('/api/login', methods=['OPTIONS'])
-def handle_preflight():
-    return '', 204  # No content, just acknowledge the preflight request
-
-
-@authentication_bp.after_request
-def set_headers(response):
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Headers"] = "*"
-    response.headers["Access-Control-Allow-Methods"] = "*"
-    return response
 
 
 @authentication_bp.route("/api/login", methods=['POST'])
@@ -100,18 +112,19 @@ def login() -> object:
     token = req['token']
 
     with current_app.app_context():
+
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
         col = mongodb["user_session"]
 
         # Check if user has an active session
-        is_valid_session = active_session(col, token)
+        is_valid_session = user.active_session(col, token)
 
         # User has an active session
         if is_valid_session:
             logging.info("user tried to log in again")
             # return the values already stored in the session dictionary from previous login
-            user_session_info = get_user_session_data(col, token)
+            user_session_info = user.get_user_session_data(col, token)
             if 'token' in user_session_info:
                 return create_json_object(token=user_session_info['token'], expiration=user_session_info['expiration'], username=user_session_info['username'])
             else:
@@ -131,7 +144,7 @@ def login() -> object:
                 return create_json_object(message="Failed to receive response from LTC")
 
             # Valid response, write to database
-            insert_user_session_into_mongodb(
+            user.insert_user_session_into_mongodb(
                 col,  response['token'], username, response['expiration'])
             del ltc_api
 
@@ -177,48 +190,10 @@ def create_salted_key(api_token):
 
 @authentication_bp.route("/api/reset_password", methods=['GET', 'POST'])
 def reset_password():
-    "username, oldpassword,newpassword"
-    return "ok"
-
+    return create_json_object(message="password reset")
+    
 
 @authentication_bp.route("/api/forgot_password", methods=['GET', 'POST'])
 def forgot_password():
-    return "ok"
-
-
-def active_session(col, session_id: str) -> bool:
-
-    user_session_data = {'session': session_id}
-
-    try:
-        user_profile = col.find_one(user_session_data)
-        return True if user_profile.get("session") else False
-
-    except:
-        return False
-
-
-def get_user_session_data(col, session_id: str) -> dict:
-    user_session_data = {'token': session_id}
-    session_dict = {}
-    try:
-        user_profile = col.find_one(user_session_data)
-        session_dict['token'] = user_profile.get("token")
-        session_dict['expiration'] = user_profile.get("expiration")
-        session_dict['username'] = user_profile.get("username")
-        return (session_dict)
-
-    except:
-        return session_dict
-
-
-def remove_user_session_from_mongodb(col, auth_token):
-    user_session_data = {'token': auth_token}
-    col.delete_one(user_session_data)
-
-
-def insert_user_session_into_mongodb(col, auth_token, username, expiration):
-    user_session_data = {'token': auth_token,
-                         'username': username, 'date': datetime.now(),
-                         'expiration': expiration}
-    col.insert_one(user_session_data)
+    return create_json_object(message="check email for password reset link")
+    

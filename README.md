@@ -831,3 +831,13 @@ https://www.youtube.com/watch?v=BC-NahZ5jsY
 
 
 https://testapi.latax.la.gov/swagger/index.html
+
+HOW TO USE MONGODB AT THE COMMAND LINE:
+    Go to the directory the binary is installed (to find it use the which mongod)
+    Start the mongodb shell >> mongosh
+    HERE ARE LIST OF COMMANDS
+        To list the databases: show dbs
+        To switch to a specific database: use <db_name>
+        To list collections in the current database: show collections
+        To display all documents in a collection: db.<collection_name>.find()
+        To display only the first few documents: db.<collection_name>.find().limit(num_of_docs_to_show)

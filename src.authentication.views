@@ -4002,3 +4002,545 @@
 2024-03-15 16:25:54,481 - INFO - 127.0.0.1 - - [15/Mar/2024 16:25:54] "POST /api/logout HTTP/1.1" 200 -
 2024-03-15 16:26:30,421 - INFO - 127.0.0.1 - - [15/Mar/2024 16:26:30] "POST /api/login HTTP/1.1" 200 -
 2024-03-15 16:27:19,592 - INFO - 127.0.0.1 - - [15/Mar/2024 16:27:19] "POST /api/logout HTTP/1.1" 200 -
+2024-03-18 09:28:05,389 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 09:28:05,405 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 09:28:05,412 - INFO -  * Restarting with stat
+2024-03-18 09:28:07,343 - WARNING -  * Debugger is active!
+2024-03-18 09:28:07,353 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:28:15,015 - INFO - 127.0.0.1 - - [18/Mar/2024 09:28:15] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 09:29:14,340 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 09:29:14,576 - INFO -  * Restarting with stat
+2024-03-18 09:29:16,513 - WARNING -  * Debugger is active!
+2024-03-18 09:29:16,523 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:29:30,727 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 09:29:31,017 - INFO -  * Restarting with stat
+2024-03-18 09:29:32,991 - WARNING -  * Debugger is active!
+2024-03-18 09:29:33,002 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:29:40,262 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 09:29:40,483 - INFO -  * Restarting with stat
+2024-03-18 09:29:42,472 - WARNING -  * Debugger is active!
+2024-03-18 09:29:42,482 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:31:41,643 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 09:31:41,896 - INFO -  * Restarting with stat
+2024-03-18 09:31:43,891 - WARNING -  * Debugger is active!
+2024-03-18 09:31:43,899 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:31:46,404 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 09:31:46,642 - INFO -  * Restarting with stat
+2024-03-18 09:31:51,638 - INFO -  * Restarting with stat
+2024-03-18 09:31:53,389 - WARNING -  * Debugger is active!
+2024-03-18 09:31:53,398 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:31:54,866 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 09:31:55,186 - INFO -  * Restarting with stat
+2024-03-18 09:31:57,067 - WARNING -  * Debugger is active!
+2024-03-18 09:31:57,077 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:33:31,328 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 09:33:31,572 - INFO -  * Restarting with stat
+2024-03-18 09:33:33,408 - WARNING -  * Debugger is active!
+2024-03-18 09:33:33,418 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:33:35,928 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 09:33:36,183 - INFO -  * Restarting with stat
+2024-03-18 09:33:38,327 - WARNING -  * Debugger is active!
+2024-03-18 09:33:38,337 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:33:43,355 - INFO - 127.0.0.1 - - [18/Mar/2024 09:33:43] "POST /api/logout HTTP/1.1" 200 -
+2024-03-18 09:34:05,223 - INFO - 127.0.0.1 - - [18/Mar/2024 09:34:05] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 09:34:33,691 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 09:34:33,971 - INFO -  * Restarting with stat
+2024-03-18 09:34:35,911 - WARNING -  * Debugger is active!
+2024-03-18 09:34:35,919 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:35:48,069 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 09:35:48,339 - INFO -  * Restarting with stat
+2024-03-18 09:35:50,233 - WARNING -  * Debugger is active!
+2024-03-18 09:35:50,243 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:35:57,789 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 09:35:57,795 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 09:35:57,797 - INFO -  * Restarting with stat
+2024-03-18 09:36:00,057 - WARNING -  * Debugger is active!
+2024-03-18 09:36:00,066 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:36:02,357 - INFO - 127.0.0.1 - - [18/Mar/2024 09:36:02] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 09:38:56,321 - INFO - 127.0.0.1 - - [18/Mar/2024 09:38:56] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 09:43:09,419 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 09:43:09,720 - INFO -  * Restarting with stat
+2024-03-18 09:43:12,041 - WARNING -  * Debugger is active!
+2024-03-18 09:43:12,054 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:43:19,043 - INFO - 127.0.0.1 - - [18/Mar/2024 09:43:19] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 09:43:34,438 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 09:43:34,710 - INFO -  * Restarting with stat
+2024-03-18 09:43:39,581 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 09:43:39,587 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 09:43:39,589 - INFO -  * Restarting with stat
+2024-03-18 09:43:41,578 - WARNING -  * Debugger is active!
+2024-03-18 09:43:41,586 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:43:42,850 - INFO - 127.0.0.1 - - [18/Mar/2024 09:43:42] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 09:57:38,771 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 09:57:39,015 - INFO -  * Restarting with stat
+2024-03-18 09:57:41,084 - WARNING -  * Debugger is active!
+2024-03-18 09:57:41,097 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:57:50,429 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 09:57:50,695 - INFO -  * Restarting with stat
+2024-03-18 09:57:53,113 - WARNING -  * Debugger is active!
+2024-03-18 09:57:53,150 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:58:01,765 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 09:58:02,082 - INFO -  * Restarting with stat
+2024-03-18 09:58:04,117 - WARNING -  * Debugger is active!
+2024-03-18 09:58:04,130 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:58:09,341 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 09:58:09,347 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 09:58:09,349 - INFO -  * Restarting with stat
+2024-03-18 09:58:11,374 - WARNING -  * Debugger is active!
+2024-03-18 09:58:11,385 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 09:58:16,798 - INFO - 127.0.0.1 - - [18/Mar/2024 09:58:16] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 09:59:43,094 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 09:59:43,364 - INFO -  * Restarting with stat
+2024-03-18 09:59:56,032 - INFO -  * Restarting with stat
+2024-03-18 10:00:04,491 - INFO -  * Restarting with stat
+2024-03-18 10:00:30,330 - INFO -  * Restarting with stat
+2024-03-18 10:00:32,254 - WARNING -  * Debugger is active!
+2024-03-18 10:00:32,262 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:00:45,081 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:00:45,326 - INFO -  * Restarting with stat
+2024-03-18 10:00:47,336 - WARNING -  * Debugger is active!
+2024-03-18 10:00:47,347 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:00:48,903 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:00:49,196 - INFO -  * Restarting with stat
+2024-03-18 10:00:51,398 - WARNING -  * Debugger is active!
+2024-03-18 10:00:51,408 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:00:51,844 - INFO - 127.0.0.1 - - [18/Mar/2024 10:00:51] "[35m[1mPOST /api/login HTTP/1.1[0m" 500 -
+2024-03-18 10:00:54,656 - INFO - 127.0.0.1 - - [18/Mar/2024 10:00:54] "[35m[1mPOST /api/login HTTP/1.1[0m" 500 -
+2024-03-18 10:00:59,729 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:00:59,973 - INFO -  * Restarting with stat
+2024-03-18 10:01:01,780 - WARNING -  * Debugger is active!
+2024-03-18 10:01:01,788 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:01:07,223 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 10:01:07,230 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 10:01:07,231 - INFO -  * Restarting with stat
+2024-03-18 10:01:09,248 - WARNING -  * Debugger is active!
+2024-03-18 10:01:09,257 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:01:10,290 - INFO - 127.0.0.1 - - [18/Mar/2024 10:01:10] "[35m[1mPOST /api/login HTTP/1.1[0m" 500 -
+2024-03-18 10:01:22,144 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:01:22,400 - INFO -  * Restarting with stat
+2024-03-18 10:01:24,248 - WARNING -  * Debugger is active!
+2024-03-18 10:01:24,258 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:01:25,652 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:01:25,873 - INFO -  * Restarting with stat
+2024-03-18 10:01:27,927 - WARNING -  * Debugger is active!
+2024-03-18 10:01:27,936 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:01:28,141 - INFO - 127.0.0.1 - - [18/Mar/2024 10:01:28] "[35m[1mPOST /api/login HTTP/1.1[0m" 500 -
+2024-03-18 10:01:38,575 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:01:39,041 - INFO -  * Restarting with stat
+2024-03-18 10:01:40,974 - WARNING -  * Debugger is active!
+2024-03-18 10:01:40,982 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:01:42,454 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:01:42,785 - INFO -  * Restarting with stat
+2024-03-18 10:01:44,822 - WARNING -  * Debugger is active!
+2024-03-18 10:01:44,832 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:01:53,073 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 10:01:53,320 - INFO -  * Restarting with stat
+2024-03-18 10:01:55,181 - WARNING -  * Debugger is active!
+2024-03-18 10:01:55,190 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:02:01,131 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 10:02:01,353 - INFO -  * Restarting with stat
+2024-03-18 10:02:03,237 - WARNING -  * Debugger is active!
+2024-03-18 10:02:03,246 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:02:09,250 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 10:02:09,256 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 10:02:09,258 - INFO -  * Restarting with stat
+2024-03-18 10:02:11,221 - WARNING -  * Debugger is active!
+2024-03-18 10:02:11,230 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:02:11,694 - INFO - 127.0.0.1 - - [18/Mar/2024 10:02:11] "[35m[1mPOST /api/login HTTP/1.1[0m" 500 -
+2024-03-18 10:02:30,959 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 10:02:31,526 - INFO -  * Restarting with stat
+2024-03-18 10:02:33,435 - WARNING -  * Debugger is active!
+2024-03-18 10:02:33,445 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:02:35,320 - INFO - 127.0.0.1 - - [18/Mar/2024 10:02:35] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 10:04:29,571 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 10:04:29,869 - INFO -  * Restarting with stat
+2024-03-18 10:04:32,052 - WARNING -  * Debugger is active!
+2024-03-18 10:04:32,062 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:04:36,949 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 10:04:37,217 - INFO -  * Restarting with stat
+2024-03-18 10:04:39,213 - WARNING -  * Debugger is active!
+2024-03-18 10:04:39,225 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:04:41,834 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 10:04:42,074 - INFO -  * Restarting with stat
+2024-03-18 10:04:43,935 - WARNING -  * Debugger is active!
+2024-03-18 10:04:43,945 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:04:46,487 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 10:04:46,791 - INFO -  * Restarting with stat
+2024-03-18 10:04:53,150 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 10:04:53,155 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 10:04:53,157 - INFO -  * Restarting with stat
+2024-03-18 10:04:55,182 - WARNING -  * Debugger is active!
+2024-03-18 10:04:55,192 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:04:55,600 - INFO - 127.0.0.1 - - [18/Mar/2024 10:04:55] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 10:06:17,648 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 10:06:17,966 - INFO -  * Restarting with stat
+2024-03-18 10:06:20,117 - WARNING -  * Debugger is active!
+2024-03-18 10:06:20,128 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:06:26,184 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 10:06:26,445 - INFO -  * Restarting with stat
+2024-03-18 10:06:28,400 - WARNING -  * Debugger is active!
+2024-03-18 10:06:28,408 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:06:37,897 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 10:06:38,170 - INFO -  * Restarting with stat
+2024-03-18 10:06:40,205 - WARNING -  * Debugger is active!
+2024-03-18 10:06:40,215 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:06:41,702 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 10:06:41,999 - INFO -  * Restarting with stat
+2024-03-18 10:06:51,526 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 10:06:51,534 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 10:06:51,536 - INFO -  * Restarting with stat
+2024-03-18 10:06:54,009 - WARNING -  * Debugger is active!
+2024-03-18 10:06:54,021 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:06:54,565 - INFO - 127.0.0.1 - - [18/Mar/2024 10:06:54] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 10:06:57,215 - INFO - 127.0.0.1 - - [18/Mar/2024 10:06:57] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 10:08:55,239 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:08:55,492 - INFO -  * Restarting with stat
+2024-03-18 10:08:57,482 - WARNING -  * Debugger is active!
+2024-03-18 10:08:57,493 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:08:58,953 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:08:59,180 - INFO -  * Restarting with stat
+2024-03-18 10:09:01,101 - WARNING -  * Debugger is active!
+2024-03-18 10:09:01,110 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:09:03,665 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:09:03,910 - INFO -  * Restarting with stat
+2024-03-18 10:09:05,798 - WARNING -  * Debugger is active!
+2024-03-18 10:09:05,807 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:09:08,362 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:09:08,592 - INFO -  * Restarting with stat
+2024-03-18 10:09:10,467 - WARNING -  * Debugger is active!
+2024-03-18 10:09:10,476 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:09:11,827 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:09:12,073 - INFO -  * Restarting with stat
+2024-03-18 10:09:14,057 - WARNING -  * Debugger is active!
+2024-03-18 10:09:14,066 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:09:14,319 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:09:14,563 - INFO -  * Restarting with stat
+2024-03-18 10:09:16,374 - WARNING -  * Debugger is active!
+2024-03-18 10:09:16,384 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:09:25,807 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:09:26,117 - INFO -  * Restarting with stat
+2024-03-18 10:09:30,576 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 10:09:30,582 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 10:09:30,583 - INFO -  * Restarting with stat
+2024-03-18 10:09:32,544 - WARNING -  * Debugger is active!
+2024-03-18 10:09:32,554 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:09:32,778 - INFO - 127.0.0.1 - - [18/Mar/2024 10:09:32] "POST /api/logout HTTP/1.1" 200 -
+2024-03-18 10:10:31,240 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 10:10:31,482 - INFO -  * Restarting with stat
+2024-03-18 10:10:33,401 - WARNING -  * Debugger is active!
+2024-03-18 10:10:33,410 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:10:38,116 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 10:10:38,121 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 10:10:38,124 - INFO -  * Restarting with stat
+2024-03-18 10:10:40,072 - WARNING -  * Debugger is active!
+2024-03-18 10:10:40,083 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:10:40,289 - INFO - 127.0.0.1 - - [18/Mar/2024 10:10:40] "POST /api/logout HTTP/1.1" 200 -
+2024-03-18 10:11:19,367 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 10:11:19,621 - INFO -  * Restarting with stat
+2024-03-18 10:11:21,461 - WARNING -  * Debugger is active!
+2024-03-18 10:11:21,471 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:11:25,198 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\db\\mongo_db\\user.py', reloading
+2024-03-18 10:11:25,464 - INFO -  * Restarting with stat
+2024-03-18 10:11:27,206 - WARNING -  * Debugger is active!
+2024-03-18 10:11:27,214 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:11:32,023 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 10:11:32,030 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 10:11:32,033 - INFO -  * Restarting with stat
+2024-03-18 10:11:33,942 - WARNING -  * Debugger is active!
+2024-03-18 10:11:33,952 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:11:34,292 - INFO - 127.0.0.1 - - [18/Mar/2024 10:11:34] "POST /api/logout HTTP/1.1" 200 -
+2024-03-18 10:21:45,493 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:21:46,444 - INFO -  * Restarting with stat
+2024-03-18 10:21:52,440 - WARNING -  * Debugger is active!
+2024-03-18 10:21:52,466 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:22:07,666 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:22:07,968 - INFO -  * Restarting with stat
+2024-03-18 10:22:10,980 - WARNING -  * Debugger is active!
+2024-03-18 10:22:11,003 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:22:38,209 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:22:38,563 - INFO -  * Restarting with stat
+2024-03-18 10:22:41,260 - WARNING -  * Debugger is active!
+2024-03-18 10:22:41,280 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:22:56,135 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:22:56,441 - INFO -  * Restarting with stat
+2024-03-18 10:22:58,873 - WARNING -  * Debugger is active!
+2024-03-18 10:22:58,895 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:23:02,740 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:23:03,040 - INFO -  * Restarting with stat
+2024-03-18 10:23:05,446 - WARNING -  * Debugger is active!
+2024-03-18 10:23:05,467 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:23:37,652 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:23:37,923 - INFO -  * Restarting with stat
+2024-03-18 10:23:40,168 - WARNING -  * Debugger is active!
+2024-03-18 10:23:40,191 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:23:42,905 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:23:43,200 - INFO -  * Restarting with stat
+2024-03-18 10:23:45,371 - WARNING -  * Debugger is active!
+2024-03-18 10:23:45,387 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:23:46,965 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:23:47,274 - INFO -  * Restarting with stat
+2024-03-18 10:23:50,613 - WARNING -  * Debugger is active!
+2024-03-18 10:23:50,700 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:24:07,252 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:24:07,521 - INFO -  * Restarting with stat
+2024-03-18 10:24:09,929 - WARNING -  * Debugger is active!
+2024-03-18 10:24:09,950 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:24:11,480 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:24:11,744 - INFO -  * Restarting with stat
+2024-03-18 10:24:13,897 - WARNING -  * Debugger is active!
+2024-03-18 10:24:13,913 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:24:19,004 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:24:19,287 - INFO -  * Restarting with stat
+2024-03-18 10:24:21,951 - WARNING -  * Debugger is active!
+2024-03-18 10:24:21,970 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:24:25,803 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:24:26,073 - INFO -  * Restarting with stat
+2024-03-18 10:24:28,584 - WARNING -  * Debugger is active!
+2024-03-18 10:24:28,601 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:29:04,308 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:29:04,596 - INFO -  * Restarting with stat
+2024-03-18 10:29:07,011 - WARNING -  * Debugger is active!
+2024-03-18 10:29:07,026 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:29:14,286 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:29:14,575 - INFO -  * Restarting with stat
+2024-03-18 10:29:16,816 - WARNING -  * Debugger is active!
+2024-03-18 10:29:16,831 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:29:23,044 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:29:23,333 - INFO -  * Restarting with stat
+2024-03-18 10:29:25,681 - WARNING -  * Debugger is active!
+2024-03-18 10:29:25,700 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:29:27,237 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:29:27,506 - INFO -  * Restarting with stat
+2024-03-18 10:29:29,952 - WARNING -  * Debugger is active!
+2024-03-18 10:29:29,968 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:29:36,137 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:29:36,404 - INFO -  * Restarting with stat
+2024-03-18 10:29:38,733 - WARNING -  * Debugger is active!
+2024-03-18 10:29:38,755 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:29:41,486 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:29:41,795 - INFO -  * Restarting with stat
+2024-03-18 10:29:43,903 - WARNING -  * Debugger is active!
+2024-03-18 10:29:43,918 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:29:47,799 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:29:48,076 - INFO -  * Restarting with stat
+2024-03-18 10:29:50,413 - WARNING -  * Debugger is active!
+2024-03-18 10:29:50,432 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:29:52,003 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:29:52,279 - INFO -  * Restarting with stat
+2024-03-18 10:29:54,397 - WARNING -  * Debugger is active!
+2024-03-18 10:29:54,411 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:30:01,683 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:30:01,953 - INFO -  * Restarting with stat
+2024-03-18 10:30:04,255 - WARNING -  * Debugger is active!
+2024-03-18 10:30:04,271 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:30:15,167 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:30:15,489 - INFO -  * Restarting with stat
+2024-03-18 10:30:17,781 - WARNING -  * Debugger is active!
+2024-03-18 10:30:17,794 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:30:32,977 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:30:33,228 - INFO -  * Restarting with stat
+2024-03-18 10:30:35,122 - WARNING -  * Debugger is active!
+2024-03-18 10:30:35,139 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:30:39,980 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:30:40,220 - INFO -  * Restarting with stat
+2024-03-18 10:30:42,001 - WARNING -  * Debugger is active!
+2024-03-18 10:30:42,015 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:30:49,092 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:30:49,314 - INFO -  * Restarting with stat
+2024-03-18 10:30:51,139 - WARNING -  * Debugger is active!
+2024-03-18 10:30:51,152 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:31:03,944 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:31:04,199 - INFO -  * Restarting with stat
+2024-03-18 10:31:06,189 - WARNING -  * Debugger is active!
+2024-03-18 10:31:06,201 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:31:09,895 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:31:10,132 - INFO -  * Restarting with stat
+2024-03-18 10:31:11,926 - WARNING -  * Debugger is active!
+2024-03-18 10:31:11,942 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:31:16,788 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:31:17,031 - INFO -  * Restarting with stat
+2024-03-18 10:31:18,923 - WARNING -  * Debugger is active!
+2024-03-18 10:31:18,936 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:31:30,705 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:31:30,929 - INFO -  * Restarting with stat
+2024-03-18 10:31:32,910 - WARNING -  * Debugger is active!
+2024-03-18 10:31:32,926 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:32:19,191 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:32:19,433 - INFO -  * Restarting with stat
+2024-03-18 10:32:21,388 - WARNING -  * Debugger is active!
+2024-03-18 10:32:21,402 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:32:26,277 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:32:26,499 - INFO -  * Restarting with stat
+2024-03-18 10:32:28,249 - WARNING -  * Debugger is active!
+2024-03-18 10:32:28,261 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:32:34,196 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:32:34,447 - INFO -  * Restarting with stat
+2024-03-18 10:32:36,441 - WARNING -  * Debugger is active!
+2024-03-18 10:32:36,455 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:32:37,886 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:32:38,113 - INFO -  * Restarting with stat
+2024-03-18 10:32:39,871 - WARNING -  * Debugger is active!
+2024-03-18 10:32:39,883 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:33:29,148 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:33:29,383 - INFO -  * Restarting with stat
+2024-03-18 10:33:31,200 - WARNING -  * Debugger is active!
+2024-03-18 10:33:31,214 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:33:34,892 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:33:35,130 - INFO -  * Restarting with stat
+2024-03-18 10:33:36,995 - WARNING -  * Debugger is active!
+2024-03-18 10:33:37,008 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:33:39,574 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:33:39,843 - INFO -  * Restarting with stat
+2024-03-18 10:33:41,714 - WARNING -  * Debugger is active!
+2024-03-18 10:33:41,727 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:33:44,216 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:33:44,465 - INFO -  * Restarting with stat
+2024-03-18 10:33:46,444 - WARNING -  * Debugger is active!
+2024-03-18 10:33:46,456 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:37:54,866 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\__init__.py', reloading
+2024-03-18 10:37:55,097 - INFO -  * Restarting with stat
+2024-03-18 10:37:57,331 - WARNING -  * Debugger is active!
+2024-03-18 10:37:57,345 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:37:58,769 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\__init__.py', reloading
+2024-03-18 10:37:59,037 - INFO -  * Restarting with stat
+2024-03-18 10:38:03,341 - INFO -  * Restarting with stat
+2024-03-18 10:38:05,328 - WARNING -  * Debugger is active!
+2024-03-18 10:38:05,344 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:38:07,961 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\__init__.py', reloading
+2024-03-18 10:38:08,193 - INFO -  * Restarting with stat
+2024-03-18 10:38:10,051 - WARNING -  * Debugger is active!
+2024-03-18 10:38:10,065 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:38:13,735 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\__init__.py', reloading
+2024-03-18 10:38:13,958 - INFO -  * Restarting with stat
+2024-03-18 10:38:20,288 - INFO -  * Restarting with stat
+2024-03-18 10:38:39,356 - INFO -  * Restarting with stat
+2024-03-18 10:38:41,632 - INFO -  * Restarting with stat
+2024-03-18 10:38:43,856 - INFO -  * Restarting with stat
+2024-03-18 10:38:47,245 - INFO -  * Restarting with stat
+2024-03-18 10:38:49,463 - INFO -  * Restarting with stat
+2024-03-18 10:39:13,784 - INFO -  * Restarting with stat
+2024-03-18 10:39:15,846 - WARNING -  * Debugger is active!
+2024-03-18 10:39:15,859 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:40:39,526 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\__init__.py', reloading
+2024-03-18 10:40:39,822 - INFO -  * Restarting with stat
+2024-03-18 10:40:41,765 - WARNING -  * Debugger is active!
+2024-03-18 10:40:41,777 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:41:19,713 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\__init__.py', reloading
+2024-03-18 10:41:19,941 - INFO -  * Restarting with stat
+2024-03-18 10:41:21,908 - WARNING -  * Debugger is active!
+2024-03-18 10:41:21,923 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:41:34,189 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 10:41:34,194 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 10:41:34,196 - INFO -  * Restarting with stat
+2024-03-18 10:41:35,978 - WARNING -  * Debugger is active!
+2024-03-18 10:41:35,989 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:42:37,560 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\__init__.py', reloading
+2024-03-18 10:42:37,884 - INFO -  * Restarting with stat
+2024-03-18 10:42:43,453 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 10:42:43,460 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 10:42:43,462 - INFO -  * Restarting with stat
+2024-03-18 10:42:45,628 - WARNING -  * Debugger is active!
+2024-03-18 10:42:45,639 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:42:57,337 - INFO - 127.0.0.1 - - [18/Mar/2024 10:42:57] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 10:43:09,016 - INFO - 127.0.0.1 - - [18/Mar/2024 10:43:09] "POST /api/logout HTTP/1.1" 200 -
+2024-03-18 10:43:31,301 - INFO - 127.0.0.1 - - [18/Mar/2024 10:43:31] "POST /api/logout HTTP/1.1" 200 -
+2024-03-18 10:43:49,841 - INFO - 127.0.0.1 - - [18/Mar/2024 10:43:49] "POST /api/logout HTTP/1.1" 200 -
+2024-03-18 10:43:59,653 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\__init__.py', reloading
+2024-03-18 10:43:59,900 - INFO -  * Restarting with stat
+2024-03-18 10:44:01,987 - WARNING -  * Debugger is active!
+2024-03-18 10:44:02,000 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:44:31,035 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\__init__.py', reloading
+2024-03-18 10:44:31,255 - INFO -  * Restarting with stat
+2024-03-18 10:44:33,072 - WARNING -  * Debugger is active!
+2024-03-18 10:44:33,081 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:45:06,444 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\__init__.py', reloading
+2024-03-18 10:45:06,680 - INFO -  * Restarting with stat
+2024-03-18 10:45:08,475 - WARNING -  * Debugger is active!
+2024-03-18 10:45:08,483 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:45:17,912 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:45:18,172 - INFO -  * Restarting with stat
+2024-03-18 10:45:19,995 - WARNING -  * Debugger is active!
+2024-03-18 10:45:20,004 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 10:45:30,485 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 10:45:30,762 - INFO -  * Restarting with stat
+2024-03-18 10:45:32,764 - WARNING -  * Debugger is active!
+2024-03-18 10:45:32,773 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 11:39:36,353 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 11:39:36,357 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 11:39:36,359 - INFO -  * Restarting with stat
+2024-03-18 11:39:38,648 - WARNING -  * Debugger is active!
+2024-03-18 11:39:38,659 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 11:39:46,557 - INFO - 127.0.0.1 - - [18/Mar/2024 11:39:46] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 11:40:17,321 - INFO - 127.0.0.1 - - [18/Mar/2024 11:40:17] "POST /api/logout HTTP/1.1" 200 -
+2024-03-18 11:40:39,156 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 11:40:39,374 - INFO -  * Restarting with stat
+2024-03-18 11:40:41,186 - WARNING -  * Debugger is active!
+2024-03-18 11:40:41,196 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 11:40:59,879 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\services\\ltc_api_connections.py', reloading
+2024-03-18 11:41:00,202 - INFO -  * Restarting with stat
+2024-03-18 11:41:02,244 - WARNING -  * Debugger is active!
+2024-03-18 11:41:02,254 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 11:41:04,840 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\services\\ltc_api_connections.py', reloading
+2024-03-18 11:41:05,088 - INFO -  * Restarting with stat
+2024-03-18 11:41:07,006 - WARNING -  * Debugger is active!
+2024-03-18 11:41:07,020 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 11:41:09,587 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\services\\ltc_api_connections.py', reloading
+2024-03-18 11:41:09,839 - INFO -  * Restarting with stat
+2024-03-18 11:41:12,011 - WARNING -  * Debugger is active!
+2024-03-18 11:41:12,022 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 11:41:13,467 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\services\\ltc_api_connections.py', reloading
+2024-03-18 11:41:13,713 - INFO -  * Restarting with stat
+2024-03-18 11:41:15,497 - WARNING -  * Debugger is active!
+2024-03-18 11:41:15,508 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 11:41:16,943 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\services\\ltc_api_connections.py', reloading
+2024-03-18 11:41:17,207 - INFO -  * Restarting with stat
+2024-03-18 11:41:21,683 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 11:41:21,690 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 11:41:21,692 - INFO -  * Restarting with stat
+2024-03-18 11:41:23,644 - WARNING -  * Debugger is active!
+2024-03-18 11:41:23,653 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 11:41:24,894 - INFO - 127.0.0.1 - - [18/Mar/2024 11:41:24] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 11:41:38,858 - INFO - 127.0.0.1 - - [18/Mar/2024 11:41:38] "POST /api/logout HTTP/1.1" 200 -
+2024-03-18 11:41:59,433 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\services\\ltc_api_connections.py', reloading
+2024-03-18 11:41:59,659 - INFO -  * Restarting with stat
+2024-03-18 11:42:01,534 - WARNING -  * Debugger is active!
+2024-03-18 11:42:01,544 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 11:42:06,301 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\services\\ltc_api_connections.py', reloading
+2024-03-18 11:42:06,570 - INFO -  * Restarting with stat
+2024-03-18 11:42:08,528 - WARNING -  * Debugger is active!
+2024-03-18 11:42:08,538 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 11:42:20,224 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 11:42:20,468 - INFO -  * Restarting with stat
+2024-03-18 11:42:22,374 - WARNING -  * Debugger is active!
+2024-03-18 11:42:22,383 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 11:45:00,292 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 11:45:00,300 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 11:45:00,303 - INFO -  * Restarting with stat
+2024-03-18 11:56:43,204 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 11:56:43,210 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 11:56:43,212 - INFO -  * Restarting with stat
+2024-03-18 11:56:45,337 - WARNING -  * Debugger is active!
+2024-03-18 11:56:45,347 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 11:56:51,572 - INFO - 127.0.0.1 - - [18/Mar/2024 11:56:51] "POST /api/forgot_password HTTP/1.1" 200 -
+2024-03-18 11:57:18,893 - INFO - 127.0.0.1 - - [18/Mar/2024 11:57:18] "POST /api/reset_password HTTP/1.1" 200 -
+2024-03-18 11:57:23,486 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 11:57:23,805 - INFO -  * Restarting with stat
+2024-03-18 11:57:25,867 - WARNING -  * Debugger is active!
+2024-03-18 11:57:25,879 - INFO -  * Debugger PIN: 579-921-519
