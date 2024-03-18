@@ -2,8 +2,6 @@
 from flask import Flask
 from flask_cors import CORS, cross_origin
 from flask_session import Session
-import config
-import sys
 import os
 from dotenv import load_dotenv
 
@@ -19,6 +17,7 @@ from dotenv import load_dotenv
 def create_app():
     load_dotenv()
 
+
     app = Flask(__name__)
     app.config['SESSION_TYPE'] = os.getenv('SESSION_TYPE')
     app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY')
@@ -33,6 +32,12 @@ def create_app():
                 allow_headers=["Content-Type", "Authorization"],
                 supports_credentials=True)
 
+    print(f"app {app}")
+    print(f"app.config['SESSION_TYPE'] {app.config['SESSION_TYPE']}")
+    print(f"app.config['SECRET_KEY'] {app.config['SECRET_KEY']}")
+    print(f"app.config['APP_SETTINGS'] {app.config['APP_SETTINGS']}")
+    print(f"app.config['FLASK_APP'] {app.config['FLASK_APP']}")
+   
     from src.authentication.views import authentication_bp
     from src.change_order.views import change_order_bp
 

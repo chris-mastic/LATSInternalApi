@@ -3,10 +3,10 @@ import unittest
 
 from flask.cli import FlaskGroup
 
-from src import app
+from . import wsgi
 
 
-cli = FlaskGroup(app)
+cli = FlaskGroup(wsgi)
 print("just after creating Flask App")
 
 @cli.command("test")

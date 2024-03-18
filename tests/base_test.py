@@ -1,12 +1,12 @@
 import os
 from flask_testing import TestCase
-from src import app
+from . import wsgi
 
 
 class BaseTestCase(TestCase):
     def create_app(self):
-        app.config.from_object("config.TestingConfig")
-        return app
+        wsgi.config.from_object("config.TestingConfig")
+        return wsgi
     def setUp(self): pass
     
     def tearDown(self): pass
