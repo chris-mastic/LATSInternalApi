@@ -5261,3 +5261,62 @@
 2024-03-18 12:50:16,034 - INFO -  * Restarting with stat
 2024-03-18 12:50:17,839 - WARNING -  * Debugger is active!
 2024-03-18 12:50:17,847 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 15:12:53,442 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 15:12:53,447 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 15:12:53,450 - INFO -  * Restarting with stat
+2024-03-18 15:12:55,614 - WARNING -  * Debugger is active!
+2024-03-18 15:12:55,624 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 15:13:02,323 - INFO - 127.0.0.1 - - [18/Mar/2024 15:13:02] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 15:18:10,638 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 15:18:10,646 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 15:18:10,651 - INFO -  * Restarting with stat
+2024-03-18 15:18:12,901 - WARNING -  * Debugger is active!
+2024-03-18 15:18:12,910 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 15:18:15,637 - INFO - 127.0.0.1 - - [18/Mar/2024 15:18:15] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 15:18:21,048 - INFO - 127.0.0.1 - - [18/Mar/2024 15:18:21] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 15:20:03,358 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 15:20:03,641 - INFO -  * Restarting with stat
+2024-03-18 15:20:05,628 - WARNING -  * Debugger is active!
+2024-03-18 15:20:05,637 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 15:20:07,080 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 15:20:07,322 - INFO -  * Restarting with stat
+2024-03-18 15:20:09,278 - WARNING -  * Debugger is active!
+2024-03-18 15:20:09,289 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 15:20:22,918 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 15:20:22,924 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 15:20:22,925 - INFO -  * Restarting with stat
+2024-03-18 15:20:24,882 - WARNING -  * Debugger is active!
+2024-03-18 15:20:24,891 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 15:20:25,669 - INFO - 127.0.0.1 - - [18/Mar/2024 15:20:25] "[35m[1mPOST /api/login HTTP/1.1[0m" 500 -
+2024-03-18 15:20:34,260 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 15:20:34,549 - INFO -  * Restarting with stat
+2024-03-18 15:20:36,537 - WARNING -  * Debugger is active!
+2024-03-18 15:20:36,547 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 15:23:00,567 - INFO - 127.0.0.1 - - [18/Mar/2024 15:23:00] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 15:27:53,062 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 15:27:53,309 - INFO -  * Restarting with stat
+2024-03-18 15:27:55,447 - WARNING -  * Debugger is active!
+2024-03-18 15:27:55,455 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 15:28:03,667 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 15:28:03,903 - INFO -  * Restarting with stat
+2024-03-18 15:28:05,890 - WARNING -  * Debugger is active!
+2024-03-18 15:28:05,899 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 15:28:08,501 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\authentication\\views.py', reloading
+2024-03-18 15:28:08,921 - INFO -  * Restarting with stat
+2024-03-18 15:28:10,820 - WARNING -  * Debugger is active!
+2024-03-18 15:28:10,832 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 15:56:15,624 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 15:56:15,630 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 15:56:15,632 - INFO -  * Restarting with stat
+2024-03-18 15:56:17,772 - WARNING -  * Debugger is active!
+2024-03-18 15:56:17,781 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 15:56:20,443 - INFO - 127.0.0.1 - - [18/Mar/2024 15:56:20] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 15:56:54,694 - INFO - 127.0.0.1 - - [18/Mar/2024 15:56:54] "POST /api/logout HTTP/1.1" 200 -
+2024-03-18 15:57:12,388 - INFO - 127.0.0.1 - - [18/Mar/2024 15:57:12] "POST /api/logout HTTP/1.1" 200 -
+2024-03-18 15:57:27,889 - INFO - 127.0.0.1 - - [18/Mar/2024 15:57:27] "POST /api/logout HTTP/1.1" 200 -
+2024-03-18 15:57:41,586 - INFO - 127.0.0.1 - - [18/Mar/2024 15:57:41] "POST /api/logout HTTP/1.1" 200 -
+2024-03-18 15:57:57,734 - INFO - 127.0.0.1 - - [18/Mar/2024 15:57:57] "POST /api/logout HTTP/1.1" 200 -
