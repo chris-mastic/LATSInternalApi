@@ -10,7 +10,6 @@ import urllib.parse as urlParse
 import urllib.error as urlError
 import db.oracle_db_connection as odb
 import pandas as pd
-import services.helpers as helper
 import os
 
 logging.basicConfig(level=logging.DEBUG, filename=__name__, filemode="a",
