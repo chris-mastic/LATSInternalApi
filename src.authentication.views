@@ -5249,3 +5249,15 @@
 2024-03-11 13:22:12,226 - INFO - 127.0.0.1 - - [11/Mar/2024 13:22:12] "POST / HTTP/1.1" 200 -
 2024-03-11 13:22:22,987 - INFO - 127.0.0.1 - - [11/Mar/2024 13:22:22] "GET / HTTP/1.1" 200 -
 
+2024-03-18 12:48:35,172 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-03-18 12:48:35,181 - INFO - [33mPress CTRL+C to quit[0m
+2024-03-18 12:48:35,186 - INFO -  * Restarting with stat
+2024-03-18 12:48:37,086 - WARNING -  * Debugger is active!
+2024-03-18 12:48:37,097 - INFO -  * Debugger PIN: 579-921-519
+2024-03-18 12:48:42,767 - INFO - 127.0.0.1 - - [18/Mar/2024 12:48:42] "POST /api/login HTTP/1.1" 200 -
+2024-03-18 12:49:05,313 - INFO - 127.0.0.1 - - [18/Mar/2024 12:49:05] "POST /api/logout HTTP/1.1" 200 -
+2024-03-18 12:50:15,767 - INFO -  * Detected change in 'C:\\Users\\christopher.mazza\\source\\repos\\LATSInternalApi\\src\\__init__.py', reloading
+2024-03-18 12:50:16,034 - INFO -  * Restarting with stat
+2024-03-18 12:50:17,839 - WARNING -  * Debugger is active!
+2024-03-18 12:50:17,847 - INFO -  * Debugger PIN: 579-921-519

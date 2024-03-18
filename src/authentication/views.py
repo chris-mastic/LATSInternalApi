@@ -1,30 +1,16 @@
-import sys
 from bson.objectid import ObjectId
-from datetime import datetime
 from flask_cors import cross_origin
-
-# additional_paths = [
-#         'C:/Users/christopher.mazza/source/repos/LATSInternalApi/src/services/',
-#         'C:/Users/christopher.mazza/source/repos/LATSInternalApi/src/db/'
-#         ]
-# sys.path.extend(additional_paths)
-
-import helpers as helper
-from services.ltc_api_connections import LTCApiConnections
-
-from flask import Blueprint, request, render_template, jsonify, session, current_app
-
-from flask import Blueprint, redirect, request, render_template, jsonify, session, current_app, make_response, url_for
-
+import functools
 import flask
+from flask import Blueprint, request, render_template, jsonify, session, current_app
 from itsdangerous import URLSafeTimedSerializer
 import json
 import logging
-import oracle_db_connection as odb
 from pymongo import MongoClient
 import warnings
-import functools
+
 from db.mongo_db import user
+from services.ltc_api_connections import LTCApiConnections
 
 
 logging.basicConfig(level=logging.DEBUG, filename=__name__, filemode="a",
@@ -49,8 +35,10 @@ def deprecated(func):
         return func(*args, **kwargs)
     return new_func
 
+
 """ Following two functions are intended to handle CORS related issuses
 """
+
 
 @authentication_bp.route('/api/login', methods=['OPTIONS'])
 def handle_preflight():
@@ -70,53 +58,6 @@ def set_headers(response):
     response.headers["Access-Control-Allow-Headers"] = "*"
     response.headers["Access-Control-Allow-Methods"] = "*"
     return response
-
-
-@authentication_bp.route("/", methods=['GET', 'POST'])
-def index():
-    if request.method == "POST":
-        if "logout" in request.form: logout()
-        # Get the username and password from the form
-        username = request.form.get("username")
-        password = request.form.get("password")
-        print(f"username {username}")
-        # Validate the credentials (you can replace this with your own validation logic)
-        session_id_from_cookie = request.cookies.get('session')
-        session_id_from_server = session.sid
-
-        if helper.is_valid_session(session_id_from_cookie, session_id_from_server):
-            print("In if helper.is_valid_seesion")
-            # return the values already stored in the session dictionary from previous login
-            print(f"session_id_from_cookie {session_id_from_cookie}")
-            print(f"session_id_from_server {session_id_from_server}")
-            print(f"token {session.get('token')}")
-            print(f"userName {session.get('username')}")
-            print(f"userId {session.get('userId')}")
-            return jsonify({
-                'token': session.get('token'),
-                'expiration': session.get('expiration'),
-                'userName': session.get("username"),
-                'userId': session.get('userId'),
-                'roles': session.get('roles')
-            })
-        else:
-            # Create a new session
-            print("IN else")
-            ltc_api = LTCApiConnections(logging)
-            response = ltc_api.login(username, password)
-            print(f"resonpnse {response}")
-            set_flask_session_values(response)
-
-            if flask.session['token'] is None:
-                logging.error(f'{username} unable to log in to LTC site')
-                del ltc_api
-                return helper.clear_session(response)
-
-            del ltc_api
-            return create_json_object()
-
-
-    return render_template('authentication/login.html')
 
 
 @authentication_bp.route("/api/logout", methods=['POST'])
@@ -237,9 +178,8 @@ def create_salted_key(api_token):
 @authentication_bp.route("/api/reset_password", methods=['GET', 'POST'])
 def reset_password():
     return create_json_object(message="password reset")
-    
+
 
 @authentication_bp.route("/api/forgot_password", methods=['GET', 'POST'])
 def forgot_password():
     return create_json_object(message="check email for password reset link")
-    
