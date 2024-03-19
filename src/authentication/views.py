@@ -2,6 +2,7 @@ from bson.objectid import ObjectId
 from flask_cors import cross_origin
 import functools
 import flask
+# Note: current_app the application instance returned by the factory function in __init__.py
 from flask import Blueprint, request, render_template, jsonify, session, current_app
 from itsdangerous import URLSafeTimedSerializer
 import json
@@ -97,6 +98,11 @@ def login() -> object:
     username = req['username']
     password = req['password']
     token = req['token']
+
+    print(f"current_app.blueprints {current_app.blueprints}")
+    print(f"current_app.view_functions {current_app.view_functions}")
+    print(f"current_app.context {current_app.app_context}")
+    print(f"current_app.env {current_app.env}")
 
     with current_app.app_context():
 
