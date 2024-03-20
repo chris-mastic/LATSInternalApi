@@ -77,8 +77,16 @@ def logout():
         user_data_col = mongodb["user_data"]
         if user.active_session(user_session_col, token):
             resp = ltc_api.logout(username, token)
-            user.remove_user_from_mongodb(user_session_col, token)
-            user.remove_user_from_mongodb(user_data_col, token)
+            rtn_code = user.remove_user_from_mongodb(user_session_col, token)
+            if rtn_code == 0:
+                rtn_code = user.remove_user_from_mongodb(user_data_col, token)
+                if rtn_code != 0:
+                    logging.error(
+                        f'{token} unable to delete from user_data collection')
+
+            else:
+                logging.error(
+                    f'{token} unable to delete from user_session collection')
             del ltc_api
             return util.create_json_object(message="Logged out")
 
@@ -132,7 +140,7 @@ def login() -> object:
             if type(response) is not dict and 'token' not in response.json:
                 logging.error(f'{username} unable to log in to LTC site')
                 del ltc_api
-                return util.create_json_object(code="404", message="unable to login. check username and password")
+                return util.create_json_object(code="401", message="unable to login. check username and password")
 
             # Valid response, write to database
             user.insert_user_session_into_mongodb(

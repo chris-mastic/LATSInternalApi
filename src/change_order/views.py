@@ -50,6 +50,7 @@ def switch(start: int, stop: int, altid: str, item: str) -> str:
 def get_user_data():
     req = json.loads(request.data)
     token = req['token']
+    print(f"token in get_user_data is {token}")
     with current_app.app_context():
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
@@ -57,6 +58,7 @@ def get_user_data():
         try:
             return user.get_user_data(col, token)
         except:
+            print("in the except")
             return util.create_json_object(message='unable to retrieve user data.')
 
 
