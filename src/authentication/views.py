@@ -11,6 +11,7 @@ from pymongo import MongoClient
 import warnings
 
 from db.mongo_db import user
+import helpers as util
 from services.ltc_api_connections import LTCApiConnections
 
 
@@ -77,10 +78,10 @@ def logout():
             resp = ltc_api.logout(username, token)
             user.remove_user_session_from_mongodb(col, token)
             del ltc_api
-            return create_json_object(message="Logged out")
+            return util.create_json_object(message="Logged out")
 
         else:
-            return create_json_object(message="Not logged in")
+            return util.create_json_object(message="Not logged in")
 
 
 @authentication_bp.route("/api/login", methods=['POST'])
@@ -98,6 +99,7 @@ def login() -> object:
     username = req['username']
     password = req['password']
     token = req['token']
+    print(f"token is login is {token}")
 
     print(f"current_app.blueprints {current_app.blueprints}")
     print(f"current_app.view_functions {current_app.view_functions}")
@@ -119,7 +121,7 @@ def login() -> object:
             # return the values already stored in the session dictionary from previous login
             user_session_info = user.get_user_session_data(col, token)
             if 'token' in user_session_info:
-                return create_json_object(token=user_session_info['token'], expiration=user_session_info['token_expiration'], username=user_session_info['username'])
+                return util.create_json_object(token=user_session_info['token'], expiration=user_session_info['token_expiration'], username=user_session_info['username'])
             else:
                 # returns an empty dictionary
                 user_session_info['message'] = 'Failed to fetch user session'
@@ -134,14 +136,14 @@ def login() -> object:
             if type(response) is not dict and 'token' not in response.json:
                 logging.error(f'{username} unable to log in to LTC site')
                 del ltc_api
-                return create_json_object(message="Failed to receive response from LTC")
+                return util.create_json_object(message="Failed to receive response from LTC")
 
             # Valid response, write to database
             user.insert_user_session_into_mongodb(
                 col,  response['token'], username, response['expiration'])
             del ltc_api
 
-            return create_json_object(token=response['token'], expiration=response['expiration'], username=username)
+            return util.create_json_object(token=response['token'], expiration=response['expiration'], username=username)
 
 
 @deprecated
@@ -158,10 +160,6 @@ def set_flask_session_values(response: object):
 
     except:
         flask.session["token"] = None
-
-
-def create_json_object(**kwargs) -> object:
-    return json.dumps({key: value for key, value in kwargs.items()})
 
 
 @deprecated
@@ -183,9 +181,9 @@ def create_salted_key(api_token):
 
 @authentication_bp.route("/api/reset_password", methods=['GET', 'POST'])
 def reset_password():
-    return create_json_object(message="password reset")
+    return util.create_json_object(message="password reset")
 
 
 @authentication_bp.route("/api/forgot_password", methods=['GET', 'POST'])
 def forgot_password():
-    return create_json_object(message="check email for password reset link")
+    return util.create_json_object(message="check email for password reset link")

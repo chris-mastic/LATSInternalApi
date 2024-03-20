@@ -49,19 +49,14 @@ def insert_user_data_into_mongodb(col, req):
     user_data = req
     col.insert_one(user_data)
 
-def get_user_data(col, session_id: str) -> dict:
-    print(f" token is {session_id}")
-    user_data = {'token': session_id}
+def get_user_data(col, auth_token: str) -> dict:
+    user_data = {'token': auth_token}
     session_dict = {}
     try:
-        print(f"user_data {user_data}")
-        data = col.find_one(session_id)
-        # session_dict['token'] = data.get("token")
-        # session_dict['token_expiration'] = user_profile.get("token_expiration")
-        # session_dict['username'] = user_profile.get("username")
-        print(f"data is {data}")
+        data = col.find_one(user_data)
+        # delete _id, since it is not needed
         del data['_id']
         return (data)
 
     except:
-        return session_dict
+        return create

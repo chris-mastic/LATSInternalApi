@@ -1,17 +1,18 @@
-from flask import Blueprint, request, render_template, jsonify, session, current_app, make_response
+from flask import Blueprint, request, jsonify, session, current_app
 import flask
-from itsdangerous import URLSafeTimedSerializer
 import json
 import logging
+import os
+import pandas as pd
 from pymongo import MongoClient
-from db.la_tax_service_dtos import assess_values_dto, change_order_dto
 import urllib.request as urlRequest
 import urllib.request
-import urllib.parse as urlParse
 import urllib.error as urlError
+
+from db.la_tax_service_dtos import assess_values_dto, change_order_dto
+import helpers as util 
 import db.oracle_db_connection as odb
-import pandas as pd
-import os
+
 
 from db.mongo_db import user
 
@@ -44,19 +45,20 @@ def switch(start: int, stop: int, altid: str, item: str) -> str:
     else:
         return "Invalid altid"
 
+
 @change_order_bp.route("/api/get_user_data", methods=['GET'])
 def get_user_data():
     req = json.loads(request.data)
-    print(f"req {req}")
+    token = req['token']
     with current_app.app_context():
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
         col = mongodb["user_data"]
         try:
-            user.get_user_data(col, req)
-            return user.get_user_data(col, req)
+            return user.get_user_data(col, token)
         except:
-            return create_json_object(message='insert into collection user_data failed')
+            return util.create_json_object(message='unable to retrieve user data.')
+
 
 @change_order_bp.route("/api/set_user_data", methods=['POST'])
 def set_user_data():
@@ -68,12 +70,12 @@ def set_user_data():
         col = mongodb["user_data"]
         try:
             user.insert_user_data_into_mongodb(col, req)
-            return create_json_object(message='user data inserted into collection user_data')
+            return util.create_json_object(message='user data inserted into collection user_data')
         except:
-            return create_json_object(message='insert into collection user_data failed')
+            return util.create_json_object(message='insert into collection user_data failed')
 
-def create_json_object(**kwargs) -> object:
-    return json.dumps({key: value for key, value in kwargs.items()})
+
+
 
 @change_order_bp.route("/api/add_to_batch", methods=['GET', 'POST'])
 def add_to_batch():
@@ -92,85 +94,83 @@ def add_to_batch():
 
 @change_order_bp.route("/api/get_batch", methods=['GET', 'POST'])
 def get_batch(): pass
-    # req = json.loads(request.data)
-    # parid = req['parid']
-    # taxyear = req['taxyear']
-    # altid = req['altid']
-    # print("IN get_batch()")
-    # # --------------------------------DEBUG---------------
-    # print("DEBUG------------------------------------------------------")
-    # print(f'flask.session["token"]{flask.session["token"]}')
-    # print(f'request.cookies.get("ltcToken"){request.cookies.get("ltcToken")}')
-    # print(f'session.sid{session.sid}')
-    # print(f'request.cookies.get("session"){request.cookies.get("session")}')
+# req = json.loads(request.data)
+# parid = req['parid']
+# taxyear = req['taxyear']
+# altid = req['altid']
+# print("IN get_batch()")
+# # --------------------------------DEBUG---------------
+# print("DEBUG------------------------------------------------------")
+# print(f'flask.session["token"]{flask.session["token"]}')
+# print(f'request.cookies.get("ltcToken"){request.cookies.get("ltcToken")}')
+# print(f'session.sid{session.sid}')
+# print(f'request.cookies.get("session"){request.cookies.get("session")}')
 
-    # if helper.is_valid_session(request.cookies.get("session"), session.sid):
-    #     print("ABOVE TRY.....")
-    #     # OracleDB is a singleton class
-    #     try:
-    #         print('connecting to db....')
-    #         db = odb.OracleDBConnection.getInstance()
-    #         print("IN TRY OF HELPER.IS_VALID_SESSION")
-    #         curr_dir = os.path.dirname(__file__)
-    #         print(f'curr_dir {curr_dir}')
-    #         parent_dir = os.path.dirname(curr_dir)
-    #         db_dir = os.path.join(parent_dir, 'db', 'db_scripts')
-    #         sql_filename = os.path.join(db_dir, 'get_batch.sql')
-    #         print(f"sql_filename {sql_filename}")
-    #         with open(sql_filename, 'r') as file:
-    #             print('in with...')
-    #             query = file.read()
+# if helper.is_valid_session(request.cookies.get("session"), session.sid):
+#     print("ABOVE TRY.....")
+#     # OracleDB is a singleton class
+#     try:
+#         print('connecting to db....')
+#         db = odb.OracleDBConnection.getInstance()
+#         print("IN TRY OF HELPER.IS_VALID_SESSION")
+#         curr_dir = os.path.dirname(__file__)
+#         print(f'curr_dir {curr_dir}')
+#         parent_dir = os.path.dirname(curr_dir)
+#         db_dir = os.path.join(parent_dir, 'db', 'db_scripts')
+#         sql_filename = os.path.join(db_dir, 'get_batch.sql')
+#         print(f"sql_filename {sql_filename}")
+#         with open(sql_filename, 'r') as file:
+#             print('in with...')
+#             query = file.read()
 
-    #         df = pd.read_sql_query(query, db.engine, params=[
-    #                                (parid, taxyear, 'Y', altid)])
-    #         print(f'df {df}')
-    #         change_order = change_order_dto.ChangeOrderDTO()
-    #         print(f'type of change_order {type(change_order)} ')
-    #         assess_value = assess_values_dto.AssessOrdersDTO()
-    #         print("Befor the for loop.")
-    #         for ind in df.index:
-    #             # fips_code = switch(1,1,df["altid"][ind], 'fips')
-    #             print('before taxyear assignment')
-    #             change_order.tax_year = df["taxyr"][ind]
-    #             print('after taxyre assignment')
-    #             # change_order.fips_code = ""
-    #             change_order.assessment_no = df["altid"][ind]
-    #             # change_order.ward = ""
-    #             # change_order.assessor_ref_no = ""
-    #             # change_order.place_fips = ""
-    #             # change_order.parcel_address = ""
-    #             # change_order.assessment_type = ""
-    #             # change_order.assessment_status = ""
-    #             # change_order.homestead_exempt = ""
-    #             # change_order.homestead_percent = ""
-    #             # change_order.restoration_tax_exempt = ""
-    #             print('befor own1')
-    #             change_order.taxpayer_name = df['own1'][ind]
-    #             # change_order.contact_name = ""
-    #             # change_order.taxpayer_addr1 = ""
-    #             # change_order.taxpayer_addr2 = ""
-    #             # change_order.taxpayer_addr3 = ""
-    #             # change_order.tc_fee_pd = ""
-    #             # change_order.reason = ""
-    #             # change_order.check_no = ""
-    #             # change_order.check_amount = ""
-    #             # change_order.assess_values = ""
-                
-            
+#         df = pd.read_sql_query(query, db.engine, params=[
+#                                (parid, taxyear, 'Y', altid)])
+#         print(f'df {df}')
+#         change_order = change_order_dto.ChangeOrderDTO()
+#         print(f'type of change_order {type(change_order)} ')
+#         assess_value = assess_values_dto.AssessOrdersDTO()
+#         print("Befor the for loop.")
+#         for ind in df.index:
+#             # fips_code = switch(1,1,df["altid"][ind], 'fips')
+#             print('before taxyear assignment')
+#             change_order.tax_year = df["taxyr"][ind]
+#             print('after taxyre assignment')
+#             # change_order.fips_code = ""
+#             change_order.assessment_no = df["altid"][ind]
+#             # change_order.ward = ""
+#             # change_order.assessor_ref_no = ""
+#             # change_order.place_fips = ""
+#             # change_order.parcel_address = ""
+#             # change_order.assessment_type = ""
+#             # change_order.assessment_status = ""
+#             # change_order.homestead_exempt = ""
+#             # change_order.homestead_percent = ""
+#             # change_order.restoration_tax_exempt = ""
+#             print('befor own1')
+#             change_order.taxpayer_name = df['own1'][ind]
+#             # change_order.contact_name = ""
+#             # change_order.taxpayer_addr1 = ""
+#             # change_order.taxpayer_addr2 = ""
+#             # change_order.taxpayer_addr3 = ""
+#             # change_order.tc_fee_pd = ""
+#             # change_order.reason = ""
+#             # change_order.check_no = ""
+#             # change_order.check_amount = ""
+#             # change_order.assess_values = ""
 
-    #         json_data = json.dumps(change_order.__dict__,
-    #                                indent=2, default=str)
-    #         print(f"json_data {json_data}")
-    #         return json_data
+#         json_data = json.dumps(change_order.__dict__,
+#                                indent=2, default=str)
+#         print(f"json_data {json_data}")
+#         return json_data
 
-    #     except:
-    #         return jsonify({'message': 'Database error'})
-    # else:
-    #     response = jsonify({
-    #         'message': 'Not logged in'
-    #     })
-    #     helper.clear_session(response)
-    #     return response
+#     except:
+#         return jsonify({'message': 'Database error'})
+# else:
+#     response = jsonify({
+#         'message': 'Not logged in'
+#     })
+#     helper.clear_session(response)
+#     return response
 
 
 @change_order_bp.route("/api/get_status", methods=['GET'])
