@@ -73,10 +73,12 @@ def logout():
     with current_app.app_context():
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
-        col = mongodb["user_session"]
-        if user.active_session(col, token):
+        user_session_col = mongodb["user_session"]
+        user_data_col = mongodb["user_data"]
+        if user.active_session(user_session_col, token):
             resp = ltc_api.logout(username, token)
-            user.remove_user_session_from_mongodb(col, token)
+            user.remove_user_session_from_mongodb(user_session_col, token)
+            user.remove_user_session_from_mongodb(user_data_col, token)
             del ltc_api
             return util.create_json_object(message="Logged out")
 
@@ -99,12 +101,6 @@ def login() -> object:
     username = req['username']
     password = req['password']
     token = req['token']
-    print(f"token is login is {token}")
-
-    print(f"current_app.blueprints {current_app.blueprints}")
-    print(f"current_app.view_functions {current_app.view_functions}")
-    print(f"current_app.context {current_app.app_context}")
-    print(f"current_app.env {current_app.env}")
 
     with current_app.app_context():
 
