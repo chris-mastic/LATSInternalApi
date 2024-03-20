@@ -119,7 +119,7 @@ def login() -> object:
             # return the values already stored in the session dictionary from previous login
             user_session_info = user.get_user_session_data(col, token)
             if 'token' in user_session_info:
-                return create_json_object(token=user_session_info['token'], expiration=user_session_info['expiration'], username=user_session_info['username'])
+                return create_json_object(token=user_session_info['token'], expiration=user_session_info['token_expiration'], username=user_session_info['username'])
             else:
                 # returns an empty dictionary
                 user_session_info['message'] = 'Failed to fetch user session'

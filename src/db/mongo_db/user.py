@@ -20,6 +20,7 @@ def active_session(col, session_id: str) -> bool:
 
 def get_user_session_data(col, session_id: str) -> dict:
     user_session_data = {'token': session_id}
+    print(f" user_session_datat is {user_session_data}")
     session_dict = {}
     try:
         user_profile = col.find_one(user_session_data)
@@ -42,3 +43,25 @@ def insert_user_session_into_mongodb(col, auth_token, username, expiration):
                          'username': username, 'date': datetime.now(),
                          'token_expiration': expiration}
     col.insert_one(user_session_data)
+
+def insert_user_data_into_mongodb(col, req):
+    print(f"insert_user_data_into_mongodb {req}")
+    user_data = req
+    col.insert_one(user_data)
+
+def get_user_data(col, session_id: str) -> dict:
+    print(f" token is {session_id}")
+    user_data = {'token': session_id}
+    session_dict = {}
+    try:
+        print(f"user_data {user_data}")
+        data = col.find_one(session_id)
+        # session_dict['token'] = data.get("token")
+        # session_dict['token_expiration'] = user_profile.get("token_expiration")
+        # session_dict['username'] = user_profile.get("username")
+        print(f"data is {data}")
+        del data['_id']
+        return (data)
+
+    except:
+        return session_dict
