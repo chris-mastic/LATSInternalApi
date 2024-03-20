@@ -33,9 +33,13 @@ def get_user_session_data(col, session_id: str) -> dict:
         return session_dict
 
 
-def remove_user_session_from_mongodb(col, auth_token):
-    user_session_data = {'token': auth_token}
-    col.delete_one(user_session_data)
+def remove_user_from_mongodb(col, auth_token:str) -> int:
+    try:
+        user_session_data = {'token': auth_token}
+        col.delete_one(user_session_data)
+        return 0
+    except:
+        return 1
 
 
 def insert_user_session_into_mongodb(col, auth_token, username, expiration):
