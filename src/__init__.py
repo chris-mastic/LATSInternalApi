@@ -5,6 +5,8 @@ from flask_cors import CORS
 from flask_session import Session
 import os
 
+from .config import DevelopmentConfig 
+
 
 """ Function responsible for setting up the Flask application.
     It initializes the app, configures extensions, registers
@@ -14,12 +16,11 @@ def create_app():
     load_dotenv()
     print("in the stupid factory method")
     app = Flask(__name__)
+    app.config.from_object(DevelopmentConfig)
     app.config['SESSION_TYPE'] = os.getenv('SESSION_TYPE')
     app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY')
-    app.config['DEBUG'] = os.getenv('DEBUG')
     app.config['APP_SETTINGS'] = os.getenv('APP_SETTINGS')
     app.config['FLASK_APP'] = os.getenv('FLASK_APP')
-    app.config['FLASK_DEBUG'] = os.getenv('FLASK_DEBUG')
     app.config['MONGO_URI'] = os.getenv('MONGO_URI')
     app.config['MONGO_DBNAME'] = os.getenv('MONGO_DBNAME')
     Session(app)

@@ -6,6 +6,8 @@ import urllib.request
 import urllib.parse as urlParse
 import urllib.error as urlError
 
+import helpers as util
+
 
 class LTCApiConnections:
     def __init__(self, logger):
@@ -34,9 +36,7 @@ class LTCApiConnections:
         try:
             return json.loads(body)
         except:
-            return jsonify({
-                'message': 'logged out'
-            })
+            return util.create_json_object(message='logged out')
 
     def login(self, username: str, password: str) -> object:
         # url = os.environ.get('LTC_API_URL_PROD')
@@ -64,5 +64,4 @@ class LTCApiConnections:
             message = "ltc_api_connections.LTCApiConnections.login login error"
             self.logger.error(message)
             error_code = e.errno
-            return jsonify({'error': error_code,
-                            'message': message})
+            return util.create_json_object(error=error_code, message=message)

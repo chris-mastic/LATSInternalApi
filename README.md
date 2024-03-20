@@ -841,3 +841,4 @@ HOW TO USE MONGODB AT THE COMMAND LINE:
         To list collections in the current database: show collections
         To display all documents in a collection: db.<collection_name>.find()
         To display only the first few documents: db.<collection_name>.find().limit(num_of_docs_to_show)
+        To remove all documents: db.<collection_name>.remove({})
