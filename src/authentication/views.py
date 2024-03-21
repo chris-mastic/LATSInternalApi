@@ -110,11 +110,6 @@ def login() -> object:
     password = req['password']
     token = req['token']
 
-    print(f"secret_key {current_app.config['SECRET_KEY']}")
-    print(f"development {current_app.config['DEVELOPMENT']}")
-    print(f"flask_debug {current_app.config['FLASK_DEBUG']}")
-    print(f"debug {current_app.config['DEBUG']}")
-
     with current_app.app_context():
 
         client = MongoClient(current_app.config['MONGO_URI'])
