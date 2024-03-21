@@ -61,7 +61,4 @@ class LTCApiConnections:
 
             return json.loads(body)
         except urlError.URLError as e:
-            message = "ltc_api_connections.LTCApiConnections.login login error"
-            self.logger.error(message)
-            error_code = e.errno
-            return util.create_json_object(error=error_code, message=message)
+            return json.loads(util.create_json_object(error=1, message=e.reason))

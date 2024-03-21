@@ -3,30 +3,18 @@ from decouple import config
 
 class Config:
     """Define various class attributes."""
-    DEBUG = False
-    TESTING = False
     CSRF_ENABLED = True
-    SECRET_KEY = config("SECRET_KEY", default="guess-me")
-    BCRYPT_LOG_ROUNDS = 13
-    WTF_CSRF_ENABLED = True
-    DEBUG_TB_ENABLED = False
-    DEBUG_TB_INTERCEPT_REDIRECTS = False
-    SESSION_COOKIE_HTTPONLY = True
-    SESSION_COOKIE_SECURE = True
 
 
 class DevelopmentConfig(Config):
+    DEBUG = True
     DEVELOPMENT = True
-    WTF_CSRF_ENABLED = False
-    DEBUG_TB_ENABLED = True
-    SESSION_COOKIE_HTTPONLY = True
-    SESSION_COOKIE_SECURE = True
 
 
 class TestingConfig(Config):
+    DEBUG = True
     TESTING = True
-    WTF_CSRF_ENABLED = False
 
 
 class ProductionConfig(Config):
-    DEBUG_TB_ENABLED = False
+    DEBUG = False

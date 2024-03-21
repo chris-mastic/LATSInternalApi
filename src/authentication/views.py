@@ -135,11 +135,13 @@ def login() -> object:
             # Connect to LTC API
             ltc_api = LTCApiConnections(logging)
             response = ltc_api.login(username, password)
+            print(f"TYPE RESPONSE IS {type(response)}")
             # Log bad response
-            if type(response) is not dict and 'token' not in response.json:
+            #if type(response) is not dict and 'token' not in response.json:
+            if 'error' in response and response['error'] == 1:
                 logging.error(f'{username} unable to log in to LTC site')
                 del ltc_api
-                return util.create_json_object(code="401", message="unable to login. check username and password")
+                return util.create_json_object(code="500", message=response['message'])
 
             # Valid response, write to database
             user.insert_user_session_into_mongodb(
