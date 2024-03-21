@@ -59,7 +59,7 @@ def get_user_data():
             return user.get_user_data(col, token)
         except:
             print("in the except")
-            return util.create_json_object(message='unable to retrieve user data.')
+            return util.create_json_object(code="500",message='unable to retrieve user data.')
 
 
 @change_order_bp.route("/api/set_user_data", methods=['POST'])
@@ -72,9 +72,9 @@ def set_user_data():
         col = mongodb["user_data"]
         try:
             user.insert_user_data_into_mongodb(col, req)
-            return util.create_json_object(message='user data inserted into collection user_data')
+            return util.create_json_object(code="200",message='user data inserted into collection user_data')
         except:
-            return util.create_json_object(message='insert into collection user_data failed')
+            return util.create_json_object(code="500",message='insert into collection user_data failed')
 
 
 

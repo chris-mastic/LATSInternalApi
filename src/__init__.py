@@ -19,12 +19,12 @@ def create_app():
     print("in the stupid factory method")
     app = Flask(__name__)
 
-    if app.config['FLASK_ENV'] == 'development':
+    flask_debug = os.getenv('FLASK_DEBUG', default='False').lower() == 'true'
+
+    if flask_debug:
         app.config.from_object(DevelopmentConfig)
-    elif app.config['FLASK_ENV'] == 'production':
+    else:
         app.config.from_object(ProductionConfig)
-    elif app.config['FLASK_ENV'] == 'Testing':
-        app.config.from_object(TestingConfig)
     app.config['SESSION_TYPE'] = os.getenv('SESSION_TYPE')
     app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY')
     app.config['APP_SETTINGS'] = os.getenv('APP_SETTINGS')

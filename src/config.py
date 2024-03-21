@@ -17,7 +17,6 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
-    FLASK_DEBUG = True
     WTF_CSRF_ENABLED = False
     DEBUG_TB_ENABLED = True
     SESSION_COOKIE_HTTPONLY = True
@@ -26,10 +25,8 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-    DEBUG = True
     WTF_CSRF_ENABLED = False
 
 
 class ProductionConfig(Config):
-    DEBUG = False
     DEBUG_TB_ENABLED = False

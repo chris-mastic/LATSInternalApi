@@ -88,10 +88,10 @@ def logout():
                 logging.error(
                     f'{token} unable to delete from user_session collection')
             del ltc_api
-            return util.create_json_object(message="Logged out")
+            return util.create_json_object(code="200",message="Logged out")
 
         else:
-            return util.create_json_object(message="Not logged in")
+            return util.create_json_object(code="200",message="Not logged in")
 
 
 @authentication_bp.route("/api/login", methods=['POST'])
@@ -130,11 +130,10 @@ def login() -> object:
             # return the values already stored in the session dictionary from previous login
             user_session_info = user.get_user_session_data(col, token)
             if 'token' in user_session_info:
-                return util.create_json_object(token=user_session_info['token'], expiration=user_session_info['token_expiration'], username=user_session_info['username'])
+                return util.create_json_object(code="200",token=user_session_info['token'], expiration=user_session_info['token_expiration'], username=user_session_info['username'])
             else:
                 # returns an empty dictionary
-                user_session_info['message'] = 'Failed to fetch user session'
-                return user_session_info
+                return util.create_json_object(code="500", message="unable to fetch user information")
 
         # No active session, try to create one
         else:
@@ -152,7 +151,7 @@ def login() -> object:
                 col,  response['token'], username, response['expiration'])
             del ltc_api
 
-            return util.create_json_object(token=response['token'], expiration=response['expiration'], username=username)
+            return util.create_json_object(code="200",token=response['token'], expiration=response['expiration'], username=username)
 
 
 @deprecated
@@ -190,9 +189,9 @@ def create_salted_key(api_token):
 
 @authentication_bp.route("/api/reset_password", methods=['GET', 'POST'])
 def reset_password():
-    return util.create_json_object(message="password reset")
+    return util.create_json_object(code="200",message="password reset")
 
 
 @authentication_bp.route("/api/forgot_password", methods=['GET', 'POST'])
 def forgot_password():
-    return util.create_json_object(message="check email for password reset link")
+    return util.create_json_object(code="200",message="check email for password reset link")
