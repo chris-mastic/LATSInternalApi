@@ -1,4 +1,5 @@
 #!/usr/local/bin/python3.10
+#
 
 activate_this = '/var/www/LATSInternalApi/venv/bin/activate'
 with open(activate_this) as file_:
