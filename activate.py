@@ -26,12 +26,11 @@ def deactivate():
     VIRTUAL_ENV = None
     VIRTUAL_ENV_PROMPT = None
 
-    if not (len(sys.argv) > 1 and sys.argv[1] == "nondestructive"):
-        # Self-destruct!
-        del deactivate
+    # Self-destruct!
+    del deactivate
 
 # Unset irrelevant variables
-deactivate("nondestructive")
+deactivate()
 
 VIRTUAL_ENV = "/var/www/LATSInternalApi/venv"
 os.environ["VIRTUAL_ENV"] = VIRTUAL_ENV
