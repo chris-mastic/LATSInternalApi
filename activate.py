@@ -2,33 +2,19 @@ import os
 import sys
 
 def deactivate():
+    global deactivate  # Declare 'deactivate' as a global variable
+
     # Reset old environment variables
     if "_OLD_VIRTUAL_PATH" in globals():
         PATH = _OLD_VIRTUAL_PATH
         os.environ["PATH"] = PATH
         del _OLD_VIRTUAL_PATH
 
-    if "_OLD_VIRTUAL_PYTHONHOME" in globals():
-        PYTHONHOME = _OLD_VIRTUAL_PYTHONHOME
-        os.environ["PYTHONHOME"] = PYTHONHOME
-        del _OLD_VIRTUAL_PYTHONHOME
-
-    # Detect bash and zsh to forget past commands
-    if "BASH" in globals() or "ZSH_VERSION" in globals():
-        os.system("hash -r 2> /dev/null")
-
-    if "_OLD_VIRTUAL_PS1" in globals():
-        PS1 = _OLD_VIRTUAL_PS1
-        os.environ["PS1"] = PS1
-        del _OLD_VIRTUAL_PS1
-
     # Unset virtual environment variables
     VIRTUAL_ENV = None
     VIRTUAL_ENV_PROMPT = None
 
-    # Self-destruct!
-    del deactivate
-
+  
 # Unset irrelevant variables
 deactivate()
 
