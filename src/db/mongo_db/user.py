@@ -1,5 +1,6 @@
 from datetime import datetime
 from mongoengine import Document, StringField, DateTimeField
+import services.helpers as helper
 
 class User(Document):
     token = StringField(required=True, unique=True)
@@ -50,6 +51,7 @@ def insert_user_session_into_mongodb(col, auth_token, username, expiration):
 
 def insert_user_data_into_mongodb(col, req):
     print(f"insert_user_data_into_mongodb {req}")
+    print(f"col {col}")
     user_data = req
     col.insert_one(user_data)
 
@@ -63,4 +65,4 @@ def get_user_data(col, auth_token: str) -> dict:
         return (data)
 
     except:
-        return create
+        return helper.create_json_object(code="500",message="unable to retrieve user data")
