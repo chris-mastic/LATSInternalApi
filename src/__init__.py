@@ -1,13 +1,12 @@
 
 import sys
-print(f"sys.executable {sys.executable}")
 from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
 from flask_session import Session
 import os
 
-from .config import *
+from config import Config as config
 
 
 """ Function responsible for setting up the Flask application.
@@ -21,22 +20,15 @@ def create_app():
     load_dotenv()
 
     app = Flask(__name__)
-
-    flask_debug = os.getenv('FLASK_DEBUG', default='False').lower() == 'true'
-
-    if flask_debug:
-        app.config.from_object(DevelopmentConfig)
-    else:
-        app.config.from_object(ProductionConfig)
-
-    app.config['SESSION_TYPE'] = os.getenv('SESSION_TYPE')
-    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-    app.config['APP_SETTINGS'] = os.getenv('APP_SETTINGS')
-    app.config['FLASK_APP'] = os.getenv('FLASK_APP')
-    app.config['MONGO_URI'] = os.getenv('MONGO_URI')
-    app.config['MONGO_DBNAME'] = os.getenv('MONGO_DBNAME')
+    
+    app.config['DEBUG'] = config.DEBUG
+    app.config['DEVELOPMENT'] = config.DEVELOPMENT
+    app.config['SECRET_KEY'] = config.SECRET_KEY
+    app.config['FLASK_APP'] = config.FLASK_APP
+    app.config['MONGO_URI'] = config.MONGO_URI
+    app.config['MONGO_DBNAME'] = config.MONGO_DBNAME
     Session(app)
-
+   
    # Enable CORS for specific routes (e.g., /api/*)
     cors = CORS(app, resources={r"/api/*": {"origins": os.getenv('EXPO_URL')}},
                 allow_headers=["Content-Type", "Authorization"],

@@ -6,7 +6,7 @@ import urllib.request
 import urllib.parse as urlParse
 import urllib.error as urlError
 
-import helpers as util
+import services.helpers as util
 
 
 class LTCApiConnections:
