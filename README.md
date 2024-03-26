@@ -833,6 +833,7 @@ https://www.youtube.com/watch?v=BC-NahZ5jsY
 https://testapi.latax.la.gov/swagger/index.html
 
 HOW TO USE MONGODB AT THE COMMAND LINE:
+    To check if mongod is running: sudo service mongod status
     Go to the directory the binary is installed (to find it use the which mongod)
     Start the mongodb shell >> mongosh
     HERE ARE LIST OF COMMANDS
@@ -842,3 +843,170 @@ HOW TO USE MONGODB AT THE COMMAND LINE:
         To display all documents in a collection: db.<collection_name>.find()
         To display only the first few documents: db.<collection_name>.find().limit(num_of_docs_to_show)
         To remove all documents: db.<collection_name>.remove({})
+
+DEPLOYING A FLASK APP TO A PROD SERVER
+
+apt update && apt upgrade --update and upgrade software on system
+
+set host name: hostnamectl set-hostname flask-server
+hostname
+
+nano /etc/host
+under 127.0.0.1 put machines IP Addrss (10.10.1.236) flask-server
+
+Add limited user to machine: adduser jonsmith (enter and will ask for password)
+Add user to sudo group: adduser jonsmith sudo
+
+setup ssh key based authentication: 
+    on server: make a .ssh directory in home/<users> folder
+    
+    on local machine (one you will be using to remote in to server): using bash
+        ssh-keygen -b 4096
+        move id_rsa.pub to the server to user's home folder, e.g., scp ~/.ssh/id_rsa.pubsysadmin@10.10.1.236:~/.ssh/authorized_keys (will be the public key we copied up to the server)
+        
+    Set permissions on the .ssh/dir on server: (owner of dir has rwx on directory and owner of files in dire will have rw)        sudo chmod 700 ~/.ssh/
+   sudo chmod 600 ~/.ssh/* (run on all files in the .ssh directory)
+        
+  Disallow root logins over ssh: sudo nano /etc/ssh/sshd_config
+      change two values in config file:
+        find 'PermitRootLogin' and change to 'no'  
+        find 'PasswordAuthentication. It will probably be commented out, so uncomment it and change 'yes' to 'no'
+        restatr ssh service sudo systemctl restart sshd
+        
+Install and setup firewall:
+    sudo apt install ufw (uncomplicated firewall)
+    
+    sudo ufw default allow outgoing
+    sudo ufw default deny incoming
+    sudo ufw allow ssh
+    sudo ufw allow allow 5000
+    sudo ufw ufw enable (enables everything we set above)
+    sudo ufw status (shows everything allowed thus far)
+    
+Deploy Flask Application:
+
+    create a requirements.txt file if using a virtual environment, or use pip install if not.
+    pip freeze will show all dependencies.
+    
+    create a virtual environment:
+        sudo apt install python3-pip
+        sudo apt install python3-venv
+        create inside flask project: python3 -m venv <project name>/venv
+        cd <projec> ls
+        source venv/bin/activate
+     pip install -r requirements.txt
+     
+     Test website using development server:
+         Set environment variables:
+             Create a config file an load into application instead of env vars
+                 python>>
+                     import os
+                     os.env.get('SECRET_KEY')
+                     os.env.get('SQLALCHEMY_DATABASE_URI')
+                     ... just examples of how to get the environment variables you set locally
+            
+            sudo touch /etc/config.json (will create the config file here)
+            sudo nano /etc/confi.json:
+                {
+                    "SECRET_KEY": ".....",
+                    "SQLALCHEMY_DATABASE_URI": "sqlite://site.db",
+                    ... just examples
+                }
+            save this file
+           Edit config file in project
+               sudo nano config.py
+                   import json
+                   import os
+                   
+                   with open('/etc/config.json') as config_file:
+                       config = json.load(config_file) #makes config a python dictionary
+                       
+                   #Now every where you are using os.environ.get you can use
+                   class Config:
+                       SECRET_KEY = config.get("SECRET_KEY")
+                       ....
+        Test the application:
+            export FLASK_APP=run.py #what contains application
+            flask run --host 0.0.0.0 -p 5000
+            
+            
+     NGINX/GUNICORN:
+     
+         cd to home directory
+         sudo apt install nginx
+         (install gunicorn in the virtual environment)
+         pip install gunicorn
+         
+         Change some configs in both:
+             update nginx confif file (nginx is webserver (handles html, css, gunicorn handles python code)
+             sudo rm /etc/nginx/sites-enabled/default
+             create new file:
+                 suod nano /etc/nginx/sites-enabled/latsinternalapi
+                 
+                     server {
+                             listen 80;
+                             server_name 10.10.1.236;
+                             
+                             location /static {
+                                 alias /home/<username>/<projectname>/project files/static;
+                             }
+                      location / {
+                          proxy_pass http://localhost:8000; 
+                          include /etc/nginx/proxy_params;
+                          proxy_redirect off;
+                      }
+                    }
+                    
+                    
+     sudo ufw allow http/tcp
+     sudo ufw delete allow 5000
+     sudo ufw enable
+     
+     restart nginx server: sudo systemctl restart nginx
+     
+         start gunicorn: gunicorn -w 3 run:app # -w is number of workers, run is specifies file that has application and app is application variable name
+         number of workers should be (2 * number of cores on machine) + 1
+         To find number of cores: nproc --all (on Linux)
+         
+         cd into project
+         run ls (author says you can see run.py, which I am not using), but within run.py he has:
+             from flaskblog import create_app
+             
+             app = create_app()
+             
+             if __name__ == '__main__':
+                 app.run(debug=True)
+                 
+   run gunicorn: gunicorn -w 3 run:app     
+         
+  sudo apt install supervisor:
+      setup config file:
+          sudo nano/etc/suprevisor/conf.d/<projectname>.conf
+          
+          [program:<program name: flaskblog]
+          directory=/home/<project>
+          command=/home/projectname/venv/bin/gunicorn -w 3 run:app
+          user=coreyms (or whoever)
+          autostart=true
+          autorestart=true
+          stopasgroup=true
+          killasgroup=true
+          stderr_logfile=/var/log/<projectname>/<project>.err.log
+          stdout_logfile=/var/log/<projectname>/<projectname>.out.log
+     
+     
+     make log files:
+         suod mkdir -p  /var/log/<projgectname>
+         sudo touch /var/log/<projectname>/<projectname>.out.log
+         
+     sudo supervisorctl reload
+     
+ Make a change to the nginx.conf file   
+ sudo nano /etc/nginx/nginx.conf:
+       scroll down to http {} section and at bottom of basic settings, create avariable client_max_body_size 5M;
+       restart nginx: sudo systemctl restart nginx
+       
+       
+         
+
+    
