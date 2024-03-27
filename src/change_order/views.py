@@ -66,17 +66,17 @@ def get_user_data():
 def set_user_data():
     req = json.loads(request.data)
     print(f"Inside set_user_data")
-    return util.create_json_object(message="TESTING ENDPOINT WITHOUT MONGODB")
-    # with current_app.app_context():
-    #     print(f"Inside the with..")
-    #     client = MongoClient(current_app.config['MONGO_URI'])
-    #     mongodb = client[current_app.config['MONGO_DBNAME']]
-    #     col = mongodb["user_data"]
-    #     try:
-    #         user.insert_user_data_into_mongodb(col, req)
-    #         return util.create_json_object(code="200",message='user data inserted into collection user_data')
-    #     except:
-    #         return util.create_json_object(code="500",message='insert into collection user_data failed')
+   
+    with current_app.app_context():
+        print(f"Inside the with..")
+        client = MongoClient(current_app.config['MONGO_URI'])
+        mongodb = client[current_app.config['MONGO_DBNAME']]
+        col = mongodb["user_data"]
+        try:
+            user.insert_user_data_into_mongodb(col, req)
+            return util.create_json_object(code="200",message='user data inserted into collection user_data')
+        except:
+            return util.create_json_object(code="500",message='insert into collection user_data failed')
 
 
 
