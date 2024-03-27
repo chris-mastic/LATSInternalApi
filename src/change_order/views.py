@@ -74,6 +74,7 @@ def set_user_data():
         col = mongodb["user_data"]
         try:
             user.insert_user_data_into_mongodb(col, req)
+            print(f"INSIDE THE TRY")
             return util.create_json_object(code="200",message='user data inserted into collection user_data')
         except:
             return util.create_json_object(code="500",message='insert into collection user_data failed')
