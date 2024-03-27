@@ -21,7 +21,6 @@ def active_session(col, session_id: str) -> bool:
 
 def get_user_session_data(col, session_id: str) -> dict:
     user_session_data = {'token': session_id}
-    print(f" user_session_datat is {user_session_data}")
     session_dict = {}
     try:
         user_profile = col.find_one(user_session_data)
@@ -50,10 +49,7 @@ def insert_user_session_into_mongodb(col, auth_token, username, expiration):
     col.insert_one(user_session_data)
 
 def insert_user_data_into_mongodb(col, req):
-    print(f"insert_user_data_into_mongodb {req}")
-    print(f"col {col}")
     user_data = req
-    print(f"user_data type{type(user_data)}")
     try:
         col.insert_one(user_data)
         return helper.create_json_object(code="200", message="user data inserted")

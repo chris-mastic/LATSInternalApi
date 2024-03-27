@@ -11,7 +11,7 @@ import urllib.request
 import urllib.error as urlError
 
 from db.la_tax_service_dtos import assess_values_dto, change_order_dto
-import services.helpers as util 
+import services.helpers as util
 import db.oracle_db_connection as odb
 
 
@@ -52,7 +52,6 @@ def switch(start: int, stop: int, altid: str, item: str) -> str:
 def get_user_data():
     req = json.loads(request.data)
     token = req['token']
-    print(f"token in get_user_data is {token}")
     with current_app.app_context():
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
@@ -60,31 +59,23 @@ def get_user_data():
         try:
             return user.get_user_data(col, token)
         except:
-            print("in the except")
-            return util.create_json_object(code="500",message='unable to retrieve user data.')
+            return util.create_json_object(code="500", message='unable to retrieve user data.')
 
 
 @change_order_bp.route("/api/set_user_data", methods=['POST'])
 @cross_origin()
 def set_user_data():
     req = json.loads(request.data)
-    print(f"Inside set_user_data")
-   
     with current_app.app_context():
-        print(f"Inside the with..")
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
         col = mongodb["user_data"]
         try:
             user.insert_user_data_into_mongodb(col, req)
-            print(f"INSIDE THE TRY")
-            obj = util.create_json_object(code="200",message='user data inserted into collection user_data')
-            print(f"obj is {obj}")
-            return obj
+            return util.create_json_object(
+                code="200", message='user data inserted into collection user_data')
         except:
-            return util.create_json_object(code="500",message='insert into collection user_data failed')
-
-
+            return util.create_json_object(code="500", message='insert into collection user_data failed')
 
 
 @change_order_bp.route("/api/add_to_batch", methods=['GET', 'POST'])
