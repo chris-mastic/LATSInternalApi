@@ -3,6 +3,7 @@ import flask
 import json
 import logging
 import os
+from flask_cors import cross_origin
 import pandas as pd
 from pymongo import MongoClient
 import urllib.request as urlRequest
@@ -63,6 +64,7 @@ def get_user_data():
 
 
 @change_order_bp.route("/api/set_user_data", methods=['POST'])
+@cross_origin()
 def set_user_data():
     req = json.loads(request.data)
     print(f"Inside set_user_data")
