@@ -53,6 +53,7 @@ def insert_user_data_into_mongodb(col, req):
     print(f"insert_user_data_into_mongodb {req}")
     print(f"col {col}")
     user_data = req
+    print(f"user_data type{type(user_data)}")
     col.insert_one(user_data)
 
 def get_user_data(col, auth_token: str) -> dict:
