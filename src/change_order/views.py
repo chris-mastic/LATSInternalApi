@@ -65,8 +65,9 @@ def get_user_data():
 @change_order_bp.route("/api/set_user_data", methods=['POST'])
 def set_user_data():
     req = json.loads(request.data)
-
+    print(f"Inside set_user_data")
     with current_app.app_context():
+        print(f"Inside the with..")
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
         col = mongodb["user_data"]
