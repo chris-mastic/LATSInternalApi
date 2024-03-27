@@ -977,7 +977,8 @@ Deploy Flask Application:
              if __name__ == '__main__':
                  app.run(debug=True)
                  
-   run gunicorn: gunicorn -w 3 run:app     
+   run gunicorn: gunicorn -w 3 run:app 
+   To run on the server: nohup gunicorn -w 5 --forwarded-allow-ips="*" "src:create_app()" &    
          
   sudo apt install supervisor:
       setup config file:
