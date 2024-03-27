@@ -63,6 +63,7 @@ def set_headers(response):
 
 
 @authentication_bp.route("/api/logout", methods=['POST'])
+@cross_origin()
 def logout():
 
     ltc_api = LTCApiConnections(logging)

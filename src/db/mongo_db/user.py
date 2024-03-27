@@ -58,7 +58,6 @@ def insert_user_data_into_mongodb(col, req):
     
 def get_user_data(col, auth_token: str) -> dict:
     user_data = {'token': auth_token}
-    session_dict = {}
     try:
         data = col.find_one(user_data)
         # delete _id, since it is not needed
