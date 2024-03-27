@@ -54,8 +54,12 @@ def insert_user_data_into_mongodb(col, req):
     print(f"col {col}")
     user_data = req
     print(f"user_data type{type(user_data)}")
-    col.insert_one(user_data)
-
+    try:
+        col.insert_one(user_data)
+        return helper.create_json_object(code="200", message="user data inserted")
+    except:
+        return helper.create_json_object(code="500",message="unable to insert user data")
+    
 def get_user_data(col, auth_token: str) -> dict:
     user_data = {'token': auth_token}
     session_dict = {}
