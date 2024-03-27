@@ -48,6 +48,7 @@ def switch(start: int, stop: int, altid: str, item: str) -> str:
 
 
 @change_order_bp.route("/api/get_user_data", methods=['GET'])
+@cross_origin()
 def get_user_data():
     req = json.loads(request.data)
     token = req['token']
