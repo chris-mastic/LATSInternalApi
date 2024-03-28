@@ -75,25 +75,18 @@ def logout():
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
         user_session_col = mongodb["user_session"]
-        user_data_col = mongodb["user_data"]
+        #user_data_col = mongodb["user_data"]
         if user.active_session(user_session_col, token):
-            resp = ltc_api.logout(username, token)
-            rtn_code = user.remove_user_from_mongodb(user_session_col, token)
+            rtn_code = user.remove_user_from_mongodb(mongodb, token)
             if rtn_code == 0:
-                rtn_code = user.remove_user_from_mongodb(user_data_col, token)
-                if rtn_code != 0:
-                    logging.error(
-                        f'{token} unable to delete from user_data collection')
-
+                 del ltc_api
+                 return util.create_json_object(code="200",message="Successfully logged out")
             else:
                 logging.error(
-                    f'{token} unable to delete from user_session collection')
-            del ltc_api
-            return util.create_json_object(code="200",message="Logged out")
-
-        else:
-            return util.create_json_object(code="200",message="Not logged in")
-
+                        f'{token} unable to delete from database')
+                del ltc_api
+                return util.create_json_object(code="500",message="User session not removed from database")
+       
 
 @authentication_bp.route("/api/login", methods=['POST'])
 @cross_origin()
