@@ -19,8 +19,8 @@ class Config:
     MONGO_URI = config.get("MONGO_URI")
     MONGO_DBNAME = config.get("MONGO_DBNAME")
     EXPO_URL = config.get("EXPO_URL")
-    DEBUG = False #Prod
-    #DEBUG = True #Development
+    #DEBUG = False #Prod
+    DEBUG = True #Development
     DEVELOPMENT = True
     #SESSION_TYPE = config.get("SESSION_TYPE") # use with sessionid
     

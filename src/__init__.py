@@ -20,22 +20,23 @@ def create_app():
     load_dotenv()
 
     app = Flask(__name__)
-    
+
     app.config['DEBUG'] = config.DEBUG
     app.config['DEVELOPMENT'] = config.DEVELOPMENT
     app.config['SECRET_KEY'] = config.SECRET_KEY
     app.config['FLASK_APP'] = config.FLASK_APP
     app.config['MONGO_URI'] = config.MONGO_URI
     app.config['MONGO_DBNAME'] = config.MONGO_DBNAME
+    app.config['LTC_API_URL_TEST'] = config.LTC_API_URL_TEST
+    app.config['LTC_API_URL_PROD'] = config.LTC_API_URL_PROD
     Session(app)
-   
+
    # Enable CORS for specific routes (e.g., /api/*)
     cors = CORS(app, resources={r"/api/*": {"origins": os.getenv('EXPO_URL')}},
                 allow_headers=["Content-Type", "Authorization"],
                 supports_credentials=True)
 
     app.config['CORS_HEADERS'] = 'Content-Type,Access-Control-Allow-Origin, Access-Control-Allow-Methods, Access-Control-Allow-Headers'
-
 
    # If referring to a db, this code is preferrable
     # in models.py, i.e., do something like this: db = SQLAlchemy()
@@ -56,6 +57,7 @@ def create_app():
     # return an instance of the Flask class
     # it encapsulates the entire web application,
     # including routes, views, etc
+
     return app
 
 

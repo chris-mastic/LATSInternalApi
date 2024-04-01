@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, current_app
 import json
 import os
 import urllib.request as urlRequest
@@ -39,23 +39,21 @@ class LTCApiConnections:
             return util.create_json_object(message='logged out')
 
     def login(self, username: str, password: str) -> object:
-        # url = os.environ.get('LTC_API_URL_PROD')
-        url = os.environ.get('LTC_API_URL_TEST')
-
+        # url = current_app.config["LTC_API_URL_PROD"]
+        url = current_app.config["LTC_API_URL_TEST"]
         paths = [url, "Auth/v1/authenticate?param=value&param2=value"]
         url = "".join(paths)
-
         values = {"username": username,
                   "password": password
                   }
         headers = {'accept': '*/*',
                    "Content-Type": "application/json"}
-
         creds = json.dumps(values).encode('utf-8')
         req = urllib.request.Request(
             url, headers=headers, data=creds, method='POST')
 
         try:
+
             with urlRequest.urlopen(req) as response:
                 body = response.read()
 

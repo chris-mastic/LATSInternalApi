@@ -75,18 +75,18 @@ def logout():
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
         user_session_col = mongodb["user_session"]
-        #user_data_col = mongodb["user_data"]
+        # user_data_col = mongodb["user_data"]
         if user.active_session(user_session_col, token):
             rtn_code = user.remove_user_from_mongodb(mongodb, token)
             if rtn_code == 0:
-                 del ltc_api
-                 return util.create_json_object(code="200",message="Successfully logged out")
+                del ltc_api
+                return util.create_json_object(code="200", message="Successfully logged out")
             else:
                 logging.error(
-                        f'{token} unable to delete from database')
+                    f'{token} unable to delete from database')
                 del ltc_api
-                return util.create_json_object(code="500",message="User session not removed from database")
-       
+                return util.create_json_object(code="500", message="User session not removed from database")
+
 
 @authentication_bp.route("/api/login", methods=['POST'])
 @cross_origin()
@@ -105,7 +105,6 @@ def login() -> object:
     token = req['token']
 
     with current_app.app_context():
-
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
         col = mongodb["user_session"]
@@ -119,7 +118,7 @@ def login() -> object:
             # return the values already stored in the session dictionary from previous login
             user_session_info = user.get_user_session_data(col, token)
             if 'token' in user_session_info:
-                return util.create_json_object(code="200",token=user_session_info['token'], expiration=user_session_info['token_expiration'], username=user_session_info['username'])
+                return util.create_json_object(code="200", token=user_session_info['token'], expiration=user_session_info['token_expiration'], username=user_session_info['username'])
             else:
                 # returns an empty dictionary
                 return util.create_json_object(code="500", message="unable to fetch user information")
@@ -127,11 +126,13 @@ def login() -> object:
         # No active session, try to create one
         else:
             # Connect to LTC API
+
             ltc_api = LTCApiConnections(logging)
+
             response = ltc_api.login(username, password)
-            print(f"TYPE RESPONSE IS {type(response)}")
+
             # Log bad response
-            #if type(response) is not dict and 'token' not in response.json:
+            # if type(response) is not dict and 'token' not in response.json:
             if 'error' in response and response['error'] == 1:
                 logging.error(f'{username} unable to log in to LTC site')
                 del ltc_api
@@ -142,7 +143,7 @@ def login() -> object:
                 col,  response['token'], username, response['expiration'])
             del ltc_api
 
-            return util.create_json_object(code="200",token=response['token'], expiration=response['expiration'], username=username)
+            return util.create_json_object(code="200", token=response['token'], expiration=response['expiration'], username=username)
 
 
 @deprecated
@@ -180,9 +181,9 @@ def create_salted_key(api_token):
 
 @authentication_bp.route("/api/reset_password", methods=['GET', 'POST'])
 def reset_password():
-    return util.create_json_object(code="200",message="password reset")
+    return util.create_json_object(code="200", message="password reset")
 
 
 @authentication_bp.route("/api/forgot_password", methods=['GET', 'POST'])
 def forgot_password():
-    return util.create_json_object(code="200",message="check email for password reset link")
+    return util.create_json_object(code="200", message="check email for password reset link")
