@@ -68,6 +68,7 @@ def get_user_data():
 @cross_origin()
 def set_user_data():
     req = json.loads(request.data)
+    #TODO: ADD VALIDATION. This method returns 200 even if no data was passed in
 
     with current_app.app_context():
         client = MongoClient(current_app.config['MONGO_URI'])

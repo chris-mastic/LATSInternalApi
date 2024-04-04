@@ -22,8 +22,8 @@ class OracleDBConnection:
             raise Exception("This class is a singleton")
         else:
             # Database Credentials
-            username = os.getenv("PYTHON_USERNAME")
-            password = os.getenv("PYTHON_PASSWORD")
+            username = os.getenv("ORACLE_USERNAME")
+            password = os.getenv("ORACLE_PASSWORD")
             cp = oracledb.ConnectParams()
 
             logger = logging.getLogger(__name__)
@@ -39,7 +39,7 @@ class OracleDBConnection:
             logger.addHandler(handler)
             logger.info("creating OracleDBConnection instance...")
 
-            cp.parse_connect_string(os.getenv("PYTHON_CONNECTSTRING"))
+            cp.parse_connect_string(os.getenv("ORACLE_CONNECTSTRING"))
 
             # For the default, python-oracledb Thin mode that doesn't use Oracle Instant Client
             thick_mode = None

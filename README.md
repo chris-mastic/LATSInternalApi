@@ -1009,5 +1009,15 @@ Deploy Flask Application:
        
        
          
+MYSQL:
 
-    
+    mysql -u root -p
+        $1400PerD1D0MS
+
+    CREATE DATABASE <name>
+    SHOW CREATE DATABASE <name>; # verify it was created
+    SHOW databases;
+    SHOW tables;
+    USE database;
+    DESCRIBE table; or SHOW FULL COLUMNS FROM table;
+    SHOW INDEX FROM NOA_LTC_CHANGE_ORDERS WHERE Key_name = 'CHANGE_ORDERS_IDX'; (using an example index)

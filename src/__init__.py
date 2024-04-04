@@ -29,6 +29,10 @@ def create_app():
     app.config['MONGO_DBNAME'] = config.MONGO_DBNAME
     app.config['LTC_API_URL_TEST'] = config.LTC_API_URL_TEST
     app.config['LTC_API_URL_PROD'] = config.LTC_API_URL_PROD
+    app.config['MYSQL_USER'] = config.MYSQL_USER
+    app.config['MYSQL_HOST'] = config.MYSQL_HOST
+    app.config['MYSQL_PASSWORD'] = config.MYSQL_PASSWORD
+    app.conf['MYSQL_DATABASE'] = config.MYSQL_DATABASE
     Session(app)
 
    # Enable CORS for specific routes (e.g., /api/*)
