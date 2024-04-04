@@ -50,9 +50,11 @@ def switch(start: int, stop: int, altid: str, item: str) -> str:
 @change_order_bp.route("/api/get_user_data", methods=['GET'])
 @cross_origin()
 def get_user_data():
-    req = json.loads(request.data)
-    token = req['token']
+
+    token = request.args.get('token')
+
     with current_app.app_context():
+
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
         col = mongodb["user_data"]
@@ -66,6 +68,7 @@ def get_user_data():
 @cross_origin()
 def set_user_data():
     req = json.loads(request.data)
+
     with current_app.app_context():
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
