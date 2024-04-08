@@ -57,9 +57,9 @@ def get_user_data():
 
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
-        col = mongodb["user_data"]
+        collection = mongodb["user_data"]
         try:
-            return user.get_user_data(col, token)
+            return user.get_user_data(collection, token)
         except:
             return util.create_json_object(code="500", message='unable to retrieve user data.')
 
@@ -73,13 +73,16 @@ def set_user_data():
     with current_app.app_context():
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
-        col = mongodb["user_data"]
+        collection= mongodb["user_data"]
         try:
-            user.insert_user_data_into_mongodb(col, req)
-            return util.create_json_object(
-                code="200", message='user data inserted into collection user_data')
+            rtn = user.create_update_user_data(collection, req)
+            if rtn == 0:
+                return util.create_json_object(
+                code="200", message='user data updated/inserted into collection user_data')
+            else:
+                return util.create_json_object(code="500", message='update/insert into collection user_data failed')
         except:
-            return util.create_json_object(code="500", message='insert into collection user_data failed')
+            return util.create_json_object(code="500", message='Method all to create_update_user_data failed')
 
 
 @change_order_bp.route("/api/add_to_batch", methods=['GET', 'POST'])

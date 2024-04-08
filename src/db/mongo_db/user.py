@@ -14,23 +14,23 @@ class User(Document):
         expiration (datetime): Expiration set on LTC auth token 
 
     Methods:
-        active_session(col, session_id: str) -> bool:
+        active_session(collection, session_id: str) -> bool:
             '''
             Determines if the LTC token is in user_session collection
 
             Args:
-                col (mongodb Collection) : A Mongodb Collection object
+                collection (mongodb Collection) : A Mongodb Collection object
                 session_id (string): LTC token
 
                 Returns:
                     bool: LTC token found or not found
             '''
-        get_user_session_data(col, session_id: str) -> dict:
+        get_user_session_data(collection, session_id: str) -> dict:
             '''
             Determines whether a given LTC token exists in user_session collection
 
             Args:
-                col (mongodb collection): A Mongodb Colleciont object
+                collection (mongodb collection): A Mongodb Colleciont object
                 session_id (string): The token assigned by LTC and used to identify a user
 
             Returns:
@@ -52,15 +52,15 @@ class User(Document):
             '''
             '''
 
-        insert_user_session_into_mongodb(col, auth_token, username, expiration):
+        insert_user_session_into_mongodb(collection, auth_token, username, expiration):
             '''
             '''
 
-        insert_user_data_into_mongodb(col, req):
+        insert_user_data_into_mongodb(collection, req):
             '''
             '''
 
-        get_user_data(col, auth_token: str) -> dict:
+        get_user_data(collection, auth_token: str) -> dict:
             '''
             '''
 
@@ -75,24 +75,24 @@ class User(Document):
     expirtation = DateTimeField(required=True)
 
 
-def active_session(col, session_id: str) -> bool:
+def active_session(collection, auth_token: str) -> bool:
 
-    user_session_data = {'token': session_id}
+    user_session_data = {'token': auth_token}
 
     try:
-        user_profile = col.find_one(user_session_data)
+        user_profile = collection.find_one(user_session_data)
         return True if user_profile.get("token") else False
 
     except:
         return False
 
 
-def get_user_session_data(col, session_id: str) -> dict:
+def get_user_session_data(collection, auth_token: str) -> dict:
     """
     Determines whether a given LTC token exists in user_session collection
 
     Args:
-        col: The user_session collection
+        collection: The user_session collection
         session_id: The token assigned by LTC and used to identify a user
 
     Returns:
@@ -107,10 +107,10 @@ def get_user_session_data(col, session_id: str) -> dict:
 
             }
     """
-    user_session_data = {'token': session_id}
+    user_session_data = {'token': auth_token}
     session_dict = {}
     try:
-        user_profile = col.find_one(user_session_data)
+        user_profile = collection.find_one(user_session_data)
         session_dict['token'] = user_profile.get("token")
         session_dict['token_expiration'] = user_profile.get("token_expiration")
         session_dict['username'] = user_profile.get("username")
@@ -142,29 +142,87 @@ def remove_user_from_mongodb(db, auth_token: str) -> int:
         return 1
 
 
-def insert_user_session_into_mongodb(col, auth_token, username, expiration):
+def insert_user_session_into_mongodb(collection, auth_token, username, expiration):
     user_session_data = {'token': auth_token,
                          'username': username, 'date': datetime.now(),
                          'token_expiration': expiration}
-    col.insert_one(user_session_data)
+    collection.insert_one(user_session_data)
 
 
-def insert_user_data_into_mongodb(col, req):
-    user_data = req
+def create_update_user_data(collection, req) -> int:
+    """
+    Determines whether to insert new document into user_data or update 
+    existing document.
+
+    Args: 
+        collection: The mongodb collection - user_data
+        req: Dictionary of k,v pairs received as user request
+
+    Returns:
+        int: 0 for success, 1 for failure
+    """
+    if (_is_new_data_insertion(collection, req['token'])):
+        return _insert_new_user_data_into_mongodb(collection, req)
+    else:
+        # Updates single document
+        return _update_user_data(collection, req)
+
+
+def _is_new_data_insertion(collection, auth_token) -> bool:
+    user_session_data = {'token': auth_token}
     try:
-        col.insert_one(user_data)
-        return helper.create_json_object(code="200", message="user data inserted")
+        return False if collection.find_one(user_session_data) else True
     except:
-        return helper.create_json_object(code="500", message="unable to insert user data")
+        return False
 
 
-def get_user_data(col, auth_token: str) -> dict:
+def _insert_new_user_data_into_mongodb(collection, req) -> int:
+    """
+    Inserts a new document into user_data collection
+
+    Args:
+        colleciton: A mongodb collection - user_data
+        req: Dictionary of k,v pairs received as user request
+
+    Returns:
+        int: 0 for success, 1 for failure     
+    """
+    try:
+        req['created'] = datetime.now()
+        collection.insert_one(req)
+        return 0
+
+    except:
+        return 1
+
+
+def _update_user_data(collection, req) -> int:
+    """
+    Updates an existing document in user_data collection
+
+    Args:
+        colleciton: A mongodb collection - user_data
+        req: Dictionary of k,v pairs received as user request
+
+    Returns:
+        int: 0 for success, 1 for failure     
+    """
+    try:
+        req['modified'] = datetime.now()
+        collection.update_one({"token": req['token']}, {"$set": req})
+        return 0
+
+    except:
+        return 1
+
+
+def get_user_data(collection, auth_token: str) -> dict:
     user_data = {'token': auth_token}
     user_data = {key.replace('"', ''): val.replace('"', '')
                  for key, val in user_data.items()}
 
     try:
-        data = col.find_one(user_data)
+        data = collection.find_one(user_data)
         # delete _id, since it is not needed
         del data['_id']
         return (data)

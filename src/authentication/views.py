@@ -107,16 +107,16 @@ def login() -> object:
     with current_app.app_context():
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
-        col = mongodb["user_session"]
+        collection = mongodb["user_session"]
 
         # Check if user has an active session
-        is_valid_session = user.active_session(col, token)
+        is_valid_session = user.active_session(collection, token)
 
         # User has an active session
         if is_valid_session:
             logging.info("user tried to log in again")
             # return the values already stored in the session dictionary from previous login
-            user_session_info = user.get_user_session_data(col, token)
+            user_session_info = user.get_user_session_data(collection, token)
             if 'token' in user_session_info:
                 return util.create_json_object(code="200", token=user_session_info['token'], expiration=user_session_info['token_expiration'], username=user_session_info['username'])
             else:
@@ -140,7 +140,7 @@ def login() -> object:
 
             # Valid response, write to database
             user.insert_user_session_into_mongodb(
-                col,  response['token'], username, response['expiration'])
+                collection,  response['token'], username, response['expiration'])
             del ltc_api
 
             return util.create_json_object(code="200", token=response['token'], expiration=response['expiration'], username=username)
