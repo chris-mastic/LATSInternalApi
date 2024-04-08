@@ -93,6 +93,15 @@ def add_to_batch():
                }
 
     """
+    # Get user data
+
+    # Connect to db
+
+    # Write to db
+
+    # close connection
+
+    # return response
 
     return "ok"
 

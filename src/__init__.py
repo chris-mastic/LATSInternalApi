@@ -32,7 +32,7 @@ def create_app():
     app.config['MYSQL_USER'] = config.MYSQL_USER
     app.config['MYSQL_HOST'] = config.MYSQL_HOST
     app.config['MYSQL_PASSWORD'] = config.MYSQL_PASSWORD
-    app.conf['MYSQL_DATABASE'] = config.MYSQL_DATABASE
+    app.config['MYSQL_DATABASE'] = config.MYSQL_DATABASE
     Session(app)
 
    # Enable CORS for specific routes (e.g., /api/*)
