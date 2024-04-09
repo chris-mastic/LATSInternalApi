@@ -75,8 +75,8 @@ def set_user_data():
         mongodb = client[current_app.config['MONGO_DBNAME']]
         collection= mongodb["user_data"]
         try:
-            rtn = user.create_update_user_data(collection, req)
-            if rtn == 0:
+            rtn_code = user.create_update_user_data(collection, req)
+            if rtn_code == 0:
                 return util.create_json_object(
                 code="200", message='user data updated/inserted into collection user_data')
             else:

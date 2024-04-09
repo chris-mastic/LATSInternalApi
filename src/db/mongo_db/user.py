@@ -75,18 +75,6 @@ class User(Document):
     expirtation = DateTimeField(required=True)
 
 
-def active_session(collection, auth_token: str) -> bool:
-
-    user_session_data = {'token': auth_token}
-
-    try:
-        user_profile = collection.find_one(user_session_data)
-        return True if user_profile.get("token") else False
-
-    except:
-        return False
-
-
 def get_user_session_data(collection, auth_token: str) -> dict:
     """
     Determines whether a given LTC token exists in user_session collection
@@ -168,6 +156,33 @@ def create_update_user_data(collection, req) -> int:
         return _update_user_data(collection, req)
 
 
+def get_user_data(collection, auth_token: str) -> dict:
+    user_data = {'token': auth_token}
+    user_data = {key.replace('"', ''): val.replace('"', '')
+                 for key, val in user_data.items()}
+
+    try:
+        data = collection.find_one(user_data)
+        # delete _id, since it is not needed
+        del data['_id']
+        return (data)
+
+    except:
+        return helper.create_json_object(code="500", message="unable to retrieve user data")
+
+
+def active_session(collection, auth_token: str) -> bool:
+
+    user_session_data = {'token': auth_token}
+
+    try:
+        user_profile = collection.find_one(user_session_data)
+        return True if user_profile.get("token") else False
+
+    except:
+        return False
+
+
 def _is_new_data_insertion(collection, auth_token) -> bool:
     user_session_data = {'token': auth_token}
     try:
@@ -211,21 +226,6 @@ def _update_user_data(collection, req) -> int:
         req['modified'] = datetime.now()
         collection.update_one({"token": req['token']}, {"$set": req})
         return 0
-
+    
     except:
         return 1
-
-
-def get_user_data(collection, auth_token: str) -> dict:
-    user_data = {'token': auth_token}
-    user_data = {key.replace('"', ''): val.replace('"', '')
-                 for key, val in user_data.items()}
-
-    try:
-        data = collection.find_one(user_data)
-        # delete _id, since it is not needed
-        del data['_id']
-        return (data)
-
-    except:
-        return helper.create_json_object(code="500", message="unable to retrieve user data")

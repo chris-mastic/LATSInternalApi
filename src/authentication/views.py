@@ -92,12 +92,21 @@ def logout():
 @cross_origin()
 def login() -> object:
     """
-        Initiate a session for authenticated user/application
+    Authenticate and initiate a session for user
 
-        Once user is authenticated, this endpoint should return
-        a session identifier and LTC token that can be used to access protected
-        resources. Store it as a cookie or in header of 
-        subsequent API requests.
+    Args:
+        request.data: Request body data
+
+    Returns:
+        JSON 
+            {
+                "code": "200" or "500",
+                "token": LTC Authentication token,
+                "expiration": Token expiration,
+                "username": User's name 
+            }
+        
+
     """
     req = json.loads(request.data)
     username = req['username']
@@ -181,9 +190,11 @@ def create_salted_key(api_token):
 
 @authentication_bp.route("/api/reset_password", methods=['GET', 'POST'])
 def reset_password():
+    # TODO: Add code to process a reset request.
     return util.create_json_object(code="200", message="password reset")
 
 
 @authentication_bp.route("/api/forgot_password", methods=['GET', 'POST'])
 def forgot_password():
+    # TODO: Add code to process a forgotten password request.
     return util.create_json_object(code="200", message="check email for password reset link")
