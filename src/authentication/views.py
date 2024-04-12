@@ -51,21 +51,39 @@ def handle_preflight():
         from the specific orign. The server includes CORS headers in its response (prefilight
         or acutal). The acutal headers are set in __init__.py.
     """
+    print("IN preflight....")
     return '', 204  # No content, just acknowledge the preflight request
 
-
+# after_request ensures this method will run after each response
 @authentication_bp.after_request
 def set_headers(response):
+    #Allows any domain to access app
     response.headers["Access-Control-Allow-Origin"] = "*"
+    #Lets browser know which custom headers are allowed
     response.headers["Access-Control-Allow-Headers"] = "*"
-    response.headers["Access-Control-Allow-Methods"] = "*"
+    #Specifies which HTTP methods are allowed (scheme)
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST"
     return response
 
 
 @authentication_bp.route("/api/logout", methods=['POST'])
 @cross_origin()
 def logout():
+    """
+    Logs out user from LTC and deletes all user session objects
 
+    Args:
+        request.data: Request body data
+
+    Returns:
+        JSON 
+            {
+                "code": "200" or "500",
+                "message": Sucess or failure
+            }
+        
+
+    """
     ltc_api = LTCApiConnections(logging)
     req = json.loads(request.data)
     token = req['token']

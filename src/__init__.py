@@ -2,7 +2,6 @@
 import sys
 from dotenv import load_dotenv
 from flask import Flask
-from flask_cors import CORS
 from flask_session import Session
 import os
 
@@ -35,13 +34,7 @@ def create_app():
     app.config['MYSQL_DATABASE'] = config.MYSQL_DATABASE
     Session(app)
 
-   # Enable CORS for specific routes (e.g., /api/*)
-    cors = CORS(app, resources={r"/api/*": {"origins": os.getenv('EXPO_URL')}},
-                allow_headers=["Content-Type", "Authorization"],
-                supports_credentials=True)
-
-    app.config['CORS_HEADERS'] = 'Content-Type,Access-Control-Allow-Origin, Access-Control-Allow-Methods, Access-Control-Allow-Headers'
-
+  
    # If referring to a db, this code is preferrable
     # in models.py, i.e., do something like this: db = SQLAlchemy()
     # from yourapplication.model import db

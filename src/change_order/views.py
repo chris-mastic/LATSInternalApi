@@ -47,6 +47,40 @@ def switch(start: int, stop: int, altid: str, item: str) -> str:
         return "Invalid altid"
 
 
+""" Following two functions are intended to handle CORS related issuses
+"""
+
+
+@change_order_bp.route('/api/login', methods=['OPTIONS'])
+def handle_preflight(response):
+    """ This function receives the browser's preflight request (An HTTP OPTIONS request)
+        The request should include headers (Orign, Access-Control-Request-Method and 
+        Access-Control-Request-Headers). This will cause the server to respond with
+        appropriate CORS headers indicating whether the actual request is allowed
+        from the specific orign. The server includes CORS headers in its response (prefilight
+        or acutal). The acutal headers are set in __init__.py.
+    """
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    # Lets browser know which custom headers are allowed
+    response.headers["Access-Control-Allow-Headers"] = "*"
+    # Specifies which HTTP methods are allowed (scheme)
+    response.headers["Access-Control-Allow-Methods"] = "GET,POST"
+    return '', 204  # No content, just acknowledge the preflight request
+
+# after_request ensures this method will run after each response
+
+
+@change_order_bp.after_request
+def set_headers(response):
+    # Allows any domain to access app
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    # Lets browser know which custom headers are allowed
+    response.headers["Access-Control-Allow-Headers"] = "*"
+    # Specifies which HTTP methods are allowed (scheme)
+    response.headers["Access-Control-Allow-Methods"] = "GET,POST"
+    return response
+
+
 @change_order_bp.route("/api/get_user_data", methods=['GET'])
 @cross_origin()
 def get_user_data():
@@ -68,17 +102,17 @@ def get_user_data():
 @cross_origin()
 def set_user_data():
     req = json.loads(request.data)
-    #TODO: ADD VALIDATION. This method returns 200 even if no data was passed in
+    # TODO: ADD VALIDATION. This method returns 200 even if no data was passed in
 
     with current_app.app_context():
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
-        collection= mongodb["user_data"]
+        collection = mongodb["user_data"]
         try:
             rtn_code = user.create_update_user_data(collection, req)
             if rtn_code == 0:
                 return util.create_json_object(
-                code="200", message='user data updated/inserted into collection user_data')
+                    code="200", message='user data updated/inserted into collection user_data')
             else:
                 return util.create_json_object(code="500", message='update/insert into collection user_data failed')
         except:

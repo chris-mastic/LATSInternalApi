@@ -1024,6 +1024,9 @@ MYSQL:
 
 CORS:
 
+    N.B.: Use Invoke-WebRequest -Uri <"http://127.0.0.1:5000/api/login"> -Method OPTIONS to see the allowed request methods on Windows or
+                curl -X OPTIONS <"http://127.0.0.1:5000/api/login"> -i on normal computers
+                
     1. Same Origin Policy:
         This is a default security measure in browsers that restricts how scripts from one origin interact with resoureces from another origin (cross-origin)l
         In the SOP context, we consider two URLs to be of the same origin if they have the same scheme (http, https), domain, and port number (if the URL
@@ -1173,4 +1176,3 @@ CORS:
         Finally, CORS is backward compatible. Some older servers which may have been relying on SOP and do not handle CORS are still protected using this
         method because the browser will treat servers that send no CORS headers the same as servers than only allow requests from the same origin.
 
-        

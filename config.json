@@ -13,5 +13,6 @@
     "MYSQL_PASSWORD": "root",
     "MYSQL_DATABAE": "NOA_LTC_CHANGE_ORDERS",
     "EXPO_URL":"http://localhost:19006",
+    "REACT_URL":"http://localhost:3000",
     "SESSION_TYPE":"filesystem"
 }
