@@ -1021,3 +1021,156 @@ MYSQL:
     USE database;
     DESCRIBE table; or SHOW FULL COLUMNS FROM table;
     SHOW INDEX FROM NOA_LTC_CHANGE_ORDERS WHERE Key_name = 'CHANGE_ORDERS_IDX'; (using an example index)
+
+CORS:
+
+    1. Same Origin Policy:
+        This is a default security measure in browsers that restricts how scripts from one origin interact with resoureces from another origin (cross-origin)l
+        In the SOP context, we consider two URLs to be of the same origin if they have the same scheme (http, https), domain, and port number (if the URL
+        includes a port). E.g., 
+            https://www.test.com and https://www.test.com/about have the same origin
+            https://www.test.com and http://www.test.com do not because of different scheme.
+
+        Browsers implementing SOP restrict website scripts served on on origin from making request to another origin using methods such as XMLHttpRequest
+        or the Fetch API.
+        SOP was put in place as the first line of defense to protect against cross-site request forgery attacks (CSRF is an attack that forces an end-user
+        to execute unwanted actions on a web application in which they are currently authenticated). However, eventually, developers noticed it is useful
+        to be able to reequest resources from APIs on different domains and take advantage of the functionalities provided by another party. Due to this,
+        CORS was introduced to allow cross-origin resource sharing under certain conditions.
+
+    2. What is CORS?
+        To address the need for accessing third party APIs, the CORS policy determines how scripts served by one origin can request resources on another
+        origin. The CORS policy defines spedific HTTP headers that need to be included in the request/response interaction: allowing the server to
+        communicate which origins it will allow requests from. The browser then enforces this by allowing or preventing scripts from accessing the response.
+        When it comes to cross-origin requests, there are three types that browsers deal with:
+
+    2.1 Simple Requests:
+        A simple request is a request which fulfills the following:
+            * It is a GET, HEAD or POST request
+            * Ony sends automatic User-Agent headers or CORS Safelisted Headers such as Accept, Accept-Language, Content-Language, Content-Type
+            * The Content-Type header can only have the values application/x-www-form-urlencoded, multipart/form-data and text/plain
+            * Does not use a ReadableStream object
+            * XMLHttpRequest.upload does not have an event listener attached to it.
+
+        Let's take a look at the following simple CORS request initiated by this snippet of Javascript which runs on https://www.site.com
+
+            const xhr = new XMLHttpRequest();
+            const url = 'https://www.api.com?q=test';
+            xhr.open('GET', url);
+            xhr.onreadystatechange = requestHandler;
+            xhr.send();
+
+            This will generate the following exchange between the browser and https://www.api.com:
+                * First, the browser sends the request with an origin header identifying the origin to the https://www.api.com server
+                * The server responds with the requested data and also includes an access-control-allow-origin header set to 
+                https://www.site.com which indicates to the browser that the server allows requests from this origin
+                * The browser will enforce this by allowing the requestHandler method to access the response data
+
+            To summarize this exchange:
+
+                b        Request:                                           s
+                r        GET https://www.api.com?q=test                     e
+                o        origin: https://www.site.com                       r
+                w                                             ---------->   v
+                s                                                           e
+                e       Response:                             <----------   r
+                r       HTTP:/1.1 200 OK
+                        access-control-allow-origin: https://www.site.com
+
+        The access-control-allow-origin header is one of the main CORS headers a server can use to show what requests it will allow. The
+        value of this header can either be a single origin to tell the browser to allow access to that specific origin, or it can be
+        '*' which tells the browser to allow any origin.
+        If the server doesn't respond with this header or if the header value is a domain that doesn't match the origin of the request, then
+        the browser will prevent the response from being passed back to the script. This could lead to console errors, for example, the
+        standarad error you see when having CORS issues.
+
+    2.2 Non-Simple Request:
+        Any request which is not a simple request is considered a non-simple or preflighted request. The browser treats these kinds of requests a
+        little differently.  Before sending the actual request, the browser will send what we call a preflight request, to check with the
+        server if it allows this type of request. A preflight request is an OPTIONS request which includeds the following headers:
+
+            * origin - tells the server the origin where the request is coming from
+            * access-control-request-method - tells the server which HTTP method the request implements
+            * access-control-request-headers - tells the server which headers the request includes.
+
+        In response to this, the server can decide if it will accept a request of this kind from this origin or not by responding with these
+        headers:
+
+            * access-control-allow-origin = the origin that the server will allow.
+            * access-control-allow-methods - a comma-separated list of methods that the server will allow.
+            * access-control-allow-headers - a comma-separated list of headers that the server will allow.
+            * access-control-max-age - tells the browser how long (in seconds) to cache the response to the preflight request.
+            * A full list of possible CORS response headers are listed in the MDN Web Docs
+        
+        Similar to simple requests, if the server doesn't include any of the CORS headers, the browser will assume that this server doesn't
+        allow this request and won't continue with the actual request.
+
+            Let’s see this in action by modifying our previous request slightly, we can make it non-simple if we add a custom header:
+
+            const xhr = new XMLHttpRequest();
+            const url = 'https://www.api.com?q=test';
+            xhr.open(‘GET', url);
+            xhr.setRequestHeader(‘custom-header', ’test')
+            xhr.onreadystatechange = requestHandler;
+            xhr.send();
+
+            The browser will identify this request as non-simple and will initiate a preflight request to the server to check if it allows it. Let’s take a look at how this interaction will look like if the https://www.api.com server allows this kind of request:
+
+            Browser (https://www.site.com)                                        Server (https://www.api.com)
+
+                pre-flight request:
+                OPTIONS https://www/api.com?q=test
+                access-control-request-method: GET
+                access-control-request-headers: custom-header, ...
+                origin: https://www.site.com
+                --------------------------------------------------------------------->
+
+                pre-flight response:
+                HTTP/1.1 204 No Content
+
+                access-control-allow-origin: https://www.site.com
+                access-control-allow-methods: GET
+                access-control-allow-headers: custom-header, accept, ...
+                access-control-max-age:6000
+                <--------------------------------------------------------------------
+
+                Request:
+                GET https://www.api.com?q=test
+
+                origin: https://www.site.com
+                custom-header: test
+                ---------------------------------------------------------------------->
+
+                Response:
+                HTTP/1.1 200 OK
+
+                access-control-allow-origin: https://www.site.com
+
+            As we can see, the server responded with the correct headers and the browser continued to make the actual request. If the server
+            had responded without the necessary headers, the browser would have prevented the request from going out.
+
+    2.3 Credentialed Requests:
+        Credentials can be cookies, authorization headers, or TLS client certificates. By default, the CORS policy doesn't allow including 
+        credentials in a cross-origin request unless both the request includes a flag to include credentials and the server responds with the
+        access-control-allow-credentials set to true.
+        To include credentials in our request, lets update our XMLHttpRequest by setting the withCredentials property to true:
+
+            const xhr = new XMLHttpRequest();
+            const url = 'https://www.api.com?q=test';
+            xhr.open('GET', url);
+            xhr.withCredentials = true;
+            xhr.send();
+
+        If the server response doesn’t include the access-control-allow-credentials set to true and an access-control-allow-origin header that matches the same origin the request came from; the browser will block our request. An example of this is shown below where we try to make the same request to the Google Book API which doesn’t allow credentials:
+
+    3. What's the reasoning behind preflight request?
+        Since CORS was proposed after the SOP had been in place for some time, the idea of using preflight requests presented some advantages. With preflight
+        requests, servers an examine requests before they're executed and get a chance to indicate if they allow them.
+        If there is a side effect to a particular request which a server doesn't allow from another origin, the preflight request helps protect the unconsenting
+        servers by checking first and blocking the request if the server responds with headers that indicate its refusal. In addition to this, servers may 
+        change what kind of requests and headers they allow as they're developed. With preflight reqeusts in place, browsers can check this and adjust 
+        accordingly.
+        Finally, CORS is backward compatible. Some older servers which may have been relying on SOP and do not handle CORS are still protected using this
+        method because the browser will treat servers that send no CORS headers the same as servers than only allow requests from the same origin.
+
+        
