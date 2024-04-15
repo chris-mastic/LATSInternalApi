@@ -1176,3 +1176,27 @@ CORS:
         Finally, CORS is backward compatible. Some older servers which may have been relying on SOP and do not handle CORS are still protected using this
         method because the browser will treat servers that send no CORS headers the same as servers than only allow requests from the same origin.
 
+
+HEADERS:
+
+    User-Agent:
+The User-Agent header identifies the client making the request. It typically contains information about the user agent (e.g., browser name and version) and sometimes the operating system.
+Example: User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36
+Accept:
+The Accept header specifies the media types (content types) that the client can handle in the response. It helps the server choose an appropriate representation (e.g., HTML, JSON, XML).
+Example: Accept: application/json, text/html
+Authorization:
+The Authorization header is used for authentication. It contains credentials (such as an access token or username/password) to prove the client’s identity.
+Example (Bearer token): Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+Content-Type:
+When sending data in the request body (e.g., in a POST request), the Content-Type header specifies the format of the data.
+Example (JSON data): Content-Type: application/json
+Referer:
+The Referer (yes, it’s spelled that way) header indicates the URL of the page that linked to the current page. It’s useful for tracking where requests originate.
+Example: Referer: https://example.com/page1
+Cookie:
+The Cookie header contains cookies associated with the current domain. Cookies are often used for session management and maintaining state.
+Example: Cookie: session_id=abc123; user_prefs=dark_mode
+Custom Headers:
+Clients can also include custom headers specific to their application. These headers are not standardized and are defined by the application.
+Example: X-Custom-Header: MyCustomValue

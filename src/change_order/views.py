@@ -58,7 +58,7 @@ def handle_preflight(response):
         Access-Control-Request-Headers). This will cause the server to respond with
         appropriate CORS headers indicating whether the actual request is allowed
         from the specific orign. The server includes CORS headers in its response (prefilight
-        or acutal). The acutal headers are set in __init__.py.
+        or acutal). 
     """
     response.headers["Access-Control-Allow-Origin"] = "*"
     # Lets browser know which custom headers are allowed
