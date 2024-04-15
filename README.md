@@ -1034,7 +1034,7 @@ CORS:
             https://www.test.com and https://www.test.com/about have the same origin
             https://www.test.com and http://www.test.com do not because of different scheme.
 
-        Browsers implementing SOP restrict website scripts served on on origin from making request to another origin using methods such as XMLHttpRequest
+        Browsers implementing SOP restrict website scripts served on one origin from making request to another origin using methods such as XMLHttpRequest
         or the Fetch API.
         SOP was put in place as the first line of defense to protect against cross-site request forgery attacks (CSRF is an attack that forces an end-user
         to execute unwanted actions on a web application in which they are currently authenticated). However, eventually, developers noticed it is useful
