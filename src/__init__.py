@@ -3,10 +3,14 @@ import sys
 from dotenv import load_dotenv
 from flask import Flask
 from flask_session import Session
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import os
 
 from config import Config as config
 
+db = SQLAlchemy()
+migrate = Migrate()
 
 """ Function responsible for setting up the Flask application.
     It initializes the app, configures extensions, registers
@@ -32,20 +36,20 @@ def create_app():
     app.config['MYSQL_HOST'] = config.MYSQL_HOST
     app.config['MYSQL_PASSWORD'] = config.MYSQL_PASSWORD
     app.config['MYSQL_DATABASE'] = config.MYSQL_DATABASE
+    app.config['SQLALCHEMY_DATABASE_URI'] = config.SQLALCHEMY_DATABASE_URI
     Session(app)
 
-  
-   # If referring to a db, this code is preferrable
-    # in models.py, i.e., do something like this: db = SQLAlchemy()
-    # from yourapplication.model import db
-    # db.init_app(app)
+    db = SQLAlchemy()
+    db.init_app(app)
+    # Initialize Flask-Migrate
+    migrate.init_app(app,db)
 
     from src.authentication.views import authentication_bp
     from src.change_order.views import change_order_bp
-
+    
     app.register_blueprint(authentication_bp)
     app.register_blueprint(change_order_bp)
-
+   
     # shell context for flask cli
     @app.shell_context_processor
     def ctx():
@@ -55,9 +59,18 @@ def create_app():
     # it encapsulates the entire web application,
     # including routes, views, etc
 
+    #return app
+
+    # Create a custom management command to run migrations
+    @app.cli.command("run_migrations")
+    def run_migrations():
+        try:
+            migrate.upgrade(directory=migrate.directory)
+            print("Migrations successfully applied!")
+        except Exception as e:
+            print(f"Error applying migrations: {e}")
+
     return app
-
-
 if __name__ == '__main__':
     my_app = create_app()
     my_app.run(debug=True)

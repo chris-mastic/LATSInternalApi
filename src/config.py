@@ -27,4 +27,5 @@ class Config:
     DEBUG = True #Development
     DEVELOPMENT = True
     #SESSION_TYPE = config.get("SESSION_TYPE") # use with sessionid
+    SQLALCHEMY_DATABASE_URI = config.get("SQLALCHEMY_DATABASE_URI")
     

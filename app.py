@@ -1,4 +1,6 @@
 #!/usr/local/bin/python3.10
+from src import create_app, db
+from flask_migrate import Migrate
 
-from src import create_app
 application = create_app()
+migrate = Migrate(application, db)

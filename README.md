@@ -1200,3 +1200,6 @@ Example: Cookie: session_id=abc123; user_prefs=dark_mode
 Custom Headers:
 Clients can also include custom headers specific to their application. These headers are not standardized and are defined by the application.
 Example: X-Custom-Header: MyCustomValue
+
+
+ALEMBIC YOUTUBE VIDEO: https://www.youtube.com/watch?v=bfelC61XKO4
