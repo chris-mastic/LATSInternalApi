@@ -51,17 +51,19 @@ def handle_preflight():
         from the specific orign. The server includes CORS headers in its response (prefilight
         or acutal). 
     """
-    print("IN preflight....")
+
     return '', 204  # No content, just acknowledge the preflight request
 
 # after_request ensures this method will run after each response
+
+
 @authentication_bp.after_request
 def set_headers(response):
-    #Allows any domain to access app
+    # Allows any domain to access app
     response.headers["Access-Control-Allow-Origin"] = "*"
-    #Lets browser know which custom headers are allowed
+    # Lets browser know which custom headers are allowed
     response.headers["Access-Control-Allow-Headers"] = "*"
-    #Specifies which HTTP methods are allowed (scheme)
+    # Specifies which HTTP methods are allowed (scheme)
     response.headers["Access-Control-Allow-Methods"] = "GET, POST"
     return response
 
@@ -81,7 +83,7 @@ def logout():
                 "code": "200" or "500",
                 "message": Sucess or failure
             }
-        
+
 
     """
     ltc_api = LTCApiConnections(logging)
@@ -123,7 +125,7 @@ def login() -> object:
                 "expiration": Token expiration,
                 "username": User's name 
             }
-        
+
 
     """
     req = json.loads(request.data)
