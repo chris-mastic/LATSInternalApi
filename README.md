@@ -1,7 +1,7 @@
-# LATSInternalApi
+# lats-api-gateway
 
 ## Overview
-LATSInternalApi is an API gateway that provides users with access to internal data and a remote API along with certain data item persistance. Users authenticate against the remote
+lats-api-gateway is an API gateway that provides users with access to internal data and a remote API along with certain data item persistance. Users authenticate against the remote
 API, receive an auth token and query and make changes to internal data before posting those changes along with the auth token, back to the remote API.
 
 ## Features
