@@ -1,0 +1,30 @@
+# Creating and Running Migrations with Alembic
+
+This README will guide you through the steps of creating and running migrations.
+
+## Preliminaries
+
+1. Inside the projects root directory run: alembic init alembic
+    This will create the migration environment and have the env.py file and versions folder all inside the alembic folder
+2. Ensure you are importing the models.py file into the env.py file. The syntax is:
+    from sqlalchemy.ext.declarative import declarative_base
+    Base = declarative_base
+3. Ensure the class(es) in models.py inherit the base class Base
+4. In the env.py file, scroll down to where the entry: target_metadata is located and set it to Base.metadata
+    (i.e., target_metadata = Base.metadata)
+5. NOTE: There are other factors that need set even before performing the above 4 steps. This README's scope is outside that.
+
+## Create Migration
+
+1. Run: alembic revision --autogenerate -m "helpful, descriptive comment"
+    After running this command, you should see a new version in the alembic -> versions folder.
+    This file should contain all the fields defined in the particular class(es) of the models.py file.
+    If it is an update to an already existing table, you will not see all the fields, just what has changed.
+
+## Run the Migration
+
+1. Run: alembic upgrade head
+    This will execute the revision script and create/modify the table
+2. NOTE: While migrations are designed to preseve data in most cases, it is
+         advisable to back-up the data first.
+

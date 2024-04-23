@@ -84,11 +84,8 @@ def set_headers(response):
 @change_order_bp.route("/api/get_user_data", methods=['GET'])
 @cross_origin()
 def get_user_data():
-
     token = request.args.get('token')
-
     with current_app.app_context():
-
         client = MongoClient(current_app.config['MONGO_URI'])
         mongodb = client[current_app.config['MONGO_DBNAME']]
         collection = mongodb["user_data"]

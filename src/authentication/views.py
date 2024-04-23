@@ -84,6 +84,7 @@ def logout():
         
 
     """
+    print("In logout")
     ltc_api = LTCApiConnections(logging)
     req = json.loads(request.data)
     token = req['token']
@@ -126,6 +127,7 @@ def login() -> object:
         
 
     """
+    print("In login")
     req = json.loads(request.data)
     username = req['username']
     password = req['password']

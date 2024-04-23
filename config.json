@@ -14,5 +14,6 @@
     "MYSQL_DATABAE": "NOA_LTC_CHANGE_ORDERS",
     "EXPO_URL":"http://localhost:19006",
     "REACT_URL":"http://localhost:3000",
-    "SESSION_TYPE":"filesystem"
+    "SESSION_TYPE":"filesystem",
+    "SQLALCHEMY_DATABASE_URI": "mysql://root:root@localhost/noa_ltc_change_orders"
 }
