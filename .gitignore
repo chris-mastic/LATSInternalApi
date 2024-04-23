@@ -9,7 +9,7 @@ src.authentication.views
 db_connection.log
 .vscode/
 node_modules/
-
+config.json
 # Expo
 .expo/
 dist/
