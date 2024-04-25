@@ -38,6 +38,9 @@ def create_app():
     app.config['MYSQL_DATABASE'] = config.MYSQL_DATABASE
     app.config['MYSQL_PORT'] = config.MYSQL_PORT
     app.config['SQLALCHEMY_DATABASE_URI'] = config.SQLALCHEMY_DATABASE_URI
+    app.config['ORACLE_CONNECTSTRING'] = config.ORACLE_CONNECTSTRING
+    app.config['ORACLE_PASSWORD'] = config.ORACLE_PASSWORD
+    app.config['ORACLE_USERNAME'] = config.ORACLE_USERNAME
     Session(app)
 
     db = SQLAlchemy()

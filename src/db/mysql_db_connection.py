@@ -35,7 +35,7 @@ class MySQLDBConnection:
             # Create an engine object
             self.engine = create_engine(
                 f'mysql+mysqlconnector://{user}:{password}@{host}:{port}/{database}')
-
+            print("In MySQLDBConnection")
         except Exception as e:
             logger.error(
                 f"mysql_db_connection.MySQLDBConnection error: Unable to connect to the database: {str(e)}"
