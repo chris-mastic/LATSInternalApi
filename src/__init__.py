@@ -36,6 +36,7 @@ def create_app():
     app.config['MYSQL_HOST'] = config.MYSQL_HOST
     app.config['MYSQL_PASSWORD'] = config.MYSQL_PASSWORD
     app.config['MYSQL_DATABASE'] = config.MYSQL_DATABASE
+    app.config['MYSQL_PORT'] = config.MYSQL_PORT
     app.config['SQLALCHEMY_DATABASE_URI'] = config.SQLALCHEMY_DATABASE_URI
     Session(app)
 

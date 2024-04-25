@@ -6,13 +6,16 @@ import os
 from flask_cors import cross_origin
 import pandas as pd
 from pymongo import MongoClient
+from sqlalchemy import text
 import urllib.request as urlRequest
 import urllib.request
 import urllib.error as urlError
 
 from db.la_tax_service_dtos import assess_values_dto, change_order_dto
-import services.helpers as util
+from db.mysql_table_definitions.noa_ltc_change_order_table import noa_ltc_change_order_table
 import db.oracle_db_connection as odb
+import db.mysql_db_connection as mysqldb
+import services.helpers as util
 
 
 from db.mongo_db import user
@@ -127,15 +130,23 @@ def add_to_batch():
                }
 
     """
+
     # Get user data
 
     # Connect to db
 
-    # Write to db
+    try:
+        db = mysqldb.MySQLDBConnection()
+        engine = db.engine
 
-    # close connection
+        with engine.connect() as connection:
+            insert_stmt = noa_ltc_change_order_table.insert().values(
+                tax_year='2024', fips_code='1234', assessment_no='12', batch_created='04-25-2024')
+            connection.execute(insert_stmt)
+            connection.commit()
 
-    # return response
+    except Exception as e:
+        print(f"Error connecting to MySQL: {str(e)}")
 
     return "ok"
 
