@@ -12,6 +12,7 @@ class NOALTCChangeOrder(Base):
     __tablename__ = "noa_ltc_change_order"
 
     id = db.Column(db.Integer(), primary_key=True)
+    auth_token = db.Column(db.String(32), nullable=False)
     tax_year = db.Column(db.String(4), nullable=True)
     fips_code = db.Column(db.String(5), nullable=True)
     assessment_no = db.Column(db.String(20), nullable=True)

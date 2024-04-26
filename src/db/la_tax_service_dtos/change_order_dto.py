@@ -1,6 +1,7 @@
 class ChangeOrderDTO:
     def __init__(self):
         print('in ChangeOrdeDTO __init__')
+        self._auth_token = None
         self._tax_year = None
         self._fips_code = None
         self._assessment_no = None
@@ -60,7 +61,17 @@ class ChangeOrderDTO:
         self._revisedunits = None
         self._revisedquantity = None
 
-        self._assess_values = []
+        #self._assess_values = []
+
+    @property
+    def auth_token(self):
+        return self._auth_token
+
+    @auth_token.setter
+    def auth_token(self, value):
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._auth_token = '123456' #str(value)
 
     @property
     def tax_year(self):
@@ -69,10 +80,10 @@ class ChangeOrderDTO:
     # Setter method (setter)
     @tax_year.setter
     def tax_year(self, value):
-        print(f'In tax_year {value}')
-        if value is None:
-            raise ValueError("Whatever")
-        self._tax_year = value
+        # print(f'In tax_year {value}')
+        # if value is None:
+        #     raise ValueError("Whatever")
+        self._tax_year = str(value)
 
     @property
     def fips_code(self):
@@ -80,9 +91,9 @@ class ChangeOrderDTO:
 
     @fips_code.setter
     def fips_code(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._fips_code = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._fips_code = str(value)
 
     @property
     def assessment_no(self):
@@ -90,9 +101,9 @@ class ChangeOrderDTO:
 
     @assessment_no.setter
     def assessment_no(self, value):
-        if value is None:
-            return ValueError("Invalid altid")
-        self._assessment_no = value
+        # if value is None:
+        #     return ValueError("Invalid altid")
+        self._assessment_no = str(value)
 
     @property
     def ward(self):
@@ -100,8 +111,8 @@ class ChangeOrderDTO:
 
     @ward.setter
     def ward(self, value):
-        if value < 0:
-            return ValueError("Whatever")
+        # if value < 0:
+        #     return ValueError("Whatever")
         self._ward = value
 
     @property
@@ -110,9 +121,9 @@ class ChangeOrderDTO:
 
     @assessor_ref_no.setter
     def assessor_ref_no(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._assessor_ref_no = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._assessor_ref_no = str(value)
 
     @property
     def place_fips(self):
@@ -120,9 +131,9 @@ class ChangeOrderDTO:
 
     @place_fips.setter
     def place_fips(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._place_fips = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._place_fips = str(value)
 
     @property
     def parcel_add(self):
@@ -130,9 +141,9 @@ class ChangeOrderDTO:
 
     @parcel_add.setter
     def parcel_add(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._parcel_add = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._parcel_add = str(value)
 
     @property
     def assessment_type(self):
@@ -140,9 +151,9 @@ class ChangeOrderDTO:
 
     @assessment_type.setter
     def assessment_type(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._assessment_type = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._assessment_type = str(value)
 
     @property
     def assessment_status(self):
@@ -150,9 +161,9 @@ class ChangeOrderDTO:
 
     @assessment_status.setter
     def assessment_status(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._assessment_status = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._assessment_status = str(value)
 
     @property
     def homestead_exempt(self):
@@ -160,9 +171,9 @@ class ChangeOrderDTO:
 
     @homestead_exempt.setter
     def homestead_exempt(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._homestead_exempt = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._homestead_exempt = str(value)
 
     @property
     def homestead_percent(self):
@@ -170,9 +181,9 @@ class ChangeOrderDTO:
 
     @homestead_percent.setter
     def homestead_percent(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._homestead_percent
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._homestead_percent = str(value)
 
     @property
     def restoration_tax_expmt(self):
@@ -180,9 +191,9 @@ class ChangeOrderDTO:
 
     @restoration_tax_expmt.setter
     def restoration_tax_expmt(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._restoration_tax_expmt = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._restoration_tax_expmt = str(value)
 
     @property
     def taxpayer_name(self):
@@ -190,10 +201,10 @@ class ChangeOrderDTO:
 
     @taxpayer_name.setter
     def taxpayer_name(self, value):
-        print(f'in taxyper_name {value}')
-        if value is None:
-            return ValueError("Whatever")
-        self._taxpayer_name = value
+        # print(f'in taxyper_name {value}')
+        # if value is None:
+        #     return ValueError("Whatever")
+        self._taxpayer_name = str(value)
 
     @property
     def contact_name(self):
@@ -201,9 +212,9 @@ class ChangeOrderDTO:
 
     @contact_name.setter
     def contact_name(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._contact_name = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._contact_name = str(value)
 
     @property
     def taxpayer_addr1(self):
@@ -211,9 +222,9 @@ class ChangeOrderDTO:
 
     @taxpayer_addr1.setter
     def taxpayer_addr1(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._taxpayer_addr1 = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._taxpayer_addr1 = str(value)
 
     @property
     def taxpayer_addr2(self):
@@ -221,9 +232,9 @@ class ChangeOrderDTO:
 
     @taxpayer_addr2.setter
     def taxpayer_addr2(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._taxpayer_addr2 = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._taxpayer_addr2 = str(value)
 
     @property
     def taxpayer_addr3(self):
@@ -231,9 +242,9 @@ class ChangeOrderDTO:
 
     @taxpayer_addr3.setter
     def taxpayer_addr3(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._taxpayer_addr3 = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._taxpayer_addr3 = str(value)
 
     @property
     def tc_fee_pd(self):
@@ -241,9 +252,9 @@ class ChangeOrderDTO:
 
     @tc_fee_pd.setter
     def tc_fee_pd(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._tc_fee_pd = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._tc_fee_pd = str(value)
 
     @property
     def reason(self):
@@ -251,9 +262,9 @@ class ChangeOrderDTO:
 
     @reason.setter
     def reason(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._reason = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._reason = str(value)
 
     @property
     def chk_no(self):
@@ -261,9 +272,9 @@ class ChangeOrderDTO:
 
     @chk_no.setter
     def chk_no(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._chk_no = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._chk_no = str(value)
 
     @property
     def chk_amt(self):
@@ -271,9 +282,9 @@ class ChangeOrderDTO:
 
     @chk_amt.setter
     def chk_amt(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._chk_amt = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._chk_amt = str(value)
 
     @property
     def id_com(self):
@@ -281,9 +292,9 @@ class ChangeOrderDTO:
 
     @id_com.setter
     def id_com(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._id_com = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._id_com = str(value)
 
     @property
     def batch_no(self):
@@ -291,9 +302,9 @@ class ChangeOrderDTO:
 
     @batch_no.setter
     def batch_no(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        self._batch_no = value
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._batch_no = str(value)
 
     @property
     def ltc_nbr_total(self):
@@ -301,9 +312,9 @@ class ChangeOrderDTO:
 
     @ltc_nbr_total.setter
     def ltc_nbr_total(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._ltc_nbr_total
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._ltc_nbr_total = str(value)
 
     @property
     def batch_created(self):
@@ -311,9 +322,9 @@ class ChangeOrderDTO:
 
     @batch_created.setter
     def batch_created(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._batch_created
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._batch_created = str(value)
 
     @property
     def status(self):
@@ -321,9 +332,9 @@ class ChangeOrderDTO:
 
     @status.setter
     def status(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._status
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._status = str(value)
 
     @property
     def batch_updated(self):
@@ -331,9 +342,9 @@ class ChangeOrderDTO:
 
     @batch_updated.setter
     def batch_updated(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._batch_updated
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._batch_updated = str(value)
 
     @property
     def batch_submitted(self):
@@ -341,9 +352,9 @@ class ChangeOrderDTO:
 
     @batch_submitted.setter
     def batch_submitted(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._batch_submitted
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._batch_submitted = str(value)
 
     @property
     def batch_approved(self):
@@ -351,9 +362,9 @@ class ChangeOrderDTO:
 
     @batch_approved.setter
     def batch_approved(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._batch_approved
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._batch_approved = str(value)
 
     @property
     def batch_rejected(self):
@@ -361,9 +372,9 @@ class ChangeOrderDTO:
 
     @batch_rejected.setter
     def batch_rejected(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._batch_rejected
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._batch_rejected = str(value)
 
     @property
     def reject_reason(self):
@@ -371,14 +382,9 @@ class ChangeOrderDTO:
 
     @reject_reason.setter
     def reject_reason(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-
-    @reject_reason.setter
-    def reject_reason(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._reject_reason
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._reject_reason = str(value)
 
     @property
     def approved_by(self):
@@ -386,9 +392,9 @@ class ChangeOrderDTO:
 
     @approved_by.setter
     def approved_by(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._approved_by
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._approved_by = str(value)
 
     @property
     def received_by(self):
@@ -396,19 +402,19 @@ class ChangeOrderDTO:
 
     @received_by.setter
     def received_by(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._received_by
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._received_by = str(value)
 
     @property
     def batch_submitted_by(self):
-        return self._assess_values
+        return self._batch_submitted_by
 
     @batch_submitted_by.setter
     def batch_submitted_by(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._batch_submitted_by
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._batch_submitted_by = str(value)
 
     @property
     def co_detail_id(self):
@@ -416,9 +422,9 @@ class ChangeOrderDTO:
 
     @co_detail_id.setter
     def co_detail_id(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._co_detail_id
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._co_detail_id = str(value)
 
     @property
     def fk_co_master(self):
@@ -426,9 +432,9 @@ class ChangeOrderDTO:
 
     @fk_co_master.setter
     def fk_co_master(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._fk_co_master
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._fk_co_master = str(value)
 
     @property
     def status_cod(self):
@@ -436,9 +442,9 @@ class ChangeOrderDTO:
 
     @status_cod.setter
     def status_cod(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._status_cod
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._status_cod = str(value)
 
     @property
     def status_date(self):
@@ -446,9 +452,9 @@ class ChangeOrderDTO:
 
     @status_date.setter
     def status_date(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._status_date
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._status_date = str(value)
 
     @property
     def ltc_comment(self):
@@ -456,9 +462,9 @@ class ChangeOrderDTO:
 
     @ltc_comment.setter
     def ltc_comment(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._ltc_comment
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._ltc_comment = str(value)
 
     @property
     def batch_item_no(self):
@@ -466,9 +472,9 @@ class ChangeOrderDTO:
 
     @batch_item_no.setter
     def batch_item_no(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._batch_item_no
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._batch_item_no = str(value)
 
     @property
     def prop_desc(self):
@@ -476,9 +482,9 @@ class ChangeOrderDTO:
 
     @prop_desc.setter
     def prop_desc(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._prop_desc
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._prop_desc = str(value)
 
     @property
     def co_submitted_by(self):
@@ -486,9 +492,9 @@ class ChangeOrderDTO:
 
     @co_submitted_by.setter
     def co_submitted_by(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._co_submitted_by
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._co_submitted_by = str(value)
 
     @property
     def id_cav(self):
@@ -496,9 +502,9 @@ class ChangeOrderDTO:
 
     @id_cav.setter
     def id_cav(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._id_cav
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._id_cav = str(value)
 
     @property
     def changeordersdetailsid(self):
@@ -506,9 +512,9 @@ class ChangeOrderDTO:
 
     @changeordersdetailsid.setter
     def changeordersdetailsid(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._changeordersdetailsid
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._changeordersdetailsid = str(value)
 
     @property
     def presentdescription(self):
@@ -516,9 +522,9 @@ class ChangeOrderDTO:
 
     @presentdescription.setter
     def presentdescription(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._presentdescription
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._presentdescription = str(value)
 
     @property
     def presentexempt(self):
@@ -526,9 +532,9 @@ class ChangeOrderDTO:
 
     @presentexempt.setter
     def presentexempt(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._presentexempt
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._presentexempt = str(value)
 
     @property
     def presenttotalassessed(self):
@@ -536,9 +542,9 @@ class ChangeOrderDTO:
 
     @presenttotalassessed.setter
     def presenttotalassessed(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._presenttotalassessed
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._presenttotalassessed = str(value)
 
     @property
     def presenthomesteadcredit(self):
@@ -546,9 +552,9 @@ class ChangeOrderDTO:
 
     @presenthomesteadcredit.setter
     def presenthomesteadcredit(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._presenthomesteadcredit
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._presenthomesteadcredit = str(value)
 
     @property
     def presenttaxpayershare(self):
@@ -556,9 +562,9 @@ class ChangeOrderDTO:
 
     @presenttaxpayershare.setter
     def presenttaxpayershare(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._presenttaxpayershare
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._presenttaxpayershare = str(value)
 
     @property
     def presentquantity(self):
@@ -566,9 +572,9 @@ class ChangeOrderDTO:
 
     @presentquantity.setter
     def presentquantity(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._presentquantity
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._presentquantity = str(value)
 
     @property
     def presentunits(self):
@@ -576,9 +582,9 @@ class ChangeOrderDTO:
 
     @presentunits.setter
     def presentunits(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._presentunits
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._presentunits = str(value)
 
     @property
     def reviseddescription(self):
@@ -586,9 +592,9 @@ class ChangeOrderDTO:
 
     @reviseddescription.setter
     def reviseddescription(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._reviseddescription
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._reviseddescription = str(value)
 
     @property
     def revisedexempt(self):
@@ -596,9 +602,9 @@ class ChangeOrderDTO:
 
     @revisedexempt.setter
     def revisedexempt(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._revisedexempt
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._revisedexempt = str(value)
 
     @property
     def revisedtotalassessed(self):
@@ -606,9 +612,9 @@ class ChangeOrderDTO:
 
     @revisedtotalassessed.setter
     def revisedtotalassessed(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._revisedtotalassessed
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._revisedtotalassessed = str(value)
 
     @property
     def revisedhomesteadcredit(self):
@@ -616,9 +622,9 @@ class ChangeOrderDTO:
 
     @revisedhomesteadcredit.setter
     def revisedhomesteadcredit(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._revisedhomesteadcredit
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._revisedhomesteadcredit = str(value)
 
     @property
     def revisedtaxpayershare(self):
@@ -626,9 +632,9 @@ class ChangeOrderDTO:
 
     @revisedtaxpayershare.setter
     def revisedtaxpayershare(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._revisedtaxpayershare
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._revisedtaxpayershare = str(value)
 
     @property
     def revisedunits(self):
@@ -636,9 +642,9 @@ class ChangeOrderDTO:
 
     @revisedunits.setter
     def revisedunits(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._revisedunits
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._revisedunits = str(value)
 
     @property
     def revisedquantity(self):
@@ -646,6 +652,6 @@ class ChangeOrderDTO:
 
     @revisedquantity.setter
     def revisedquantity(self, value):
-        if value < 0:
-            return ValueError("Whatever")
-        return self._revisedquantity
+        # if value < 0:
+        #     return ValueError("Whatever")
+        self._revisedquantity = str(value)
