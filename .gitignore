@@ -7,6 +7,7 @@ venv/
 client/
 src.authentication.views
 db_connection.log
+mysql_connection.log
 .vscode/
 node_modules/
 config.json
