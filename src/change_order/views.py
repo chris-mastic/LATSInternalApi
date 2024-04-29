@@ -229,6 +229,7 @@ def update_noa_ltc_change_order(dto:change_order_dto.ChangeOrderDTO):
 @change_order_bp.route("/api/get_batch", methods=['GET', 'POST'])
 def get_batch():
     req = json.loads(request.data)
+    token = req['token']
     parid = req['parid']
     taxyear = req['taxyear']
     altid = req['altid']
@@ -262,6 +263,7 @@ def get_batch():
         for ind in df.index:
             # fips_code = switch(1,1,df["altid"][ind], 'fips')
             print('before taxyear assignment')
+            change_order.auth_token = token,
             change_order.tax_year = df["taxyr"][ind]
             print('after taxyre assignment')
             # change_order.fips_code = ""

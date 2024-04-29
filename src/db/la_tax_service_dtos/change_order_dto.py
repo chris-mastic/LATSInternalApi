@@ -71,7 +71,7 @@ class ChangeOrderDTO:
     def auth_token(self, value):
         # if value < 0:
         #     return ValueError("Whatever")
-        self._auth_token = '123456' #str(value)
+        self._auth_token = str(value)
 
     @property
     def tax_year(self):
