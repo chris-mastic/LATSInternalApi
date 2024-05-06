@@ -150,73 +150,74 @@ def add_to_batch():
 
     return "ok"
 
-def update_noa_ltc_change_order(dto:change_order_dto.ChangeOrderDTO):
-    
+
+def update_noa_ltc_change_order(dto: change_order_dto.ChangeOrderDTO):
+
     try:
         db = mysqldb.MySQLDBConnection()
         engine = db.engine
 
         with engine.connect() as connection:
             insert_stmt = noa_ltc_change_order_table.insert().values(
-                auth_token = "12345",
-                tax_year = dto.tax_year,
-                fips_code = dto.fips_code,
-                assessment_no = dto.assessment_no,
-                ward = dto.ward,
-                assessor_ref_no = dto.assessor_ref_no,
-                place_fips = dto.place_fips,
-                parcel_add = dto.parcel_add,
-                assessment_type = dto.assessment_type,
-                assessment_status = dto.assessment_status,
-                homestead_exempt = "T",#dto.homestead_exempt,
-                homestead_percent = dto. homestead_percent,
-                restoration_tax_expmt = dto.restoration_tax_expmt,
-                taxpayer_name = dto.taxpayer_name,
-                contact_name = dto.contact_name,
-                taxpayer_addr1 = dto.taxpayer_addr1,
-                taxpayer_addr2 = dto.taxpayer_addr2,
-                taxpayer_addr3 = dto.taxpayer_addr3,
-                tc_fee_pd = dto.tc_fee_pd,
-                reason = dto.reason,
-                chk_no = dto.chk_no,
-                chk_amt = dto.chk_amt,
-                id_com = dto.id_com,
-                batch_no = dto.batch_no,
-                ltc_nbr_total = dto.ltc_nbr_total,
-                batch_created = dto.batch_created,
-                status = dto.status,
-                batch_updated = dto.batch_updated,
-                batch_submitted = dto.batch_submitted,
-                batch_approved = dto.batch_approved,
-                batch_rejected = dto.batch_rejected,
-                reject_reason = dto.reject_reason,
-                approved_by = dto.approved_by,
-                received_by = dto.received_by,
-                batch_submitted_by = dto.batch_submitted_by,
-                co_detail_id = dto.co_detail_id,
-                fk_co_master = dto.fk_co_master,
-                status_cod = dto.status_cod,
-                status_date = dto.status_date,
-                ltc_comment = dto.ltc_comment,
-                batch_item_no = dto.batch_item_no,
-                prop_desc = dto.prop_desc,
-                co_submitted_by = dto.co_submitted_by,
-                id_cav = dto.id_cav,
-                changeordersdetailsid = dto.changeordersdetailsid,
-                presentdescription = dto.presentdescription,
-                presentexempt = dto.presentexempt,
-                presenttotalassessed = dto.presenttotalassessed,
-                presenthomesteadcredit = dto.presenthomesteadcredit,
-                presenttaxpayershare = dto.presenttaxpayershare,
-                presentquantity = dto.presentquantity,
-                presentunits = dto.presentunits,
-                reviseddescription = dto.reviseddescription,
-                revisedexempt = dto.revisedexempt,
-                revisedtotalassessed = dto.revisedtotalassessed,
-                revisedhomesteadcredit = dto.revisedhomesteadcredit,
-                revisedtaxpayershare = dto.revisedtaxpayershare,
-                revisedunits = dto.revisedunits,
-                revisedquantity = dto.revisedquantity)
+                auth_token="12345",
+                tax_year=dto.tax_year,
+                fips_code=dto.fips_code,
+                assessment_no=dto.assessment_no,
+                ward=dto.ward,
+                assessor_ref_no=dto.assessor_ref_no,
+                place_fips=dto.place_fips,
+                parcel_add=dto.parcel_add,
+                assessment_type=dto.assessment_type,
+                assessment_status=dto.assessment_status,
+                homestead_exempt="T",  # dto.homestead_exempt,
+                homestead_percent=dto. homestead_percent,
+                restoration_tax_expmt=dto.restoration_tax_expmt,
+                taxpayer_name=dto.taxpayer_name,
+                contact_name=dto.contact_name,
+                taxpayer_addr1=dto.taxpayer_addr1,
+                taxpayer_addr2=dto.taxpayer_addr2,
+                taxpayer_addr3=dto.taxpayer_addr3,
+                tc_fee_pd=dto.tc_fee_pd,
+                reason=dto.reason,
+                chk_no=dto.chk_no,
+                chk_amt=dto.chk_amt,
+                id_com=dto.id_com,
+                batch_no=dto.batch_no,
+                ltc_nbr_total=dto.ltc_nbr_total,
+                batch_created=dto.batch_created,
+                status=dto.status,
+                batch_updated=dto.batch_updated,
+                batch_submitted=dto.batch_submitted,
+                batch_approved=dto.batch_approved,
+                batch_rejected=dto.batch_rejected,
+                reject_reason=dto.reject_reason,
+                approved_by=dto.approved_by,
+                received_by=dto.received_by,
+                batch_submitted_by=dto.batch_submitted_by,
+                co_detail_id=dto.co_detail_id,
+                fk_co_master=dto.fk_co_master,
+                status_cod=dto.status_cod,
+                status_date=dto.status_date,
+                ltc_comment=dto.ltc_comment,
+                batch_item_no=dto.batch_item_no,
+                prop_desc=dto.prop_desc,
+                co_submitted_by=dto.co_submitted_by,
+                id_cav=dto.id_cav,
+                changeordersdetailsid=dto.changeordersdetailsid,
+                presentdescription=dto.presentdescription,
+                presentexempt=dto.presentexempt,
+                presenttotalassessed=dto.presenttotalassessed,
+                presenthomesteadcredit=dto.presenthomesteadcredit,
+                presenttaxpayershare=dto.presenttaxpayershare,
+                presentquantity=dto.presentquantity,
+                presentunits=dto.presentunits,
+                reviseddescription=dto.reviseddescription,
+                revisedexempt=dto.revisedexempt,
+                revisedtotalassessed=dto.revisedtotalassessed,
+                revisedhomesteadcredit=dto.revisedhomesteadcredit,
+                revisedtaxpayershare=dto.revisedtaxpayershare,
+                revisedunits=dto.revisedunits,
+                revisedquantity=dto.revisedquantity)
             connection.execute(insert_stmt)
             connection.commit()
 
@@ -251,7 +252,7 @@ def get_batch():
             query = file.read()
 
         print(f"query {query}")
-        
+
         df = pd.read_sql_query(query, engine, params=[
             (parid, taxyear, 'Y', altid)])
         print(f'df {df}')
@@ -375,3 +376,37 @@ def get_status():
                         'message': 'You are not logged in.'})
 
     return "ok"
+
+
+@change_order_bp.route("/api/insert_change_orders", methods=['POST'])
+def insert_change_orders():
+    req = json.loads(request.data)
+    parid = req['parid']
+    # taxyear = req['taxyear']
+    jur = req['jur']
+    val01 = req['val01']
+    val02 = req['val02']
+
+    try:
+        print('connecting to db....')
+        db = odb.OracleDBConnection()
+        engine = db.engine
+
+        data_to_insert = {
+            "parid": [parid],
+            "jur": [jur],
+            "val01": [val01],
+            "val02": [val02]
+        }
+
+        df = pd.DataFrame(data_to_insert)
+
+        df.to_sql(name=current_app.config['PARID_CHANGE_ORDERS'],
+                  con=engine, if_exists="append", index=False)
+
+        return 'OK'
+
+    except Exception as e:
+        print(f"Error connecting to OracleSQL: {str(e)}")
+
+        return jsonify({'message': 'Database error'})

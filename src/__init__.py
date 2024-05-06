@@ -41,6 +41,7 @@ def create_app():
     app.config['ORACLE_CONNECTSTRING'] = config.ORACLE_CONNECTSTRING
     app.config['ORACLE_PASSWORD'] = config.ORACLE_PASSWORD
     app.config['ORACLE_USERNAME'] = config.ORACLE_USERNAME
+    app.config['PARID_CHANGE_ORDERS'] = config.PARID_CHANGE_ORDERS
     Session(app)
 
     db = SQLAlchemy()

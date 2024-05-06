@@ -29,4 +29,5 @@ class Config:
     DEVELOPMENT = True
     #SESSION_TYPE = config.get("SESSION_TYPE") # use with sessionid
     SQLALCHEMY_DATABASE_URI = config.get("SQLALCHEMY_DATABASE_URI")
+    PARID_CHANGE_ORDERS = config.get("PARID_CHANGE_ORDERS")
     
