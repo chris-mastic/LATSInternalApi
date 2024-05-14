@@ -1,3 +1,5 @@
+
+import asyncio
 from flask import Blueprint, request, jsonify, session, current_app
 import flask
 import json
@@ -132,13 +134,23 @@ def add_to_batch():
     """
 
     # Get user data
+    req = json.loads(request.data)
+    print(f"req body {req}")
+
+    tax_year = '2024'
+    fips_code = '1234'
+    assessment_no = '12'
+    batch_created = '04-25-2024'
+
+
+
 
     # Connect to db
 
     try:
         db = mysqldb.MySQLDBConnection()
         engine = db.engine
-
+        cursor = connection.cursor()
         with engine.connect() as connection:
             insert_stmt = noa_ltc_change_order_table.insert().values(
                 tax_year='2024', fips_code='1234', assessment_no='12', batch_created='04-25-2024')
@@ -386,7 +398,7 @@ def insert_change_orders():
     jur = req['jur']
     val01 = req['val01']
     val02 = req['val02']
-
+    print("IN INSERT..")
     try:
         print('connecting to db....')
         db = odb.OracleDBConnection()
