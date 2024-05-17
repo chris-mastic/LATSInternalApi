@@ -1,5 +1,6 @@
 
 import asyncio
+from datetime import datetime, timezone
 from flask import Blueprint, request, jsonify, session, current_app
 import flask
 import json
@@ -142,9 +143,6 @@ def add_to_batch():
     assessment_no = '12'
     batch_created = '04-25-2024'
 
-
-
-
     # Connect to db
 
     try:
@@ -162,76 +160,128 @@ def add_to_batch():
 
     return "ok"
 
-
-def update_noa_ltc_change_order(dto: change_order_dto.ChangeOrderDTO):
-
+def batch_exists(token) -> tuple:
+    print("in batch_exists")
     try:
         db = mysqldb.MySQLDBConnection()
         engine = db.engine
-
         with engine.connect() as connection:
-            insert_stmt = noa_ltc_change_order_table.insert().values(
-                auth_token="12345",
-                tax_year=dto.tax_year,
-                fips_code=dto.fips_code,
-                assessment_no=dto.assessment_no,
-                ward=dto.ward,
-                assessor_ref_no=dto.assessor_ref_no,
-                place_fips=dto.place_fips,
-                parcel_add=dto.parcel_add,
-                assessment_type=dto.assessment_type,
-                assessment_status=dto.assessment_status,
-                homestead_exempt="T",  # dto.homestead_exempt,
-                homestead_percent=dto. homestead_percent,
-                restoration_tax_expmt=dto.restoration_tax_expmt,
-                taxpayer_name=dto.taxpayer_name,
-                contact_name=dto.contact_name,
-                taxpayer_addr1=dto.taxpayer_addr1,
-                taxpayer_addr2=dto.taxpayer_addr2,
-                taxpayer_addr3=dto.taxpayer_addr3,
-                tc_fee_pd=dto.tc_fee_pd,
-                reason=dto.reason,
-                chk_no=dto.chk_no,
-                chk_amt=dto.chk_amt,
-                id_com=dto.id_com,
-                batch_no=dto.batch_no,
-                ltc_nbr_total=dto.ltc_nbr_total,
-                batch_created=dto.batch_created,
-                status=dto.status,
-                batch_updated=dto.batch_updated,
-                batch_submitted=dto.batch_submitted,
-                batch_approved=dto.batch_approved,
-                batch_rejected=dto.batch_rejected,
-                reject_reason=dto.reject_reason,
-                approved_by=dto.approved_by,
-                received_by=dto.received_by,
-                batch_submitted_by=dto.batch_submitted_by,
-                co_detail_id=dto.co_detail_id,
-                fk_co_master=dto.fk_co_master,
-                status_cod=dto.status_cod,
-                status_date=dto.status_date,
-                ltc_comment=dto.ltc_comment,
-                batch_item_no=dto.batch_item_no,
-                prop_desc=dto.prop_desc,
-                co_submitted_by=dto.co_submitted_by,
-                id_cav=dto.id_cav,
-                changeordersdetailsid=dto.changeordersdetailsid,
-                presentdescription=dto.presentdescription,
-                presentexempt=dto.presentexempt,
-                presenttotalassessed=dto.presenttotalassessed,
-                presenthomesteadcredit=dto.presenthomesteadcredit,
-                presenttaxpayershare=dto.presenttaxpayershare,
-                presentquantity=dto.presentquantity,
-                presentunits=dto.presentunits,
-                reviseddescription=dto.reviseddescription,
-                revisedexempt=dto.revisedexempt,
-                revisedtotalassessed=dto.revisedtotalassessed,
-                revisedhomesteadcredit=dto.revisedhomesteadcredit,
-                revisedtaxpayershare=dto.revisedtaxpayershare,
-                revisedunits=dto.revisedunits,
-                revisedquantity=dto.revisedquantity)
-            connection.execute(insert_stmt)
-            connection.commit()
+            sql_query = text('SELECT * FROM noa_ltc_change_order WHERE auth_token = :token')
+            results = connection.execute(sql_query, {"token":token})
+            rows = results.fetchall()
+            print("after rows")
+            if rows:
+                print("in if")
+                return (True, results)
+            else:
+                print("in else")
+                return (False,)
+    except Exception as e:
+        print(f"Error connecting to MySQL: {str(e)}")
+
+
+def update_noa_ltc_change_order(df):
+    
+    try:
+        db = mysqldb.MySQLDBConnection()
+        engine = db.engine
+        print("within update_noa_ltc_change_order")
+        with engine.connect() as connection:
+            df.to_sql('noa_ltc_change_order', con=engine,
+                      if_exists='append', index=False)
+            # insert_stmt = noa_ltc_change_order_table.insert().values(
+            #     auth_token=df["auth_token"][ind],
+            #     tax_year=df["tax_year"][ind],
+            #     fips_code=df["fips_code"][ind],
+            #     assessment_number=df["assessment_number"][ind],
+            #     ward=df["ward"][ind],
+            #     assessor_ref_no=df["assessor_ref_no"][ind],
+            #     place_fips=df["place_fips"][ind],
+            #     parcel_address=df["parcel_address"][ind],
+            #     assessment_type=df["assessment_type"][ind],
+            #     assessment_status=df["assessment_status"][ind],
+            #     # dto.homestead_exempt,
+            #     homestead_exempt=df["homestead_exempt"][ind],
+            #     homestead_percent=df["homestead_percent"][ind],
+            #     restoration_tax_exempt=df["restoration_tax_exempt"][ind],
+            #     taxpayer_name=df["taxpayer_name"][ind],
+            #     contact_name=df["contact_name"][ind],
+            #     taxpayer_addr1=df["taxpayer_addr1"][ind],
+            #     taxpayer_addr2=df["taxpayer_addr2"][ind],
+            #     taxpayer_addr3=df["taxpayer_addr3"][ind],
+            #     city=df["city"][ind],
+            #     state=df["state"][ind],
+            #     zipcode=df["zipcode"][ind],
+            #     tc_fee_pd=df["tc_fee_pd"][ind],
+            #     reason=df["reason"][ind],
+            #     check_no=df["check_no"][ind],
+            #     check_amount=df["check_amount"][ind],
+            #     batch_no=df[""][ind],
+            #     ltc_nbr_total=df[""][ind],
+            #     batch_created=df[""][ind],
+            #     status=df[""][ind],
+            #     batch_updated=df[""][ind],
+            #     batch_submitted=df[""][ind],
+            #     batch_approved=df[""][ind],
+            #     batch_rejected=df[""][ind],
+            #     reject_reason=df[""][ind],
+            #     approved_by=df[""][ind],
+            #     received_by=df[""][ind],
+            #     batch_submitted_by=df[""][ind],
+            #     co_detail_id=df[""][ind],
+            #     fk_co_master=df[""][ind],
+            #     status_cod=df[""][ind],
+            #     status_date=df[""][ind],
+            #     ltc_comment=df[""][ind],
+            #     batch_item_no=df[""][ind],
+            #     prop_desc=df[""][ind],
+            #     co_submitted_by=df[""][ind],
+            #     id_cav=df[""][ind],
+            #     changeordersdetailsid=df[""][ind],
+            #     presentdescription=df[""][ind],
+            #     presentexempt=df[""][ind],
+            #     presenttotalassessed=df[""][ind],
+            #     presenthomesteadcredit=df[""][ind],
+            #     presenttaxpayershare=df[""][ind],
+            #     presentquantity=df[""][ind],
+            #     presentunits=df[""][ind],
+            #     reviseddescription=df[""][ind],
+            #     revisedexempt=df[""][ind],
+            #     revisedtotalassessed=df[""][ind],
+            #     revisedhomesteadcredit=df[""][ind],
+            #     revisedtaxpayershare=df[""][ind],
+            #     revisedunits=df[""][ind],
+            #     revisedquantity=df[""][ind],
+            #     land_ltc_sub_class_old=df[""][ind],
+            #     land_ltc_sub_class_new=df[""][ind],
+            #     land_quantity_old=df[""][ind],
+            #     land_quantity_new=df[""][ind],
+            #     land_units_old=df[""][ind],
+            #     land_units_new=df[""][ind],
+            #     land_other_exempt_old=df[""][ind],
+            #     land_other_exempt_new=df[""][ind],
+            #     land_value_old_total=df[""][ind],
+            #     land_value_new_total=df[""][ind],
+            #     land_value_old_hs=df[""][ind],
+            #     land_value_new_hs=df[""][ind],
+            #     land_value_old_tp=df[""][ind],
+            #     land_value_new_tp=df[""][ind],
+            #     building_ltc_sub_class_old=df[""][ind],
+            #     building_ltc_sub_class_new=df[""][ind],
+            #     building_quantity_old=df[""][ind],
+            #     building_quantity_new=df[""][ind],
+            #     building_units_old=df[""][ind],
+            #     building_units_new=df[""][ind],
+            #     building_other_exempt_old=df[""][ind],
+            #     building_other_exempt_new=df[""][ind],
+            #     building_value_old_tota=df[""][ind],
+            #     building_value_new_total=df[""][ind],
+            #     building_value_old_hs=df[""][ind],
+            #     building_value_new_hs=df[""][ind],
+            #     building_value_old_tp=df[""][ind],
+            #     building_value_new_tp=df[""][ind])
+            # connection.execute(insert_stmt)
+            # connection.commit()
 
     except Exception as e:
         print(f"Error connecting to MySQL: {str(e)}")
@@ -246,72 +296,64 @@ def get_batch():
     parid = req['parid']
     taxyear = req['taxyear']
     altid = req['altid']
-    print("IN get_batch()")
-    # --------------------------------DEBUG---------------
-    print("DEBUG------------------------------------------------------")
 
-    # OracleDB is a singleton class
-    try:
-        print('connecting to db....')
-        db = odb.OracleDBConnection()
-        engine = db.engine
-        curr_dir = os.path.dirname(__file__)
-        parent_dir = os.path.dirname(curr_dir)
-        db_dir = os.path.join(parent_dir, 'db', 'db_scripts')
-        sql_filename = os.path.join(db_dir, 'get_batch.sql')
-        with open(sql_filename, 'r') as file:
-            print('in with...')
-            query = file.read()
+    rtn = batch_exists(token)
+    exists = rtn[0]
 
-        print(f"query {query}")
+    print(f"reuslt {rtn} and exists {exists}")
+    if(not(exists)):
+        """Query Oracle DB and retrieve records
+            Insert new record into MySQL and
+            return results to user
+        """
+        print("in if(not(exists))")
+        try:
+            print('connecting to db....')
+            db = odb.OracleDBConnection()
+            engine = db.engine
+            curr_dir = os.path.dirname(__file__)
+            parent_dir = os.path.dirname(curr_dir)
+            db_dir = os.path.join(parent_dir, 'db', 'db_scripts')
+            sql_filename = os.path.join(db_dir, 'get_batch.sql')
+            with open(sql_filename, 'r') as file:
+                print('in with...')
+                query = file.read()
 
-        df = pd.read_sql_query(query, engine, params=[
-            (parid, taxyear, 'Y', altid)])
-        print(f'df {df}')
+            # print(f"query {query}")
 
-        change_order = change_order_dto.ChangeOrderDTO()
-        print(f'type of change_order {type(change_order)} ')
-        assess_value = assess_values_dto.AssessOrdersDTO()
-        print("Befor the for loop.")
-        for ind in df.index:
-            # fips_code = switch(1,1,df["altid"][ind], 'fips')
-            print('before taxyear assignment')
-            change_order.auth_token = token,
-            change_order.tax_year = df["taxyr"][ind]
-            print('after taxyre assignment')
-            # change_order.fips_code = ""
-            change_order.assessment_no = df["altid"][ind]
-            change_order.ward = ""
-            change_order.assessor_ref_no = ""
-            change_order.place_fips = ""
-            change_order.parcel_address = ""
-            change_order.assessment_type = ""
-            change_order.assessment_status = ""
-            change_order.homestead_exempt = df['flag4'][ind]
-            change_order.homestead_percent = ""
-            change_order.restoration_tax_exempt = ""
-            print('befor own1')
-            change_order.taxpayer_name = df['own1'][ind]
-            change_order.contact_name = ""
-            change_order.taxpayer_addr1 = df['addr1'][ind]
-            change_order.taxpayer_addr2 = df['addr2'][ind]
-            change_order.taxpayer_addr3 = df['addr3'][ind]
-            change_order.tc_fee_pd = ""
-            change_order.reason = ""
-            change_order.check_no = ""
-            change_order.check_amount = ""
-            change_order.assess_values = ""
+            df = pd.read_sql_query(query, engine, params=[
+                (parid, taxyear,)])
+            df['auth_token'] = [token]
+            utc_time = datetime.now().astimezone(timezone.utc)
+            df['batch_created'] = utc_time.strftime('%Y-%m-%d %H:%M:%S')
+            
+            print(f"df {df}")
+            # Write to MySQL table
+            
+            update_noa_ltc_change_order(df)
 
-        json_data = json.dumps(change_order.__dict__,
-                               indent=2, default=str)
-        print(f"json_data {json_data}")
-        update_noa_ltc_change_order(change_order)
-        return json_data
+            # Format data to return to front end
+            json_data = json.dumps(df.to_dict(orient='records'))
+            return json_data
 
-    except Exception as e:
-        print(f"Error connecting to MySQL: {str(e)}")
-
-        return jsonify({'message': 'Database error'})
+        except Exception as e:
+            print(f"Error connecting to MySQL: {str(e)}")
+    
+    else:
+        """ Return existing record in MySQL only
+        """
+        rows = rtn[1].fetchall()
+        column_names = rtn[1].keys()
+        print(column_names)
+        print(f"rows {rows}")
+        result_list = []
+        for row in rows:
+            row_dict = dict(zip(column_names, row))
+            print(f"row_dict {row_dict}")
+            result_list.append(row_dict)
+        print(f"result_list {result_list}")   
+        return json.dumps(result_list, indent=4)
+        
 
 
 @change_order_bp.route("/api/get_status", methods=['GET'])
@@ -393,26 +435,120 @@ def get_status():
 @change_order_bp.route("/api/insert_change_orders", methods=['POST'])
 def insert_change_orders():
     req = json.loads(request.data)
-    parid = req['parid']
-    # taxyear = req['taxyear']
-    jur = req['jur']
-    val01 = req['val01']
-    val02 = req['val02']
+    tax_year = req['tax_year']
+    fips_code = req['fips_code']
+    assessment_no = req['assessment_no']
+    ward = req['']
+    assessor_ref_no = req['']
+    place_fips = req['']
+    parcel_address = req['']
+    assessment_type = req['']
+    assessment_status = req['']
+    homestead_exempt = req['']
+    homestead_percent = req['']
+    restoration_tax_expmt = req['']
+    taxpayer_name = req['']
+    contact_name = req['']
+    taxpayer_addr1 = req['']
+    taxpayer_addr2 = req['']
+    taxpayer_addr3 = req['']
+    tc_fee_pd = req['']
+    check_no = req['']
+    check_amount = req['']
+    ltc_sub_class_old_land = req['']
+    ltc_sub_class_new_land = req['']
+    quantity_old_land = req['']
+    quantity_new_land = req['']
+    units_old_land = req['']
+    units_new_land = req['']
+    other_exempt_old_land = req['']
+    other_exempt_new_land = req['']
+    value_old_total_land = req['']
+    value_new_total_land = req['']
+    value_old_hs_land = req['']
+    value_new_hs_land = req['']
+    value_old_tp_land = req['']
+    value_new_tp_land = req['']
+    ltc_sub_class_old_building = req['']
+    ltc_sub_class_new_building = req['']
+    quantity_old_building = req['']
+    quantity_new_building = req['']
+    units_old_building = req['']
+    units_new_building = req['']
+    other_exempt_old_building = req['']
+    other_exempt_new_building = req['']
+    value_old_total_building = req['']
+    value_new_total_building = req['']
+    value_old_hs_building = req['']
+    value_new_hs_building = req['']
+    value_old_tp_building = req['']
+    value_new_tp_building = req['']
     print("IN INSERT..")
     try:
         print('connecting to db....')
-        db = odb.OracleDBConnection()
+        # db = odb.OracleDBConnection()
+        db = mysqldb.MySQLDBConnection()
         engine = db.engine
 
+        # "val04": [val01],
+        # "val05": [val02]
         data_to_insert = {
-            "parid": [parid],
-            "jur": [jur],
-            "val01": [val01],
-            "val02": [val02]
+            "parcel_add": [parid],
+            "value_new_total_land": [val01],
+            "value_new_total_building": [val02],
+            "tax_year": [],
+            "fips_code": [],
+            "assessment_no": [],
+            "ward": [],
+            "assessor_ref_no": [],
+            "place_fips": [],
+            "parcel_address": [],
+            "assessment_type": [],
+            "assessment_status": [],
+            "homestead_exempt": [],
+            "homestead_percent": [],
+            "restoration_tax_expmt": [],
+            "taxpayer_name": [],
+            "contact_name": [],
+            "taxpayer_addr1": [],
+            "taxpayer_addr2": [],
+            "taxpayer_addr3": [],
+            "tc_fee_pd": [],
+            "reason": [],
+            "check_no": [],
+            "check_amount": [],
+            "ltc_sub_class_old_land": [],
+            "ltc_sub_class_new_land": [],
+            "quantity_old_land": [],
+            "quantity_new_land": [],
+            "units_old_land": [],
+            "units_new_land": [],
+            "other_exempt_old_land": [],
+            "other_exempt_new_land": [],
+            "value_old_total_land": [],
+            "value_new_total_land": [],
+            "value_old_hs_land": [],
+            "value_new_hs_land": [],
+            "value_old_tp_land": [],
+            "value_new_tp_land": [],
+            "ltc_sub_class_old_building": [],
+            "ltc_sub_class_new_building": [],
+            "quantity_old_building": [],
+            "quantity_new_building": [],
+            "units_old_building": [],
+            "units_new_building": [],
+            "other_exempt_old_building": [],
+            "other_exempt_new_building": [],
+            "value_old_total_building": [],
+            "value_new_total_building": [],
+            "value_old_hs_building": [],
+            "value_new_hs_building": [],
+            "value_old_tp_building": [],
+            "value_new_tp_building": []
         }
 
         df = pd.DataFrame(data_to_insert)
-
+        print(f"df {df}")
         df.to_sql(name=current_app.config['PARID_CHANGE_ORDERS'],
                   con=engine, if_exists="append", index=False)
 
