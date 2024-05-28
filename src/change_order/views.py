@@ -29,30 +29,6 @@ logging.basicConfig(level=logging.DEBUG, filename=__name__, filemode="a",
 change_order_bp = Blueprint("change_order", __name__)
 
 
-def switch(start: int, stop: int, altid: str, item: str) -> str:
-    fips = {"1": "22171", "2": "22172", "3": "22173",
-            "4": "22174", "5": "22175", "6": "22176", "7": '22177'}
-
-    val = altid[start:stop]
-
-    if item == 'fips':
-        return fips[altid[start:stop]]
-    elif item == "ward":
-        return '22172'
-    elif val == "3":
-        return '22173'
-    elif val == "4":
-        return '22174'
-    elif val == "5":
-        return '22175'
-    elif val == "6":
-        return '22176'
-    elif val == "7":
-        return '22177'
-    else:
-        return "Invalid altid"
-
-
 """ Following two functions are intended to handle CORS related issuses
 """
 
@@ -161,6 +137,11 @@ def add_to_batch():
     return "ok"
 
 def batch_exists(token) -> tuple:
+    """Uses the auth_token provided by the user to query the
+       MySQL table noa_ltc_change_order and returns a tuple 
+       with a boolean value and possibly a result set containing 
+       the record associated with the token
+    """
     print("in batch_exists")
     try:
         db = mysqldb.MySQLDBConnection()
@@ -181,6 +162,9 @@ def batch_exists(token) -> tuple:
 
 
 def update_noa_ltc_change_order(df):
+    """Writes the fields retrieved from querying
+       Oracle to the MySQL table noa_ltc_change_order
+    """
     
     try:
         db = mysqldb.MySQLDBConnection()
@@ -206,6 +190,10 @@ def update_noa_ltc_change_order(df):
             #     restoration_tax_exempt=df["restoration_tax_exempt"][ind],
             #     taxpayer_name=df["taxpayer_name"][ind],
             #     contact_name=df["contact_name"][ind],
+
+
+
+
             #     taxpayer_addr1=df["taxpayer_addr1"][ind],
             #     taxpayer_addr2=df["taxpayer_addr2"][ind],
             #     taxpayer_addr3=df["taxpayer_addr3"][ind],
