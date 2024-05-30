@@ -10,6 +10,8 @@ from flask_cors import cross_origin
 import pandas as pd
 from pymongo import MongoClient
 from sqlalchemy import text
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.sql import bindparam
 import urllib.request as urlRequest
 import urllib.request
 import urllib.error as urlError
@@ -18,6 +20,7 @@ from db.la_tax_service_dtos import assess_values_dto, change_order_dto
 from db.mysql_table_definitions.noa_ltc_change_order_table import noa_ltc_change_order_table
 import db.oracle_db_connection as odb
 import db.mysql_db_connection as mysqldb
+from models.noa_parid_change_orders_model import NOAParid_Change_Orders
 import services.helpers as util
 
 
@@ -277,70 +280,172 @@ def update_noa_ltc_change_order(df):
     return "ok"
 
 
-@change_order_bp.route("/api/get_batch", methods=['GET', 'POST'])
+@change_order_bp.route("/api/get_batch", methods=['POST'])
 def get_batch():
+    print("in get_batch")
     req = json.loads(request.data)
     token = req['token']
-    parid = req['parid']
-    taxyear = req['taxyear']
-    altid = req['altid']
-
-    rtn = batch_exists(token)
-    exists = rtn[0]
-
-    print(f"reuslt {rtn} and exists {exists}")
-    if(not(exists)):
-        """Query Oracle DB and retrieve records
-            Insert new record into MySQL and
-            return results to user
-        """
-        print("in if(not(exists))")
-        try:
-            print('connecting to db....')
-            db = odb.OracleDBConnection()
-            engine = db.engine
-            curr_dir = os.path.dirname(__file__)
-            parent_dir = os.path.dirname(curr_dir)
-            db_dir = os.path.join(parent_dir, 'db', 'db_scripts')
-            sql_filename = os.path.join(db_dir, 'get_batch.sql')
-            with open(sql_filename, 'r') as file:
-                print('in with...')
-                query = file.read()
-
-            # print(f"query {query}")
-
-            df = pd.read_sql_query(query, engine, params=[
-                (parid, taxyear,)])
-            df['auth_token'] = [token]
-            utc_time = datetime.now().astimezone(timezone.utc)
-            df['batch_created'] = utc_time.strftime('%Y-%m-%d %H:%M:%S')
-            
-            print(f"df {df}")
-            # Write to MySQL table
-            
-            update_noa_ltc_change_order(df)
-
-            # Format data to return to front end
-            json_data = json.dumps(df.to_dict(orient='records'))
-            return json_data
-
-        except Exception as e:
-            print(f"Error connecting to MySQL: {str(e)}")
+    # parid = req['parid']
+    # jur = req['jur']
+    # taxyr = req['taxyr']
+    # altid = req['altid']
+    # new_land_assessment = req['new_land_assessment']
+    # new_bldg_assessment = req['new_bldg_assessment']
     
+    """import sqlalchemy as sa
+
+        # Assuming you have a table named 'your_table'
+        table = sa.Table('your_table', sa.MetaData(), autoload_with=your_engine)
+
+        # Create a list of dictionaries with data
+        data_to_insert = [
+            {'col1': value1, 'col2': value2},
+            # Add more rows as needed
+        ]
+
+        # Perform the bulk insert
+        with your_engine.begin() as connection:
+            connection.execute(table.insert(), data_to_insert)
+    
+    """
+    transformed_data_list = []
+    transformed_data = {}
+    """
+        id = db.Column(db.Integer(), primary_key=True)
+        parid = db.Column(db.String(30), nullable=True)
+        jur = db.Column(db.String(6), nullable=True)
+        repaired_flag = db.Column(db.String(1), nullable=True)
+        apr_land = db.Column(db.Integer, default=0)
+        apr_bldg = db.Column(db.Integer, default=0)
+        new_parid = db.Column(db.String(30), nullable=True)
+        val01 = db.Column(db.Integer, default=0)
+        val02 =  db.Column(db.Integer, default=0)
+        char01 = db.Column(db.String(100), nullable=True)
+        char02 = db.Column(db.String(100), nullable=True)
+        char03 = db.Column(db.String(100), nullable=True)
+        char04 = db.Column(db.String(100), nullable=True)
+        char05 = db.Column(db.String(100), nullable=True)
+    """
+    # Map JSON fields to table columns
+    transformed_data['who'] = req['username']
+    transformed_data['parid'] = req['parid']
+    transformed_data['jur'] = req['jur']
+    if req['tax_year'] == '':
+        transformed_data['taxyr'] = datetime.today().year
     else:
-        """ Return existing record in MySQL only
-        """
-        rows = rtn[1].fetchall()
-        column_names = rtn[1].keys()
-        print(column_names)
-        print(f"rows {rows}")
-        result_list = []
-        for row in rows:
-            row_dict = dict(zip(column_names, row))
-            print(f"row_dict {row_dict}")
-            result_list.append(row_dict)
-        print(f"result_list {result_list}")   
-        return json.dumps(result_list, indent=4)
+        transformed_data['taxyr'] = req['tax_year']
+    transformed_data['repaired_flag'] = ""
+    transformed_data['apr_land'] = 0
+    transformed_data['apr_bldg'] = 0
+    transformed_data['new_parid'] = ""
+    transformed_data['val01'] = int(req['new_land_assessment'].replace(',',''))
+    transformed_data['val02'] = int(req['new_bldg_assessment'].replace(',',''))
+    transformed_data['char01'] = req['altid']
+    transformed_data['char02'] = ""
+    transformed_data['char03'] = ""
+    transformed_data['char04'] = ""
+    transformed_data['char05'] = ""
+   
+    transformed_data_list.append(transformed_data)
+   
+    print(f"transformed_data {transformed_data}")
+    data_to_insert = transformed_data
+
+    # sql_query = text('SELECT * FROM noa_ltc_change_order WHERE auth_token = :token')
+    # results = connection.execute(sql_query, {"token":token})
+
+    db = odb.OracleDBConnection()
+    engine = db.engine
+    print("within update_noa_ltc_change_order")
+    print(f"NOAPARDID {NOAParid_Change_Orders.__table__}")
+   
+    
+    # Set and clean bind variable values
+    parid = transformed_data['parid']
+    parid = parid.strip()
+    user_name = transformed_data['who']
+    user_name = user_name.strip()
+    tax_year = transformed_data['taxyr']
+    tax_year = tax_year.strip()
+
+    select_query = text('SELECT parid FROM noa_parid_change_orders WHERE parid = :parid AND who = :who AND taxyr = :taxyr')
+    try:
+        with engine.begin() as connection:
+            print("in with...")
+            result = connection.execute(select_query, {"parid":parid, "who": user_name, "taxyr": tax_year}).first()
+            print(f"result {result}")
+            if result is None:
+                insert_query = NOAParid_Change_Orders.__table__.insert().values(**data_to_insert)
+                connection.execute(insert_query)
+                connection.commit()
+            else:
+                for row in result:
+                    print(f"query_result {row}")
+            
+
+            # TODO Execute query to get all records to return to user and populate noa_parid_change_order table
+            # TODO Truncate noa_parid_change_orders table once query and insert have completed successfully
+            
+        return 'Ok'
+    except IntegrityError as e:
+        return e
+    # if(not(exists)):
+    #     """Query Oracle DB and retrieve records
+    #         Insert new record into MySQL and
+    #         return results to user
+    #     """
+    #     print("in if(not(exists))")
+    #     try:
+    #         print('connecting to db....')
+    #         db = odb.OracleDBConnection()
+    #         engine = db.engine
+    #         curr_dir = os.path.dirname(__file__)
+    #         parent_dir = os.path.dirname(curr_dir)
+    #         db_dir = os.path.join(parent_dir, 'db', 'db_scripts')
+
+
+
+
+
+    #         sql_filename = os.path.join(db_dir, 'get_batch.sql')
+    #         with open(sql_filename, 'r') as file:
+    #             print('in with...')
+    #             query = file.read()
+
+    #         # print(f"query {query}")
+
+    #         df = pd.read_sql_query(query, engine, params=[
+    #             (parid, taxyear,)])
+    #         df['auth_token'] = [token]
+    #         utc_time = datetime.now().astimezone(timezone.utc)
+    #         df['batch_created'] = utc_time.strftime('%Y-%m-%d %H:%M:%S')
+            
+    #         print(f"df {df}")
+    #         # Write to MySQL table
+            
+    #         update_noa_ltc_change_order(df)
+
+    #         # Format data to return to front end
+    #         json_data = json.dumps(df.to_dict(orient='records'))
+    #         return json_data
+
+    #     except Exception as e:
+    #         print(f"Error connecting to MySQL: {str(e)}")
+    
+    # else:
+    #     """ Return existing record in MySQL only
+    #     """
+    #     rows = rtn[1].fetchall()
+    #     column_names = rtn[1].keys()
+    #     print(column_names)
+    #     print(f"rows {rows}")
+    #     result_list = []
+    #     for row in rows:
+    #         row_dict = dict(zip(column_names, row))
+    #         print(f"row_dict {row_dict}")
+    #         result_list.append(row_dict)
+    #     print(f"result_list {result_list}")   
+    #     return json.dumps(result_list, indent=4)
         
 
 
