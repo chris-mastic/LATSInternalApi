@@ -351,13 +351,11 @@ def get_batch():
     print(f"transformed_data {transformed_data}")
     data_to_insert = transformed_data
 
-    # sql_query = text('SELECT * FROM noa_ltc_change_order WHERE auth_token = :token')
-    # results = connection.execute(sql_query, {"token":token})
-
+    
     db = odb.OracleDBConnection()
     engine = db.engine
-    print("within update_noa_ltc_change_order")
-    print(f"NOAPARDID {NOAParid_Change_Orders.__table__}")
+    #print("within update_noa_ltc_change_order")
+    #print(f"NOAPARDID {NOAParid_Change_Orders.__table__}")
    
     
     # Set and clean bind variable values
@@ -373,7 +371,7 @@ def get_batch():
         with engine.begin() as connection:
             print("in with...")
             result = connection.execute(select_query, {"parid":parid, "who": user_name, "taxyr": tax_year}).first()
-            print(f"result {result}")
+            #print(f"result {result}")
             if result is None:
                 insert_query = NOAParid_Change_Orders.__table__.insert().values(**data_to_insert)
                 connection.execute(insert_query)
@@ -383,9 +381,49 @@ def get_batch():
                     print(f"query_result {row}")
             
 
-            # TODO Execute query to get all records to return to user and populate noa_parid_change_order table
-            # TODO Truncate noa_parid_change_orders table once query and insert have completed successfully
-            
+        # TODO Execute query to get all records to return to user and populate noa_parid_change_order table
+        db = odb.OracleDBConnection()
+        engine = db.engine
+        curr_dir = os.path.dirname(__file__)
+        parent_dir = os.path.dirname(curr_dir)
+        db_dir = os.path.join(parent_dir, 'db', 'db_scripts')
+
+        sql_filename = os.path.join(db_dir, 'get_batch.sql')
+        with open(sql_filename, 'r') as file:
+            print('in with...')
+            query = file.read()
+
+        #print(f"query {query}")
+        with engine.begin() as connection:
+            qry = text(query)
+            cursor = connection.execute(qry)
+            resultset = cursor.fetchall()
+            print(len(resultset))
+            #result_dict = [dict(row) for row in resultset]
+            row_cnt = 0
+            element_cnt = 0
+            while row_cnt <= len(resultset):
+                while element_cnt <= len(resultset[cnt]):
+                    
+                    element_cnt += 1
+                cnt +=1 
+            #return json.dumps(result_dict, indent=4)
+            # result_df = pd.read_sql_query(query, engine)
+            # print(result_df)
+            # for ind in result_df.index:
+            #     print("in ind in result_df")
+            #     print(result_df["parid"][ind])
+            # #print("before result")
+            # result = connection.execute(text(query))
+            # for row in result.fetchall():  # Fetch all rows directly
+            #     print(row)
+        #return json.dumps(result_list)
+        #MySQLS
+        # sql_query = text('SELECT * FROM noa_ltc_change_order WHERE auth_token = :token')
+        # results = connection.execute(sql_query, {"token":token})
+
+        # TODO Truncate noa_parid_change_orders table once query and insert have completed successfully
+
         return 'Ok'
     except IntegrityError as e:
         return e
@@ -397,22 +435,9 @@ def get_batch():
     #     print("in if(not(exists))")
     #     try:
     #         print('connecting to db....')
-    #         db = odb.OracleDBConnection()
-    #         engine = db.engine
-    #         curr_dir = os.path.dirname(__file__)
-    #         parent_dir = os.path.dirname(curr_dir)
-    #         db_dir = os.path.join(parent_dir, 'db', 'db_scripts')
+            
 
-
-
-
-
-    #         sql_filename = os.path.join(db_dir, 'get_batch.sql')
-    #         with open(sql_filename, 'r') as file:
-    #             print('in with...')
-    #             query = file.read()
-
-    #         # print(f"query {query}")
+    #         # 
 
     #         df = pd.read_sql_query(query, engine, params=[
     #             (parid, taxyear,)])
