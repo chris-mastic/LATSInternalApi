@@ -21,6 +21,7 @@ from db.mysql_table_definitions.noa_ltc_change_order_table import noa_ltc_change
 import db.oracle_db_connection as odb
 import db.mysql_db_connection as mysqldb
 from models.noa_parid_change_orders_model import NOAParid_Change_Orders
+from models.models import NOALTCChangeOrder
 import services.helpers as util
 
 
@@ -334,19 +335,19 @@ def get_batch():
         transformed_data['taxyr'] = datetime.today().year
     else:
         transformed_data['taxyr'] = req['tax_year']
-    transformed_data['repaired_flag'] = ""
-    transformed_data['apr_land'] = 0
-    transformed_data['apr_bldg'] = 0
-    transformed_data['new_parid'] = ""
-    transformed_data['val01'] = int(req['new_land_assessment'].replace(',',''))
-    transformed_data['val02'] = int(req['new_bldg_assessment'].replace(',',''))
-    transformed_data['char01'] = req['altid']
-    transformed_data['char02'] = ""
-    transformed_data['char03'] = ""
-    transformed_data['char04'] = ""
-    transformed_data['char05'] = ""
-   
-    transformed_data_list.append(transformed_data)
+        transformed_data['repaired_flag'] = ""
+        transformed_data['apr_land'] = 0
+        transformed_data['apr_bldg'] = 0
+        transformed_data['new_parid'] = ""
+        transformed_data['val01'] = int(req['new_land_assessment'].replace(',',''))
+        transformed_data['val02'] = int(req['new_bldg_assessment'].replace(',',''))
+        transformed_data['char01'] = req['altid']
+        transformed_data['char02'] = ""
+        transformed_data['char03'] = ""
+        transformed_data['char04'] = ""
+        transformed_data['char05'] = ""
+    
+        transformed_data_list.append(transformed_data)
    
     print(f"transformed_data {transformed_data}")
     data_to_insert = transformed_data
@@ -366,19 +367,26 @@ def get_batch():
     tax_year = transformed_data['taxyr']
     tax_year = tax_year.strip()
 
+    result_set_dict = {}
+    result_set_list = []
+
     select_query = text('SELECT parid FROM noa_parid_change_orders WHERE parid = :parid AND who = :who AND taxyr = :taxyr')
     try:
         with engine.begin() as connection:
             print("in with...")
             result = connection.execute(select_query, {"parid":parid, "who": user_name, "taxyr": tax_year}).first()
-            #print(f"result {result}")
+            print(f"result {result}")
             if result is None:
                 insert_query = NOAParid_Change_Orders.__table__.insert().values(**data_to_insert)
                 connection.execute(insert_query)
                 connection.commit()
+                connection.close()
             else:
                 for row in result:
                     print(f"query_result {row}")
+            
+
+    #----------------------------------------------------------------------END INSERT INTO NOA_PARID_CHANGE_ORDERS
             
 
         # TODO Execute query to get all records to return to user and populate noa_parid_change_order table
@@ -387,91 +395,116 @@ def get_batch():
         curr_dir = os.path.dirname(__file__)
         parent_dir = os.path.dirname(curr_dir)
         db_dir = os.path.join(parent_dir, 'db', 'db_scripts')
-
+        print("before sql_filename")
         sql_filename = os.path.join(db_dir, 'get_batch.sql')
         with open(sql_filename, 'r') as file:
             print('in with...')
             query = file.read()
 
-        #print(f"query {query}")
+        print(f"query {query}")
         with engine.begin() as connection:
             qry = text(query)
             cursor = connection.execute(qry)
             resultset = cursor.fetchall()
-            print(len(resultset))
-            #result_dict = [dict(row) for row in resultset]
-            row_cnt = 0
-            element_cnt = 0
-            while row_cnt <= len(resultset):
-                while element_cnt <= len(resultset[cnt]):
-                    
-                    element_cnt += 1
-                cnt +=1 
-            #return json.dumps(result_dict, indent=4)
-            # result_df = pd.read_sql_query(query, engine)
-            # print(result_df)
-            # for ind in result_df.index:
-            #     print("in ind in result_df")
-            #     print(result_df["parid"][ind])
-            # #print("before result")
-            # result = connection.execute(text(query))
-            # for row in result.fetchall():  # Fetch all rows directly
-            #     print(row)
-        #return json.dumps(result_list)
-        #MySQLS
-        # sql_query = text('SELECT * FROM noa_ltc_change_order WHERE auth_token = :token')
-        # results = connection.execute(sql_query, {"token":token})
+           
+            for result in resultset:
+                print(f"this {result}")
+                result_set_dict = {
+                "JUR" : result[0],
+                "PARID": result[1], 
+                "SALEDT":  result[2],
+                "RECORDDT": result[3],
+                "TAX_YEAR":  result[4],
+                "FIPS_CODE":  result[5],
+                "ASSESSMENT_NO":  result[6],
+                "WARD": result[7],
+                "ASSESSOR_REF_NO": result[8], 
+                "FIPS_PLACE_CODE":  result[9],
+                "PARCEL_ADDRESS":  result[10],
+                "ASSESSMENT_TYPE":  result[11],
+                "ASSESSMENT_STATUS": result[12],
+                "HOMESTEAD_EXEMPT": result[13],
+                "HOMESTEAD_PERCENT": result[14],
+                "RESTORATION_TAX_ABATMENT": result[15],
+                "TAXPAYER_NAME": result[16],
+                "CONTACT_NAME": result[17],
+                "TAXPAYER_ADDR1": result[18],
+                "TAXPAYER_ADDR2": result[19],
+                "TAXPAYER_ADDR3": result[20],
+                "TC_FEE_PD": result[21],
+                "REASON": result[22],
+                "CHECK_NO": result[23],
+                "CHECK_AMOUNT": result[24],
+                "LTC_SUB_CLASS_OLD1": result[25],
+                "LTC_SUB_CLASS_NEW1": result[26],
+                "QUANTITY_OLD1": result[27],
+                "QUANTITY_NEW1": result[28],
+                "UNITS_OLD1": result[29],
+                "UNITS_NEW1": result[30],
+                "OTHER_EXEMPT_OLD1": result[31],
+                "OTHER_EXEMPT_NEW1": result[32],
+                "VALUE_OLD_TOTAL1": result[33],
+                "VALUE_NEW_TOTAL1": result[34],
+                "VALUE_OLD_HS1": result[35],
+                "VALUE_NEW_HS1": result[36],
+                "VALUE_OLD_TP1": result[37],
+                "VALUE_NEW_TP1": result[38],
+                "LTC_SUB_CLASS_OLD2": result[39],
+                "LTC_SUB_CLASS_NEW2": result[40],
+                "QUANTITY_OLD2": result[41],
+                "QUANTITY_NEW2": result[42],
+                "UNITS_OLD2": result[43],
+                "UNITS_NEW2": result[44],
+                "OTHER_EXEMPT_OLD2": result[45],
+                "OTHER_EXEMPT_NEW2": result[46],
+                "VALUE_OLD_TOTAL2": result[47],
+                "VALUE_NEW_TOTAL2": result[48],
+                "VALUE_OLD_HS2": result[49],
+                "VALUE_NEW_HS2": result[50],
+                "VALUE_OLD_TP2": result[51],
+                "VALUE_NEW_TP2": result[52],
+                "PROPER_DESC" : result[53]
+                }
 
+                result_set_list.append(result_set_dict)
+            connection.close() 
+            print(f"result_set_list {len(result_set_list)}")  
+
+            #return json.dumps(result_set_list, indent=4)
+        
+        #------------------------------------------------------ END CREATE JSON TO RETURN TO CLIENT----------------------------------------------------
+        db = odb.OracleDBConnection()
+        engine = db.engine
+        curr_dir = os.path.dirname(__file__)
+        parent_dir = os.path.dirname(curr_dir)
+        db_dir = os.path.join(parent_dir, 'db', 'db_scripts')
+        print("before sql_filename")
+        sql_filename = os.path.join(db_dir, 'insert_into_noa_ltc_change_order.sql')
+        with open(sql_filename, 'r') as file:
+            print('in with...')
+            query = file.read()
+        print(f"query {query}")
+        with engine.begin() as connection:
+            print("inside with of insert...")
+            result = connection.execute(query, {"parid":parid, "who": user_name, "taxyr": tax_year}).first()
+            print(f"result {result}")
+            if result != None:
+                for data in result_set_list:
+                    insert_query = NOALTCChangeOrder.__table__.insert().values(**data_to_insert)
+                    connection.execute(insert_query)
+                    connection.commit()
+                    
+            else:
+                for row in result:
+                    print(f"query_result {row}")
+        return json.dumps(result_set_list, indent=4)
+        connection.close()
         # TODO Truncate noa_parid_change_orders table once query and insert have completed successfully
 
         return 'Ok'
     except IntegrityError as e:
         return e
-    # if(not(exists)):
-    #     """Query Oracle DB and retrieve records
-    #         Insert new record into MySQL and
-    #         return results to user
-    #     """
-    #     print("in if(not(exists))")
-    #     try:
-    #         print('connecting to db....')
-            
-
-    #         # 
-
-    #         df = pd.read_sql_query(query, engine, params=[
-    #             (parid, taxyear,)])
-    #         df['auth_token'] = [token]
-    #         utc_time = datetime.now().astimezone(timezone.utc)
-    #         df['batch_created'] = utc_time.strftime('%Y-%m-%d %H:%M:%S')
-            
-    #         print(f"df {df}")
-    #         # Write to MySQL table
-            
-    #         update_noa_ltc_change_order(df)
-
-    #         # Format data to return to front end
-    #         json_data = json.dumps(df.to_dict(orient='records'))
-    #         return json_data
-
-    #     except Exception as e:
-    #         print(f"Error connecting to MySQL: {str(e)}")
-    
-    # else:
-    #     """ Return existing record in MySQL only
-    #     """
-    #     rows = rtn[1].fetchall()
-    #     column_names = rtn[1].keys()
-    #     print(column_names)
-    #     print(f"rows {rows}")
-    #     result_list = []
-    #     for row in rows:
-    #         row_dict = dict(zip(column_names, row))
-    #         print(f"row_dict {row_dict}")
-    #         result_list.append(row_dict)
-    #     print(f"result_list {result_list}")   
-    #     return json.dumps(result_list, indent=4)
-        
+   
 
 
 @change_order_bp.route("/api/get_status", methods=['GET'])
